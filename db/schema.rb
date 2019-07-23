@@ -12,11 +12,8 @@
 
 ActiveRecord::Schema.define(version: 2019_07_22_172836) do
 
-  create_table "carousel_carousel_configurations", force: :cascade do |t|
-    t.string "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "carousel_configurations", force: :cascade do |t|
     t.string "text"
