@@ -28,5 +28,3 @@ production:
   <<: *default
   host: localhost
   database: nommox-prod
-  username: root
-  password: root
