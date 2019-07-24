@@ -9,22 +9,22 @@ default: &default
   pool: 5
   timeout: 5000
   encoding: unicode
-  user: root
-  password: root
+  user: deploy
+  password: pass
   host: localhost
 
 development:
   <<: *default
-  database: nommox-dev
+  database: nommox_dev
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: infox
+  database: nommox_test
 
 production:
   <<: *default
   host: localhost
-  database: nommox-prod
+  database: nommox_prod
