@@ -73,4 +73,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #postgresql
 gem 'pg'
 
-# gem 'unicorn'
+#haml
+gem "haml-rails", "~> 2.0"
