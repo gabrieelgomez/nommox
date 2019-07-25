@@ -1,0 +1,7 @@
+- @case_causes.each do |case_cause|
+  = case_cause.name
+  = link_to causes_edit_cause_path(case_cause) do
+    %button.btn.btn-primary Editar
+  = link_to causes_destroy_cause_path(case_cause), method: :delete do
+    %button.btn.btn-primary Eliminar
+  %br
