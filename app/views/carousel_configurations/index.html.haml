@@ -1,0 +1,7 @@
+- @carousel_configurations.each do |carousel_configuration|
+  = raw carousel_configuration.text
+  = link_to edit_carousel_configuration_path(carousel_configuration) do
+    %button.btn.btn-primary Editar
+  = link_to carousel_configuration_path(carousel_configuration), method: :delete do
+    %button.btn.btn-primary Eliminar
+  %br
