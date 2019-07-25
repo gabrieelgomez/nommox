@@ -1,5 +1,5 @@
-class Causes::CaseCauseController < ApplicationController
-  before_action :set_case_cause, only: %i[edit update destroy]
+class CaseCausesController < ApplicationController
+  before_action :set_case_cause, only: %i[edit update show destroy]
 
   def index
     @case_causes = CaseCause.all
@@ -11,10 +11,10 @@ class Causes::CaseCauseController < ApplicationController
   end
 
   def create
-    @text = CaseCause.new(case_cause_params)
+    @case_cause = CaseCause.new(case_cause_params)
 
-    if @text.save
-      redirect_to :causes_causes
+    if @case_cause.save
+      redirect_to :case_causes
     else
       redirect_back(fallback_location: :causes_causes_path)
     end
@@ -24,9 +24,9 @@ class Causes::CaseCauseController < ApplicationController
 
   def update
     if @case_cause.update!(case_cause_params)
-      redirect_to :causes_causes
+      redirect_to :case_causes
     else
-      redirect_back(fallback_location: :causes_causes_path)
+      redirect_back(fallback_location: :case_causes_path)
     end
   end
 
@@ -34,7 +34,7 @@ class Causes::CaseCauseController < ApplicationController
 
   def destroy
     @case_cause.destroy
-    redirect_back(fallback_location: :causes_causes_path)
+    redirect_back(fallback_location: :case_causes_path)
   end
 
   private
@@ -44,8 +44,8 @@ class Causes::CaseCauseController < ApplicationController
   end
 
   def set_case_cause
-    @case_cause = CaseCause.find(
-                                params.dig(:case_cause_id)
-                              )
+    @case_cause = CaseCause.find_by_id(
+                              params.dig(:id)
+                            )
   end
 end
