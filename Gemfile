@@ -75,3 +75,6 @@ gem 'pg'
 
 #haml
 gem "haml-rails", "~> 2.0"
+
+#simple form
+gem 'simple_form'

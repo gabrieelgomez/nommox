@@ -1,2 +1,7 @@
-%h1 CarouselConfiguration#index
-%p Find me in app/views/carousel_configuration/index.html.erb
+- @carousel_texts.each do |carousel_text|
+  = raw carousel_text.text
+  = link_to carousel_edit_text_path(carousel_text) do
+    %button.btn.btn-primary Editar
+  = link_to carousel_destroy_text_path(carousel_text), method: :delete do
+    %button.btn.btn-primary Eliminar
+  %br
