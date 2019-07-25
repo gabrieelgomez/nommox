@@ -72,3 +72,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #postgresql
 gem 'pg'
+
+#haml
+gem "haml-rails", "~> 2.0"
+
+#simple form
+gem 'simple_form'
