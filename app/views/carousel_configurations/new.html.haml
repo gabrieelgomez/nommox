@@ -1,1 +1,24 @@
-= render 'form'
+%section.content-header
+  %h1
+    = link_to :back do
+      %button.btn.btn-primary
+        Atrás
+  %ol.breadcrumb
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Carrusel
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Textos
+    %li.active Crear
+
+.container-fluid.mt-10
+  .row
+    .col-md-12
+      .box.box-primary
+        .box-header.with-border
+          %h3.box-title Crear nuevo Texto
+
+        = render 'form'

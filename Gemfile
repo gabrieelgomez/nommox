@@ -78,3 +78,12 @@ gem "haml-rails", "~> 2.0"
 
 #simple form
 gem 'simple_form'
+
+#adminLTE
+gem 'bootstrap-sass'
+gem 'jquery-rails'
+gem 'font-awesome-sass'
+
+source 'https://rails-assets.org/' do
+  gem 'rails-assets-adminlte'
+end

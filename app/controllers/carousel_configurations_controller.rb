@@ -34,7 +34,7 @@ class CarouselConfigurationsController < ApplicationController
 
   def destroy
     @carousel_configuration.destroy
-    redirect_back(fallback_location: :carousel_configurations_path)
+    redirect_to :carousel_configurations
   end
 
   private

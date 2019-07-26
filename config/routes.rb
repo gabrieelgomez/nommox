@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'front#index'
+
   #carousel_configurations routes
   draw :carousel_configurations
 
