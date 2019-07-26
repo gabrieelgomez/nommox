@@ -1,3 +1,6 @@
-= simple_form_for [@carousel_configuration] do |f|
-  = f.input :text, label: 'texto'
-  = f.submit 'GUARDAR'
+.box-body
+  = simple_form_for [@carousel_configuration] do |f|
+    .form-group
+      = f.input :text, label: 'Texto', input_html: { class: 'form-control' }
+    .form-group.pull-right  
+      = f.submit 'GUARDAR', class: 'btn btn-primary'

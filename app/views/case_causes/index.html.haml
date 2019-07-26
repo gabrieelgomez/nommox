@@ -1,7 +1,26 @@
-- @case_causes.each do |case_cause|
-  = case_cause.name
-  = link_to edit_case_cause_path(case_cause) do
-    %button.btn.btn-primary Editar
-  = link_to case_cause_path(case_cause), method: :delete do
-    %button.btn.btn-primary Eliminar
-  %br
+%section.content-header
+  %h1
+    = link_to new_case_cause_path do
+      %button.btn.btn-primary
+        Nuevo
+  %ol.breadcrumb
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Causas de casos
+    %li.active Listado
+
+.container-fluid.mt-10
+  .row
+    .col-lg-12
+      .box.slice-box
+        .box-body.no-padding
+          %table.table
+            %thead
+              %tr
+                %th #
+                %th Nombre
+                %th
+                %th
+            %tbody
+              = render 'listing'

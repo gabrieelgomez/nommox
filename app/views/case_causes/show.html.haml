@@ -1,1 +1,38 @@
-= @case_cause.name
+%section.content-header
+  %h1
+    = link_to :back do
+      %button.btn.btn-primary
+        Atrás
+  %ol.breadcrumb
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Causas de casos
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Causas
+    %li.active Detalle
+
+.container-fluid.mt-10
+  .row
+    .col-lg-12
+      .box.slice-box
+        .box-body.no-padding
+          %table.table
+            %thead
+              %tr
+                %th
+                  Nombre
+                %th
+                %th
+            %tbody
+              %tr
+                %td
+                  = @case_cause.name
+                %td
+                  = link_to edit_case_cause_path(@case_cause) do
+                    %button.btn.btn-primary.btn-sm Editar
+                %td
+                  = link_to case_cause_path(@case_cause), method: :delete, data: { confirm: '¿Estás seguro?' } do
+                    %button.btn.btn-danger.btn-sm Eliminar

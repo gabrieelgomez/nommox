@@ -8,4 +8,28 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    = yield
+    !!!
+%html
+  -# = render 'partials/head'
+  %body.hold-transition.skin-blue.sidebar-mini
+    .wrapper
+      %header.main-header
+        = link_to root_path, class: 'logo' do
+          %span.logo-lg
+            %b Nommox
+        %nav.navbar.navbar-static-top
+      %aside.main-sidebar
+        %section.sidebar
+          %ul.sidebar-menu{ 'data-widget': 'tree' }
+            %li.treeview
+              = link_to carousel_configurations_path do
+                %i.fa.fa-dashboard
+                %span Carrusel
+            %li.treeview
+              = link_to case_causes_path do
+                %i.fa.fa-dashboard
+                %span Causas de casos
+
+      .content-wrapper
+        %section.content
+          = yield

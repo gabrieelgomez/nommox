@@ -1,1 +1,38 @@
-= raw @carousel_configuration.text
+%section.content-header
+  %h1
+    = link_to :back do
+      %button.btn.btn-primary
+        Atrás
+  %ol.breadcrumb
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Carrusel
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Textos
+    %li.active Detalle
+
+.container-fluid.mt-10
+  .row
+    .col-lg-12
+      .box.slice-box
+        .box-body.no-padding
+          %table.table
+            %thead
+              %tr
+                %th
+                  Texto
+                %th
+                %th
+            %tbody
+              %tr
+                %td
+                  = raw @carousel_configuration.text
+                %td
+                  = link_to edit_carousel_configuration_path(@carousel_configuration) do
+                    %button.btn.btn-primary.btn-sm Editar
+                %td
+                  = link_to carousel_configuration_path(@carousel_configuration), method: :delete, data: { confirm: '¿Estás seguro?' } do
+                    %button.btn.btn-danger.btn-sm Eliminar

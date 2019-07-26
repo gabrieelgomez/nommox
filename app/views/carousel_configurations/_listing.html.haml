@@ -1,0 +1,13 @@
+- @carousel_configurations.each_with_index do |carousel_configuration, index|
+  %tr
+    %td= index + 1
+    %td= raw carousel_configuration.text
+    %td
+      = link_to carousel_configuration_path(carousel_configuration) do
+        %button.btn.btn-primary.btn-sm Ver
+    %td
+      = link_to edit_carousel_configuration_path(carousel_configuration) do
+        %button.btn.btn-primary.btn-sm Editar
+    %td
+      = link_to carousel_configuration_path(carousel_configuration), method: :delete, data: { confirm: '¿Estás seguro?' } do
+        %button.btn.btn-danger.btn-sm Eliminar
