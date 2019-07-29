@@ -1,1 +1,1 @@
-resources :carousel_configurations
+resources :carousel_configurations, path: '/carousel'

@@ -7,11 +7,13 @@ class UsersController < InternalController
   # GET /users.json
   def index
     @users = User.all
+    respond_to_formats(:index, @users)
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    respond_to_formats(:show, @user)
   end
 
   # GET /users/new
@@ -82,6 +84,10 @@ class UsersController < InternalController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
+      byebug
+      params.require(:user).permit(
+        :email, :password, :password_confirmation, :name, :phone, :country,
+        :province, :city
+      )
     end
 end
