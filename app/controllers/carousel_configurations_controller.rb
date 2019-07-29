@@ -1,4 +1,5 @@
-class CarouselConfigurationsController < ApplicationController
+class CarouselConfigurationsController < InternalController
+  before_action :authenticate
   before_action :set_carousel_configuration, only: %i[edit update show destroy]
 
   def index

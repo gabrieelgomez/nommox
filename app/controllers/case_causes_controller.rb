@@ -1,4 +1,5 @@
-class CaseCausesController < ApplicationController
+class CaseCausesController < InternalController
+  before_action :authenticate
   before_action :set_case_cause, only: %i[edit update show destroy]
 
   def index
