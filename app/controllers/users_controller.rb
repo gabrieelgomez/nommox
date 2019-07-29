@@ -84,7 +84,6 @@ class UsersController < InternalController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      byebug
       params.require(:user).permit(
         :email, :password, :password_confirmation, :name, :phone, :country,
         :province, :city
