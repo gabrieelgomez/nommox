@@ -1,17 +1,20 @@
 class UsersController < InternalController
   before_action :authenticate , except: [:new, :create]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  layout 'front', only: [:new]
+  before_action :set_variables, only: [:new, :edit, :create]
+  # layout 'front', only: [:new]
 
   # GET /users
   # GET /users.json
   def index
     @users = User.all
+    respond_to_formats(:index, @users)
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    respond_to_formats(:show, @user)
   end
 
   # GET /users/new
@@ -28,22 +31,11 @@ class UsersController < InternalController
   def create
     @user = User.new(user_params)
 
-    respond_to do |format|
-      if @user.save
-        session[:user_id] = @user.id
-        format.html do
-          if session[:controller] && session[:action]
-            begin
-              redirect_to controller: session[:controller], action: session[:action]
-            rescue ActionController::UrlGenerationError
-              redirect_to main_path
-            end
-          else
-            redirect_to main_path
-          end
-        end
-        format.json { render :show, status: :created, location: @user }
-      else
+    # respond_to do |format|
+    if @user.save
+      respond_to_formats(:index, @user)
+    else
+      respond_to do |format|
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -80,8 +72,17 @@ class UsersController < InternalController
       @user = User.find(params[:id])
     end
 
+    def set_variables
+      @countries = Country.all.select(:id, :name)
+      @cities   = City.all.select(:id, :name)
+      @provinces = Province.all.select(:id, :name)
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
+      params.require(:user).permit(
+        :email, :password, :password_confirmation, :name, :phone, :country_id,
+        :province_id, :city_id, :identification_document, :passport, :firm, :video
+      )
     end
 end

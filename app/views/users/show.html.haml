@@ -1,12 +1,79 @@
-%p#notice= notice
+%section.content-header
+  %h1
+    = link_to users_path do
+      %button.btn.btn-primary
+        Atrás
+  %ol.breadcrumb
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Usuarios
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        = @user.name
+    %li.active Detalle
 
-%p
-  %b Email:
-  = @user.email
-%p
-  %b Password:
-  = @user.password
+.container-fluid.mt-10
+  .row
+    .col-lg-12
+      .box.slice-box
+        .box-body.no-padding
+          %table.table
+            %thead
+              %tr
+                %th
+                  Email
+                %th
+                  Nombre
+                %th
+                  Teléfono
+                %th
+                  País
+                %th
+                  Ciudad
+                %th
+                  Provincia
+            %tbody
+              %tr
+                %td= @user.email
+                %td= @user.name
+                %td= @user.phone           || 'Sin asignar'
+                %td= @user&.country&.name  || 'Sin asignar'
+                %td= @user&.city&.name     || 'Sin asignar'
+                %td= @user&.province&.name || 'Sin asignar'
+                %td
+                  = link_to edit_user_path(@user) do
+                    %button.btn.btn-primary.btn-sm Editar
+                %td
+                  = link_to user_path(@user), method: :delete, data: { confirm: '¿Estás seguro?' } do
+                    %button.btn.btn-danger.btn-sm Eliminar
 
-= link_to 'Edit', edit_user_path(@user)
-\|
-= link_to 'Back', users_path
+  .row
+    .col-lg-12
+      .box.slice-box
+        .box-header.with-border
+          %h3.box-title DOCUMENTOS
+        .box-body
+          %table.table
+            .col-xs-6
+              Documento de identificación
+              = image_tag @user&.identification_document&.url || '', width: '100%'
+            .col-xs-6
+              Pasaporte
+              = image_tag @user&.passport&.url || '', width: '100%'
+
+  .row
+    .col-lg-12
+      .box.slice-box
+        .box-header.with-border
+          %h3.box-title CESIÓN DE DERECHOS
+        .box-body
+          %table.table
+            .col-xs-6
+              Firma
+              = image_tag @user&.firm&.url || '', width: '100%', controls: true
+            .col-xs-6
+              Vídeo
+              - if @user.video.url.present?
+                = video_tag @user&.video&.url || '', width: '100%', controls: true

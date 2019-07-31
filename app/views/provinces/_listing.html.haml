@@ -1,0 +1,15 @@
+- @provinces.each_with_index do |province, index|
+  %tr
+    %td= index + 1
+    %td= province.name
+    %td= province.city.name
+    %td= province.city.country.name
+    %td
+      = link_to province_path(province) do
+        %button.btn.btn-primary.btn-sm Ver
+    %td
+      = link_to edit_province_path(province) do
+        %button.btn.btn-primary.btn-sm Editar
+    %td
+      = link_to province_path(province), method: :delete, data: { confirm: '¿Estás seguro?' } do
+        %button.btn.btn-danger.btn-sm Eliminar

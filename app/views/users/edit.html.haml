@@ -1,7 +1,24 @@
-%h1 Editing user
+%section.content-header
+  %h1
+    = link_to users_path do
+      %button.btn.btn-primary
+        Atrás
+  %ol.breadcrumb
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Usuarios
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        = @user.name
+    %li.active Editar
 
-= render 'form'
+.container-fluid.mt-10
+  .row
+    .col-md-12
+      .box.box-primary
+        .box-header.with-border
+          %h3.box-title Editar Usuario
 
-= link_to 'Show', @user
-\|
-= link_to 'Back', users_path
+        = render 'form'

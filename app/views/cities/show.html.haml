@@ -1,0 +1,57 @@
+%section.content-header
+  %h1
+    = link_to :back do
+      %button.btn.btn-primary
+        Atrás
+  %ol.breadcrumb
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Ubicaciones
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Ciudades
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        = @city.name
+    %li.active Detalle
+
+.container-fluid.mt-10
+  .row
+    .col-lg-12
+      .box.slice-box
+        .box-body.no-padding
+          %table.table
+            %thead
+              %tr
+                %th
+                  País
+                %th
+                  Nombre
+                %th
+                %th
+            %tbody
+              %tr
+                -# %td= @city.city.name
+                %td= @city.name
+                %td
+                  = link_to edit_city_path(@city) do
+                    %button.btn.btn-primary.btn-sm Editar
+                %td
+                  = link_to city_path(@city), method: :delete, data: { confirm: '¿Estás seguro?' } do
+                    %button.btn.btn-danger.btn-sm Eliminar
+
+  .row
+    .col-lg-12
+      .box.slice-box
+        .box-header
+          %h3.box-title Provincias
+        .box-body.no-padding
+          %table.table
+            %thead
+            %tbody
+              - @city.provinces.each do |province|
+                %tr
+                  %td= province.name

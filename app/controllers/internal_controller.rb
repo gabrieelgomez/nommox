@@ -1,6 +1,5 @@
 class InternalController < ApplicationController
   before_action :authenticate
-
   def respond_to_formats(action, objects)
     respond_to do |format|
       format.html { render action }
@@ -9,6 +8,7 @@ class InternalController < ApplicationController
   end
 
   def authenticate
+    return if is_json_request?
     session[:controller] = nil
     session[:action] = nil
     unless current_user
@@ -18,5 +18,4 @@ class InternalController < ApplicationController
       redirect_to login_path, notice: "You need to login first"
     end
   end
-
 end

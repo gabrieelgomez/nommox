@@ -1,11 +1,75 @@
 -# frozen_string_literal: true
-= simple_form_for(@user) do |f|
-  = f.error_notification
-  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+.box-body
+  = simple_form_for [@user] do |f|
+    = f.error_notification
+    = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+    .form-group
+      = f.input :name, label: 'Nombre', input_html: { class: 'form-control' }
+    .form-group
+      = f.input :phone, label: 'Teléfono', as: 'tel', input_html: { class: 'form-control' }
+    .form-group
+      = f.input :email, label: 'Correo Electrónico', as: :email, input_html: { class: 'form-control' }
+    .form-group
+      = f.input :password, label: 'Contraseña', input_html: { class: 'form-control' }
+    .form-group
+      = render 'country_select', f: f, countries: @countries
+    .form-group#cities_select
+      = render 'city_select', f: f, cities: []
+    .form-group
+      = render 'province_select', f: f, provinces: @provinces
+    .form-group
+      = f.input :identification_document, label: 'Documento de Identidad', input_html: { class: 'form-control' }
+    .form-group
+      = f.input :passport, label: 'Pasaporte', input_html: { class: 'form-control' }
+    .form-group
+      = f.input :firm, label: 'Firma', input_html: { class: 'form-control' }
+    .form-group
+      = f.input :video, label: 'Video', input_html: { class: 'form-control' }
 
-  .form-inputs
-    = f.input :email
-    = f.input :password
+    .form-group.pull-right
+      = f.submit 'GUARDAR', class: 'btn btn-primary'
 
-  .form-actions
-    = f.button :submit
+:javascript
+  $('#user_country_id').change(function() {
+    var city_id = $(this).val(),
+        url     = `/get_cities/${city_id}`,
+        data    = { city_id: city_id };
+
+    makeRequest(url, data, 'city')
+  })
+
+  $('#user_city_id').change(function() {
+    var province_id = $(this).val(),
+        url         = `/get_provinces/${province_id}`,
+        data        = { province_id: province_id };
+
+    makeRequest(url, data, 'province')
+  })
+
+  function makeRequest(url, data, type) {
+    $.ajax({
+      url:      url,
+      type:     'POST',
+      data:     data,
+      dataType: 'JSON',
+      success: function(data) {
+        handleData(data, type);
+      },
+      error: function() {
+        alert('Revisa tu conexión a internet')
+      }
+    });
+  };
+
+  function handleData(data, type) {
+    var domElement = $(`#user_${type}_id`);
+    domElement.find('option').remove()
+    domElement.removeAttr('disabled')
+
+    data.forEach(function(element) {
+      var option   = document.createElement('option');
+      option.text  = element.name
+      option.value = element.id
+      domElement.append(option);
+    });
+  }

@@ -1,0 +1,13 @@
+- @countries.each_with_index do |country, index|
+  %tr
+    %td= index + 1
+    %td= country.name
+    %td
+      = link_to country_path(country) do
+        %button.btn.btn-primary.btn-sm Ver
+    %td
+      = link_to edit_country_path(country) do
+        %button.btn.btn-primary.btn-sm Editar
+    %td
+      = link_to country_path(country), method: :delete, data: { confirm: '¿Estás seguro?' } do
+        %button.btn.btn-danger.btn-sm Eliminar

@@ -1,0 +1,18 @@
+- @users.each_with_index do |user, index|
+  %tr
+    %td= index + 1
+    %td= user.email
+    %td= user.name
+    %td= user.phone           || 'Sin asignar'
+    %td= user&.country&.name  || 'Sin asignar'
+    %td= user&.city&.name     || 'Sin asignar'
+    %td= user&.province&.name || 'Sin asignar'
+    %td
+      = link_to user_path(user) do
+        %button.btn.btn-primary.btn-sm Ver
+    %td
+      = link_to edit_user_path(user) do
+        %button.btn.btn-primary.btn-sm Editar
+    %td
+      = link_to user_path(user), method: :delete, data: { confirm: '¿Estás seguro?' } do
+        %button.btn.btn-danger.btn-sm Eliminar

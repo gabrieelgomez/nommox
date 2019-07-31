@@ -1,0 +1,6 @@
+.box-body
+  = simple_form_for [@country] do |f|
+    .form-group
+      = f.input :name, label: 'Nombre', input_html: { class: 'form-control' }
+    .form-group.pull-right
+      = f.submit 'GUARDAR', class: 'btn btn-primary'

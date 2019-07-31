@@ -1,1 +1,1 @@
-resources :case_causes
+resources :case_causes, path: '/cases'
