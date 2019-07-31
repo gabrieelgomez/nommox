@@ -7,7 +7,7 @@ class UsersController < InternalController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.all.includes(:country, :city, :province)
     respond_to_formats(:index, @users)
   end
 
@@ -48,7 +48,7 @@ class UsersController < InternalController
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
+        format.json { render json: @user, status: :ok }
       else
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }

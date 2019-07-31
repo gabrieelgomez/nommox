@@ -1,0 +1,15 @@
+- @airlines.each_with_index do |airline, index|
+  %tr
+    %td= index + 1
+    %td= airline.name
+    %td= airline.phone
+    %td= airline.country.name
+    %td
+      = link_to airline_path(airline) do
+        %button.btn.btn-primary.btn-sm Ver
+    %td
+      = link_to edit_airline_path(airline) do
+        %button.btn.btn-primary.btn-sm Editar
+    %td
+      = link_to airline_path(airline), method: :delete, data: { confirm: '¿Estás seguro?' } do
+        %button.btn.btn-danger.btn-sm Eliminar

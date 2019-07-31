@@ -1,0 +1,40 @@
+%section.content-header
+  %h1
+    = link_to :back do
+      %button.btn.btn-primary
+        Atrás
+  %ol.breadcrumb
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Aerolíneas
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        = @airline.name
+    %li.active Detalle
+
+.container-fluid.mt-10
+  .row
+    .col-lg-12
+      .box.slice-box
+        .box-body.no-padding
+          %table.table
+            %thead
+              %tr
+                %th Nombre
+                %th Teléfono
+                %th País
+                %th
+                %th
+            %tbody
+              %tr
+                %td= @airline.name
+                %td= @airline.phone
+                %td= @airline.country.name
+                %td
+                  = link_to edit_airline_path(@airline) do
+                    %button.btn.btn-primary.btn-sm Editar
+                %td
+                  = link_to airline_path(@airline), method: :delete, data: { confirm: '¿Estás seguro?' } do
+                    %button.btn.btn-danger.btn-sm Eliminar
