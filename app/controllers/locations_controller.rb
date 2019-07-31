@@ -11,10 +11,11 @@ class LocationsController < InternalController
 
   def get_cities
     @cities = Country.find_by_id(params.dig(:country_id))&.cities
+    respond_to_formats(:get_cities, @cities)
+  end
 
-    respond_to do |format|
-      format.js
-      format.json { render json: @cities }
-    end
+  def get_provinces
+    @provinces = City.find_by_id(params.dig(:city_id))&.provinces
+    respond_to_formats(:get_provinces, @provinces)
   end
 end

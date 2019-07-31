@@ -74,6 +74,6 @@
               Firma
               = image_tag @user&.firm&.url || '', width: '100%', controls: true
             .col-xs-6
+              Vídeo
               - if @user.video.url.present?
-                Vídeo
                 = video_tag @user&.video&.url || '', width: '100%', controls: true

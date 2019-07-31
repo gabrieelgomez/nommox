@@ -4,6 +4,7 @@ class CitiesController < ApplicationController
 
   def index
     @cities = City.includes(:provinces)
+    respond_to_formats(:index, @cities)
   end
 
   def new

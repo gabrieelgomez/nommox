@@ -4,6 +4,7 @@ class ProvincesController < ApplicationController
 
   def index
     @provinces = Province.all
+    respond_to_formats(:index, @provinces)    
   end
 
   def new

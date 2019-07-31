@@ -3,6 +3,7 @@ class CountriesController < InternalController
 
   def index
     @countries = Country.includes(:cities)
+    respond_to_formats(:index, @countries)
   end
 
   def new

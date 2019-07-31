@@ -31,22 +31,11 @@ class UsersController < InternalController
   def create
     @user = User.new(user_params)
 
-    respond_to do |format|
-      if @user.save
-        session[:user_id] = @user.id
-        format.html do
-          if session[:controller] && session[:action]
-            begin
-              redirect_to controller: session[:controller], action: session[:action]
-            rescue ActionController::UrlGenerationError
-              redirect_to main_path
-            end
-          else
-            redirect_to main_path
-          end
-        end
-        format.json { render :show, status: :created, location: @user }
-      else
+    # respond_to do |format|
+    if @user.save
+      respond_to_formats(:index, @user)
+    else
+      respond_to do |format|
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end

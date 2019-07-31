@@ -14,7 +14,7 @@
     .form-group
       = render 'country_select', f: f, countries: @countries
     .form-group#cities_select
-      = render 'city_select', f: f, cities: @cities
+      = render 'city_select', f: f, cities: []
     .form-group
       = render 'province_select', f: f, provinces: @provinces
     .form-group
@@ -31,9 +31,45 @@
 
 :javascript
   $('#user_country_id').change(function() {
-    var url = `/get_cities/${$(this).val()}`
-    var cities = $.getScript(url)
+    var city_id = $(this).val(),
+        url     = `/get_cities/${city_id}`,
+        data    = { city_id: city_id };
 
-    console.log(url)
-    console.log(cities)
+    makeRequest(url, data, 'city')
   })
+
+  $('#user_city_id').change(function() {
+    var province_id = $(this).val(),
+        url         = `/get_provinces/${province_id}`,
+        data        = { province_id: province_id };
+
+    makeRequest(url, data, 'province')
+  })
+
+  function makeRequest(url, data, type) {
+    $.ajax({
+      url:      url,
+      type:     'POST',
+      data:     data,
+      dataType: 'JSON',
+      success: function(data) {
+        handleData(data, type);
+      },
+      error: function() {
+        alert('Revisa tu conexión a internet')
+      }
+    });
+  };
+
+  function handleData(data, type) {
+    var domElement = $(`#user_${type}_id`);
+    domElement.find('option').remove()
+    domElement.removeAttr('disabled')
+
+    data.forEach(function(element) {
+      var option   = document.createElement('option');
+      option.text  = element.name
+      option.value = element.id
+      domElement.append(option);
+    });
+  }
