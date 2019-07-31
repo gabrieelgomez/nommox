@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-  get 'provinces/index'
-  get 'provinces/show'
-  get 'provinces/new'
-  get 'provinces/edit'
-  get 'cities/index'
   root 'front#index'
   get  'main', to: 'pages#main'
 
@@ -21,4 +16,7 @@ Rails.application.routes.draw do
 
   #locations routes
   draw :locations
+
+  #airlines routes
+  draw :airlines
 end
