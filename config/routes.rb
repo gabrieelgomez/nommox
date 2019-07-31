@@ -1,19 +1,24 @@
 Rails.application.routes.draw do
+  get 'provinces/index'
+  get 'provinces/show'
+  get 'provinces/new'
+  get 'provinces/edit'
+  get 'cities/index'
   root 'front#index'
+  get  'main', to: 'pages#main'
 
-  get 'signup', to: 'users#new',        as: 'signup'
-  get 'login',  to: 'sessions#new',     as: 'login'
-  get 'logout', to: 'sessions#destroy', as: 'logout'
+  #sessions routes
+  draw :sessions
 
-  post 'sessions/create'
-
-  resources :users
-
-  get 'main', to: 'pages#main'
+  #users routes
+  draw :users
 
   #carousel_configurations routes
   draw :carousel_configurations
 
   #case_causes routes
   draw :case_causes
+
+  #locations routes
+  draw :locations
 end

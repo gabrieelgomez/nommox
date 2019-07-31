@@ -1,0 +1,14 @@
+- @cities.each_with_index do |city, index|
+  %tr
+    %td= index + 1
+    %td= city.name
+    %td= city.country.name
+    %td
+      = link_to city_path(city) do
+        %button.btn.btn-primary.btn-sm Ver
+    %td
+      = link_to edit_city_path(city) do
+        %button.btn.btn-primary.btn-sm Editar
+    %td
+      = link_to city_path(city), method: :delete, data: { confirm: '¿Estás seguro?' } do
+        %button.btn.btn-danger.btn-sm Eliminar

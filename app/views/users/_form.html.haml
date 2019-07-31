@@ -1,11 +1,39 @@
 -# frozen_string_literal: true
-= simple_form_for(@user) do |f|
-  = f.error_notification
-  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+.box-body
+  = simple_form_for [@user] do |f|
+    = f.error_notification
+    = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+    .form-group
+      = f.input :name, label: 'Nombre', input_html: { class: 'form-control' }
+    .form-group
+      = f.input :phone, label: 'Teléfono', as: 'tel', input_html: { class: 'form-control' }
+    .form-group
+      = f.input :email, label: 'Correo Electrónico', as: :email, input_html: { class: 'form-control' }
+    .form-group
+      = f.input :password, label: 'Contraseña', input_html: { class: 'form-control' }
+    .form-group
+      = render 'country_select', f: f, countries: @countries
+    .form-group#cities_select
+      = render 'city_select', f: f, cities: @cities
+    .form-group
+      = render 'province_select', f: f, provinces: @provinces
+    .form-group
+      = f.input :identification_document, label: 'Documento de Identidad', input_html: { class: 'form-control' }
+    .form-group
+      = f.input :passport, label: 'Pasaporte', input_html: { class: 'form-control' }
+    .form-group
+      = f.input :firm, label: 'Firma', input_html: { class: 'form-control' }
+    .form-group
+      = f.input :video, label: 'Video', input_html: { class: 'form-control' }
 
-  .form-inputs
-    = f.input :email
-    = f.input :password
+    .form-group.pull-right
+      = f.submit 'GUARDAR', class: 'btn btn-primary'
 
-  .form-actions
-    = f.button :submit
+:javascript
+  $('#user_country_id').change(function() {
+    var url = `/get_cities/${$(this).val()}`
+    var cities = $.getScript(url)
+
+    console.log(url)
+    console.log(cities)
+  })

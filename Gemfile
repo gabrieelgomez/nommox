@@ -90,3 +90,8 @@ gem 'font-awesome-sass'
 source 'https://rails-assets.org/' do
   gem 'rails-assets-adminlte'
 end
+
+#uploader
+gem 'carrierwave', '1.2.2'
+gem 'mini_magick', '4.8.0'
+gem 'rmagick', '2.16.0'

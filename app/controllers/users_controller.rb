@@ -1,7 +1,8 @@
 class UsersController < InternalController
   before_action :authenticate , except: [:new, :create]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  layout 'front', only: [:new]
+  before_action :set_variables, only: [:new, :edit, :create]
+  # layout 'front', only: [:new]
 
   # GET /users
   # GET /users.json
@@ -82,11 +83,17 @@ class UsersController < InternalController
       @user = User.find(params[:id])
     end
 
+    def set_variables
+      @countries = Country.all.select(:id, :name)
+      @cities   = City.all.select(:id, :name)
+      @provinces = Province.all.select(:id, :name)
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(
-        :email, :password, :password_confirmation, :name, :phone, :country,
-        :province, :city
+        :email, :password, :password_confirmation, :name, :phone, :country_id,
+        :province_id, :city_id, :identification_document, :passport, :firm, :video
       )
     end
 end

@@ -7,10 +7,6 @@
     = csp_meta_tag
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-  %body
-    !!!
-%html
-  -# = render 'partials/head'
   %body.hold-transition.skin-blue.sidebar-mini
     .wrapper
       %header.main-header
@@ -22,6 +18,29 @@
         %section.sidebar
           %ul.sidebar-menu{ 'data-widget': 'tree' }
             %li.treeview
+              = link_to users_path do
+                %i.fa.fa-dashboard
+                %span Usuarios
+            %li.treeview
+              %a{:href => "#"}
+                %i.fa.fa-dashboard
+                %span Ubicaciones
+                %span.pull-right-container
+                  %i.fa.fa-angle-left.pull-right
+              %ul.treeview-menu
+                %li
+                  = link_to countries_path do
+                    %i.fa.fa-circle-o
+                    Paises
+                %li
+                  = link_to cities_path do
+                    %i.fa.fa-circle-o
+                    Ciudades
+                %li
+                  = link_to provinces_path do
+                    %i.fa.fa-circle-o
+                    Provincias
+            %li.treeview
               = link_to carousel_configurations_path do
                 %i.fa.fa-dashboard
                 %span Carrusel
@@ -30,7 +49,7 @@
                 %i.fa.fa-dashboard
                 %span Causas de casos
             %li.treeview
-              = link_to logout_path do
+              = link_to sessions_logout_path do
                 %i.fa.fa-dashboard
                 %span Logout
 
