@@ -21,4 +21,9 @@ class ApplicationController < ActionController::Base
   def is_json_request?
     request.format.symbol.eql?(:json)
   end
+
+  def authenticate_user
+    redirect_to login_path unless current_user.present?
+  end
+
 end

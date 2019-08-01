@@ -1,11 +1,38 @@
-%p#alert= alert
-%h1 Login
-= form_tag sessions_create_path do |form|
-  .field
-    = label_tag :email
-    = text_field_tag :email
-  .field
-    = label_tag :password
-    = password_field_tag :password
-  .actions
-    = submit_tag "Login"
+%body.login-page
+  .login-box
+    .login-logo
+      = link_to root_path do
+        %b Nommox
+    / /.login-logo
+    .login-box-body
+      %p.login-box-msg Sign in to start your session
+      = form_tag sessions_create_path do |form|
+        .form-group.has-feedback
+          = text_field_tag :email, nil, { class: 'form-control', placeholder: 'Email'}
+          %span.glyphicon.glyphicon-envelope.form-control-feedback
+        .form-group.has-feedback
+          = password_field_tag :password, nil, { class: 'form-control', placeholder: 'password'}
+          %span.glyphicon.glyphicon-lock.form-control-feedback
+        .row
+          .col-xs-8
+            .checkbox.icheck
+              %label
+                .icheckbox_square-blue{"aria-checked" => "false", "aria-disabled" => "false", :style => "position: relative;"}
+                  %input{:style => "position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;", :type => "checkbox"}/
+                  %ins.iCheck-helper{:style => "position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"}
+                -# Remember Me
+          / /.col
+          .col-xs-4
+            %button.btn.btn-primary.btn-block.btn-flat{:type => "submit"} Sign In
+
+-# %p#alert= alert
+-# %h1 Login
+-# = form_tag sessions_create_path do |form|
+-#   .field
+-#     = label_tag :email
+-#     = text_field_tag :email
+-#   .field
+-#     = label_tag :password
+-#     = password_field_tag :password
+-#   .actions
+-#     = submit_tag "Login"
