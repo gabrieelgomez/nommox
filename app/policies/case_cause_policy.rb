@@ -1,0 +1,2 @@
+class CaseCausePolicy < ControllersPolicy
+end

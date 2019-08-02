@@ -7,12 +7,15 @@
     %td= user&.country&.name  || 'Sin asignar'
     %td= user&.city&.name     || 'Sin asignar'
     %td= user&.province&.name || 'Sin asignar'
-    %td
-      = link_to user_path(user) do
-        %button.btn.btn-primary.btn-sm Ver
-    %td
-      = link_to edit_user_path(user) do
-        %button.btn.btn-primary.btn-sm Editar
-    %td
-      = link_to user_path(user), method: :delete, data: { confirm: '¿Estás seguro?' } do
-        %button.btn.btn-danger.btn-sm Eliminar
+    - if policy(:user).show?
+      %td
+        = link_to user_path(user) do
+          %button.btn.btn-primary.btn-sm Ver
+    - if policy(:user).edit?
+      %td
+        = link_to edit_user_path(user) do
+          %button.btn.btn-primary.btn-sm Editar
+    - if policy(:user).destroy?
+      %td
+        = link_to user_path(user), method: :delete, data: { confirm: '¿Estás seguro?' } do
+          %button.btn.btn-danger.btn-sm Eliminar

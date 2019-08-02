@@ -1,8 +1,9 @@
 %section.content-header
   %h1
-    = link_to new_user_path do
-      %button.btn.btn-primary
-        Nuevo
+    - if policy(:user).new?
+      = link_to new_user_path do
+        %button.btn.btn-primary
+          Nuevo
   %ol.breadcrumb
     %li
       %a{:href => "#"}
@@ -27,27 +28,3 @@
                 %th Provincia
             %tbody
               = render 'listing'
-
--# %h1 Listing users
--#
--# %table
--#   %thead
--#     %tr
--#       %th Email
--#       %th Password
--#       %th
--#       %th
--#       %th
--#
--#   %tbody
--#     - @users.each do |user|
--#       %tr
--#         %td= user.email
--#         %td= user.password
--#         %td= link_to 'Show', user
--#         %td= link_to 'Edit', edit_user_path(user)
--#         %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
--#
--# %br
--#
--# = link_to 'New User', new_user_path

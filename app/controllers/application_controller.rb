@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   helper_method :current_user
   skip_before_action :verify_authenticity_token
+  include Pundit
+  protect_from_forgery
 
   def respond_to_formats(action, objects)
     respond_to do |format|
