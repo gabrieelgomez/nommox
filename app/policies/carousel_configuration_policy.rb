@@ -1,0 +1,2 @@
+class CarouselConfigurationPolicy < ControllersPolicy
+end

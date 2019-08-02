@@ -1,8 +1,9 @@
 %section.content-header
   %h1
-    = link_to new_carousel_configuration_path do
-      %button.btn.btn-primary
-        Nuevo
+    - if policy(:carousel_configuration).new?
+      = link_to new_carousel_configuration_path do
+        %button.btn.btn-primary
+          Nuevo
   %ol.breadcrumb
     %li
       %a{:href => "#"}

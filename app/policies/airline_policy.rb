@@ -1,0 +1,2 @@
+class AirlinePolicy < ControllersPolicy
+end

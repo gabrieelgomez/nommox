@@ -25,6 +25,8 @@
       = f.input :firm, label: 'Firma', input_html: { class: 'form-control' }
     .form-group
       = f.input :video, label: 'Video', input_html: { class: 'form-control' }
+    .form-group
+      = f.input :role_id, collection: @roles, label: 'Rol', include_blank: 'Selecciona un rol', input_html: { class: 'form-control' }
 
     .form-group.pull-right
       = f.submit 'GUARDAR', class: 'btn btn-primary'

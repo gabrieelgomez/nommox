@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
   validates :email, presence: true, uniqueness: true
-  validates_presence_of :name
+  validates_presence_of :name, :role_id
 
   #uploader
   mount_uploader :identification_document, AttachmentUploader
@@ -13,4 +13,9 @@ class User < ApplicationRecord
   belongs_to :country
   belongs_to :city
   belongs_to :province
+  belongs_to :role
+
+  def has_role?(role_name)
+    role&.name&.to_sym&.eql?(role_name) || false
+  end
 end

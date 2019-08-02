@@ -2,12 +2,15 @@
   %tr
     %td= index + 1
     %td= case_cause.name
-    %td
-      = link_to case_cause_path(case_cause) do
-        %button.btn.btn-primary.btn-sm Ver
-    %td
-      = link_to edit_case_cause_path(case_cause) do
-        %button.btn.btn-primary.btn-sm Editar
-    %td
-      = link_to case_cause_path(case_cause), method: :delete, data: { confirm: '¿Estás seguro?' } do
-        %button.btn.btn-danger.btn-sm Eliminar
+    - if policy(:case_cause).show?
+      %td
+        = link_to case_cause_path(case_cause) do
+          %button.btn.btn-primary.btn-sm Ver
+    - if policy(:case_cause).edit?
+      %td
+        = link_to edit_case_cause_path(case_cause) do
+          %button.btn.btn-primary.btn-sm Editar
+    - if policy(:case_cause).destroy?
+      %td
+        = link_to case_cause_path(case_cause), method: :delete, data: { confirm: '¿Estás seguro?' } do
+          %button.btn.btn-danger.btn-sm Eliminar

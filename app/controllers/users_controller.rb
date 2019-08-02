@@ -33,7 +33,10 @@ class UsersController < InternalController
 
     # respond_to do |format|
     if @user.save
-      respond_to_formats(:index, @user)
+      respond_to do |format|
+        format.html { redirect_to users_path }
+        format.json { render json: @user }
+      end
     else
       respond_to do |format|
         format.html { render :new }
@@ -74,15 +77,17 @@ class UsersController < InternalController
 
     def set_variables
       @countries = Country.all.select(:id, :name)
-      @cities   = City.all.select(:id, :name)
+      @cities    = City.all.select(:id, :name)
       @provinces = Province.all.select(:id, :name)
+      @roles     = Role.all.select(:id, :name)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(
         :email, :password, :password_confirmation, :name, :phone, :country_id,
-        :province_id, :city_id, :identification_document, :passport, :firm, :video
+        :province_id, :city_id, :identification_document, :passport, :firm,
+        :video, :role_id
       )
     end
 end
