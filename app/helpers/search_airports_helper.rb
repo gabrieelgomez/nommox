@@ -1,0 +1,2 @@
+module SearchAirportsHelper
+end
