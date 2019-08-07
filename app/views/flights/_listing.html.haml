@@ -1,0 +1,24 @@
+- @flights.each_with_index do |flight, index|
+  %tr
+    %td= index + 1
+    %td= flight.departure_airport_code
+    %td= flight.arrival_airport_code
+    %td= flight.departure_airport_name
+    %td= flight.arrival_airport_name
+    %td= flight.date.strftime('%d/%Y/%m')
+    %td= flight.date.strftime('%H:%M')
+    %td= flight.airline.name
+    %td= flight.flight_number
+
+    - if policy(:flight).show?
+      %td
+        = link_to flight_path(flight) do
+          %button.btn.btn-primary.btn-sm Ver
+    - if policy(:flight).edit?
+      %td
+        = link_to edit_flight_path(flight) do
+          %button.btn.btn-primary.btn-sm Editar
+    - if policy(:flight).destroy?
+      %td
+        = link_to flight_path(flight), method: :delete, data: { confirm: '¿Estás seguro?' } do
+          %button.btn.btn-danger.btn-sm Eliminar
