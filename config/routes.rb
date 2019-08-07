@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'search_airports/index'
   root 'front#index'
   get  'main', to: 'pages#main'
 
@@ -22,4 +23,7 @@ Rails.application.routes.draw do
 
   #flights routes
   draw :flights
+
+  #search_airports routes
+  draw :search_airports
 end
