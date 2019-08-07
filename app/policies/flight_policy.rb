@@ -1,0 +1,2 @@
+class FlightPolicy < ControllersPolicy
+end

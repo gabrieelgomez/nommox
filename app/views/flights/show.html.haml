@@ -1,0 +1,48 @@
+%section.content-header
+  %h1
+    = link_to :back do
+      %button.btn.btn-primary
+        Atrás
+  %ol.breadcrumb
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Vuelos
+    %li.active Detalle
+
+.container-fluid.mt-10
+  .row
+    .col-lg-12
+      .box.slice-box
+        .box-body.no-padding
+          %table.table
+            %thead
+              %tr
+                %th Cod. Apto. de Salida
+                %th Cod. Apto. de Llegada
+                %th Nombre Apto. de Salida
+                %th Nombre Apto. de Llegada
+                %th Fecha
+                %th Hora
+                %th Aerolínea
+                %th Número de Vuelo
+                %th
+                %th
+            %tbody
+              %tr
+                %td= @flight.departure_airport_code
+                %td= @flight.arrival_airport_code
+                %td= @flight.departure_airport_name
+                %td= @flight.arrival_airport_name
+                %td= @flight.date.strftime('%d/%Y/%m')
+                %td= @flight.date.strftime('%H:%M')
+                %td= @flight.airline.name
+                %td= @flight.flight_number
+                - if policy(:flight).edit?
+                  %td
+                    = link_to edit_flight_path(@flight) do
+                      %button.btn.btn-primary.btn-sm Editar
+                - if policy(:flight).destroy?
+                  %td
+                    = link_to flight_path(@flight), method: :delete, data: { confirm: '¿Estás seguro?' } do
+                      %button.btn.btn-danger.btn-sm Eliminar

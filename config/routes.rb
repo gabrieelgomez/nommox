@@ -19,4 +19,7 @@ Rails.application.routes.draw do
 
   #airlines routes
   draw :airlines
+
+  #flights routes
+  draw :flights
 end

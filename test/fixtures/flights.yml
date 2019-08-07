@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  departure_airport_code: MyString
+  arrival_airport_code: MyString
+  departure_airport_name: MyString
+  arrival_airport_name: MyString
+  date: 2019-08-07 10:05:23
+  hour: MyString
+  airline: one
+  flight_number: MyString
+
+two:
+  departure_airport_code: MyString
+  arrival_airport_code: MyString
+  departure_airport_name: MyString
+  arrival_airport_name: MyString
+  date: 2019-08-07 10:05:23
+  hour: MyString
+  airline: two
+  flight_number: MyString
