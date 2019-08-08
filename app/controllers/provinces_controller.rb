@@ -15,19 +15,29 @@ class ProvincesController < ApplicationController
     @province = Province.new(province_params)
 
     if @province.save
-      redirect_to :provinces
+      respond_to do |format|
+        format.html { redirect_to :provinces }
+        format.json { render json: @province }
+      end
     else
-      redirect_back(fallback_location: :provinces_path)
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json: @province.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def edit; end
 
   def update
-    if @province.update(province_params)
-      redirect_to :provinces
-    else
-      redirect_back(fallback_location: :provinces_path)
+    respond_to do |format|
+      if @province.update(province_params)
+        format.html { redirect_to @province, notice: 'Province was successfully updated.' }
+        format.json { render json: @province, status: :ok }
+      else
+        format.html { render :edit }
+        format.json { render json: @province.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -37,7 +47,10 @@ class ProvincesController < ApplicationController
 
   def destroy
     @province.destroy
-    redirect_back(fallback_location: :provinces_path)
+    respond_to do |format|
+      format.html { redirect_to provinces_url, notice: 'Province was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private

@@ -14,19 +14,29 @@ class CountriesController < InternalController
     @country = Country.new(country_params)
 
     if @country.save
-      redirect_to :countries
+      respond_to do |format|
+        format.html { redirect_to :countries }
+        format.json { render json: @country }
+      end
     else
-      redirect_back(fallback_location: :countries_path)
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json: @country.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def edit; end
 
   def update
-    if @country.update(country_params)
-      redirect_to :countries
-    else
-      redirect_back(fallback_location: :countries_path)
+    respond_to do |format|
+      if @country.update(country_params)
+        format.html { redirect_to @country, notice: 'Country was successfully updated.' }
+        format.json { render json: @country, status: :ok }
+      else
+        format.html { render :edit }
+        format.json { render json: @country.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -36,7 +46,10 @@ class CountriesController < InternalController
 
   def destroy
     @country.destroy
-    redirect_back(fallback_location: :countries_path)
+    respond_to do |format|
+      format.html { redirect_to countries_url, notice: 'Country was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private

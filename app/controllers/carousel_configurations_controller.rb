@@ -15,19 +15,29 @@ class CarouselConfigurationsController < InternalController
     @carousel_configuration = CarouselConfiguration.new(carousel_configuration_params)
 
     if @carousel_configuration.save
-      redirect_to :carousel_configurations
+      respond_to do |format|
+        format.html { redirect_to :carousel_configurations }
+        format.json { render json: @carousel_configuration }
+      end
     else
-      redirect_back(fallback_location: :carousel_configurations_path)
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json: @carousel_configuration.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def edit; end
 
   def update
-    if @carousel_configuration.update!(carousel_configuration_params)
-      redirect_to :carousel_configurations
-    else
-      redirect_back(fallback_location: :carousel_configurations_path)
+    respond_to do |format|
+      if @carousel_configuration.update(carousel_configuration_params)
+        format.html { redirect_to @carousel_configuration, notice: 'City was successfully updated.' }
+        format.json { render json: @carousel_configuration, status: :ok }
+      else
+        format.html { render :edit }
+        format.json { render json: @carousel_configuration.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -37,7 +47,10 @@ class CarouselConfigurationsController < InternalController
 
   def destroy
     @carousel_configuration.destroy
-    redirect_to :carousel_configurations
+    respond_to do |format|
+      format.html { redirect_to carousel_configurations_url, notice: 'City was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private
