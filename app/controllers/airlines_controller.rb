@@ -15,19 +15,29 @@ class AirlinesController < ApplicationController
     @airline = Airline.new(airline_params)
 
     if @airline.save
-      redirect_to :airlines
+      respond_to do |format|
+        format.html { redirect_to :airlines }
+        format.json { render json: @airline }
+      end
     else
-      redirect_back(fallback_location: :airlines_path)
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json: @airline.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def edit; end
 
   def update
-    if @airline.update(airline_params)
-      redirect_to :airlines
-    else
-      redirect_back(fallback_location: :airlines_path)
+    respond_to do |format|
+      if @airline.update(airline_params)
+        format.html { redirect_to @airline, notice: 'Airline was successfully updated.' }
+        format.json { render json: @airline, status: :ok }
+      else
+        format.html { render :edit }
+        format.json { render json: @airline.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -37,7 +47,10 @@ class AirlinesController < ApplicationController
 
   def destroy
     @airline.destroy
-    redirect_back(fallback_location: :airlines_path)
+    respond_to do |format|
+      format.html { redirect_to airlines_url, notice: 'Airline was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   def search

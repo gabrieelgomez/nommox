@@ -5,8 +5,8 @@
     %td= flight.arrival_airport_code
     %td= flight.departure_airport_name
     %td= flight.arrival_airport_name
-    %td= flight.date.strftime('%d/%Y/%m')
-    %td= flight.date.strftime('%H:%M')
+    %td= flight&.date&.strftime('%d/%Y/%m')
+    %td= flight&.date&.strftime('%H:%M')
     %td= flight.airline.name
     %td= flight.flight_number
 

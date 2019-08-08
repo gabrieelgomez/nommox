@@ -10,7 +10,7 @@ class UsersController < InternalController
     @users = User.all.includes(:country, :city, :province)
     respond_to_formats(:index, @users)
   end
-
+  
   # GET /users/1
   # GET /users/1.json
   def show

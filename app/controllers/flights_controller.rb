@@ -14,20 +14,30 @@ class FlightsController < ApplicationController
   def create
     @flight = Flight.new(flight_params)
 
-    if @flight.save!
-      redirect_to :flights
+    if @flight.save
+      respond_to do |format|
+        format.html { redirect_to :flights }
+        format.json { render json: @flight }
+      end
     else
-      redirect_back(fallback_location: :flights_path)
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json: @flight.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def edit; end
 
   def update
-    if @flight.update(flight_params)
-      redirect_to :flights
-    else
-      redirect_back(fallback_location: :flights_path)
+    respond_to do |format|
+      if @flight.update(flight_params)
+        format.html { redirect_to @flight, notice: 'Flight was successfully updated.' }
+        format.json { render json: @flight, status: :ok }
+      else
+        format.html { render :edit }
+        format.json { render json: @flight.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -37,7 +47,10 @@ class FlightsController < ApplicationController
 
   def destroy
     @flight.destroy
-    redirect_back(fallback_location: :flights_path)
+    respond_to do |format|
+      format.html { redirect_to flights_url, notice: 'Flight was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private

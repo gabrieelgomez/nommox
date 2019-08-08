@@ -15,19 +15,29 @@ class CaseCausesController < InternalController
     @case_cause = CaseCause.new(case_cause_params)
 
     if @case_cause.save
-      redirect_to :case_causes
+      respond_to do |format|
+        format.html { redirect_to :case_causes }
+        format.json { render json: @case_cause }
+      end
     else
-      redirect_back(fallback_location: :causes_causes_path)
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json: @case_cause.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def edit; end
 
   def update
-    if @case_cause.update!(case_cause_params)
-      redirect_to :case_causes
-    else
-      redirect_back(fallback_location: :case_causes_path)
+    respond_to do |format|
+      if @case_cause.update(case_cause_params)
+        format.html { redirect_to @case_cause, notice: 'Case Cause was successfully updated.' }
+        format.json { render json: @case_cause, status: :ok }
+      else
+        format.html { render :edit }
+        format.json { render json: @case_cause.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -37,7 +47,10 @@ class CaseCausesController < InternalController
 
   def destroy
     @case_cause.destroy
-    redirect_back(fallback_location: :case_causes_path)
+    respond_to do |format|
+      format.html { redirect_to case_causes_url, notice: 'Case Cause was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private

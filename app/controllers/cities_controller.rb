@@ -15,27 +15,42 @@ class CitiesController < ApplicationController
     @city = City.new(city_params)
 
     if @city.save
-      redirect_to :cities
+      respond_to do |format|
+        format.html { redirect_to :cities }
+        format.json { render json: @city }
+      end
     else
-      redirect_back(fallback_location: :cities_path)
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json: @city.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def edit; end
 
   def update
-    if @city.update(city_params)
-      redirect_to :cities
-    else
-      redirect_back(fallback_location: :cities_path)
+    respond_to do |format|
+      if @city.update(city_params)
+        format.html { redirect_to @city, notice: 'City was successfully updated.' }
+        format.json { render json: @city, status: :ok }
+      else
+        format.html { render :edit }
+        format.json { render json: @city.errors, status: :unprocessable_entity }
+      end
     end
   end
 
-  def show; end
+  def show
+    respond_to_formats(:show, @city)
+  end
 
   def destroy
     @city.destroy
-    redirect_back(fallback_location: :cities_path)
+    respond_to do |format|
+      format.html { redirect_to cities_url, notice: 'City was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private
