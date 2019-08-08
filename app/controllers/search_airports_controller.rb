@@ -16,9 +16,7 @@ class SearchAirportsController < ApplicationController
   private
 
   def set_airports
-    @airports = YAML.load_file(
-      "#{Rails.root}/config/airports.yml"
-    )
+    @airports = YAML.load_file("#{Rails.root}/config/airports.yml")
   end
 
   def build_hash(data)

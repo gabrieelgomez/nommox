@@ -31,7 +31,9 @@ class CarouselConfigurationsController < InternalController
     end
   end
 
-  def show; end
+  def show
+    respond_to_formats(:show, @carousel_configuration)
+  end
 
   def destroy
     @carousel_configuration.destroy

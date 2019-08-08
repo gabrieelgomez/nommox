@@ -31,7 +31,9 @@ class CaseCausesController < InternalController
     end
   end
 
-  def show; end
+  def show
+    respond_to_formats(:show, @case_cause)
+  end
 
   def destroy
     @case_cause.destroy

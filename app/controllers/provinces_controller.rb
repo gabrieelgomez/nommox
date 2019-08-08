@@ -4,7 +4,7 @@ class ProvincesController < ApplicationController
 
   def index
     @provinces = Province.all
-    respond_to_formats(:index, @provinces)    
+    respond_to_formats(:index, @provinces)
   end
 
   def new
@@ -31,7 +31,9 @@ class ProvincesController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    respond_to_formats(:show, @province)
+  end
 
   def destroy
     @province.destroy

@@ -31,7 +31,9 @@ class AirlinesController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    respond_to_formats(:show, @airline)
+  end
 
   def destroy
     @airline.destroy
