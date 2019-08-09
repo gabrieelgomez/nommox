@@ -33,6 +33,8 @@ Rails.application.routes.draw do
       draw :carousels_api
 
       draw :cases_api
+
+      draw :airline_api
     end
   end
 end
