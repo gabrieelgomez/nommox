@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
       draw :cases_api
 
-      draw :airline_api
+      draw :airlines_api
     end
   end
 end

@@ -53,12 +53,6 @@ class AirlinesController < ApplicationController
     end
   end
 
-  def search
-    query = params.dig(:query)
-    @airline = Airline.where("name LIKE :query", query: "%#{query}%")
-    respond_to_formats(:index, @airline)
-  end
-
   private
 
   def set_airline
