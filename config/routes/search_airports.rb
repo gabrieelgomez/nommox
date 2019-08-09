@@ -1,1 +1,3 @@
-get '/airports/:query/:search', to: 'search_airports#search'
+namespace :airports do
+  get '/:query/:search', to: 'search#filter_airports'
+end
