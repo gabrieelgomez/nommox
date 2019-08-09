@@ -30,8 +30,9 @@ Rails.application.routes.draw do
   #routes for api
   namespace :api do
     namespace :v1 do
-      #search_airports routes
       draw :carousels_api
+
+      draw :cases_api
     end
   end
 end

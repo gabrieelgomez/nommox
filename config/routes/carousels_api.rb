@@ -1,4 +1,4 @@
-namespace :carousels, path: 'carousels' do
+namespace :carousels do
   get  '/',                     to: 'show#index'
   get  '/:carousel_id',         to: 'show#show'
   post '/create',               to: 'create#create'
