@@ -24,13 +24,13 @@ Rails.application.routes.draw do
   #flights routes
   draw :flights
 
-
   #routes for api
   namespace :api do
     namespace :v1 do
       draw :carousels_api
-      draw :cases_api
+      draw :case_causes_api
       draw :airlines_api
+      draw :cases_api
       draw :search_airports
     end
   end

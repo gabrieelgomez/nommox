@@ -14,6 +14,7 @@ class User < ApplicationRecord
   belongs_to :city
   belongs_to :province
   belongs_to :role
+  has_many   :cases, dependent: :destroy
 
   def has_role?(role_name)
     role&.name&.to_sym&.eql?(role_name) || false

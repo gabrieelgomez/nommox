@@ -1,9 +1,9 @@
-module Api::V1::Cases
+module Api::V1::CaseCauses
   class ShowController < CasesController
     before_action :set_case, only: %i[show]
 
     def index
-      @cases = Case.all.includes(:user, :tests)
+      @cases = CaseCause.all
       render json: @cases, status: 200
     end
 

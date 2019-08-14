@@ -1,4 +1,4 @@
-module Api::V1::Cases
+module Api::V1::CaseCauses
   class UpdateController < CasesController
     before_action :set_case
 
