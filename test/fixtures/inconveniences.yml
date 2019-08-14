@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lost_connection: false
+  lost_event: false
+  description: MyText
+  case: one
+
+two:
+  lost_connection: false
+  lost_event: false
+  description: MyText
+  case: two

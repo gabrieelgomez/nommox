@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  names: MyString
+  surnames: MyString
+  identification_document: MyString
+  passport: MyString
+  booking: one
+
+two:
+  names: MyString
+  surnames: MyString
+  identification_document: MyString
+  passport: MyString
+  booking: two

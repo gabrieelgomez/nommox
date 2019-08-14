@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_07_140523) do
+ActiveRecord::Schema.define(version: 2019_08_14_142555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(version: 2019_08_07_140523) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["country_id"], name: "index_airlines_on_country_id"
+  end
+
+  create_table "bookings", force: :cascade do |t|
+    t.string "code"
+    t.bigint "case_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["case_id"], name: "index_bookings_on_case_id"
   end
 
   create_table "carousel_configurations", force: :cascade do |t|
@@ -36,12 +44,35 @@ ActiveRecord::Schema.define(version: 2019_08_07_140523) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "cases", force: :cascade do |t|
+    t.integer "status"
+    t.string "video_self"
+    t.integer "hours_late", default: 0
+    t.boolean "notifications_enabled", default: false
+    t.string "case_cause_ids", default: [], array: true
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_cases_on_user_id"
+  end
+
   create_table "cities", force: :cascade do |t|
     t.string "name"
     t.bigint "country_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["country_id"], name: "index_cities_on_country_id"
+  end
+
+  create_table "companions", force: :cascade do |t|
+    t.string "names"
+    t.string "surnames"
+    t.string "identification_document"
+    t.string "passport"
+    t.bigint "booking_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_companions_on_booking_id"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -64,6 +95,17 @@ ActiveRecord::Schema.define(version: 2019_08_07_140523) do
     t.index ["airline_id"], name: "index_flights_on_airline_id"
   end
 
+  create_table "inconveniences", force: :cascade do |t|
+    t.boolean "lost_connection", default: false
+    t.boolean "lost_event", default: false
+    t.text "description"
+    t.bigint "case_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "image"
+    t.index ["case_id"], name: "index_inconveniences_on_case_id"
+  end
+
   create_table "provinces", force: :cascade do |t|
     t.string "name"
     t.bigint "city_id"
@@ -72,10 +114,37 @@ ActiveRecord::Schema.define(version: 2019_08_07_140523) do
     t.index ["city_id"], name: "index_provinces_on_city_id"
   end
 
+  create_table "reservations", force: :cascade do |t|
+    t.string "code"
+    t.bigint "case_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["case_id"], name: "index_reservations_on_case_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "tests", force: :cascade do |t|
+    t.jsonb "videos", default: {}
+    t.jsonb "images", default: {}
+    t.jsonb "documents", default: {}
+    t.jsonb "voices", default: {}
+    t.bigint "case_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["case_id"], name: "index_tests_on_case_id"
+  end
+
+  create_table "tickets", force: :cascade do |t|
+    t.jsonb "tickets", default: {}
+    t.bigint "case_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["case_id"], name: "index_tickets_on_case_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -98,8 +167,15 @@ ActiveRecord::Schema.define(version: 2019_08_07_140523) do
   end
 
   add_foreign_key "airlines", "countries"
+  add_foreign_key "bookings", "cases"
+  add_foreign_key "cases", "users"
   add_foreign_key "cities", "countries"
+  add_foreign_key "companions", "bookings"
   add_foreign_key "flights", "airlines"
+  add_foreign_key "inconveniences", "cases"
   add_foreign_key "provinces", "cities"
+  add_foreign_key "reservations", "cases"
+  add_foreign_key "tests", "cases"
+  add_foreign_key "tickets", "cases"
   add_foreign_key "users", "roles"
 end

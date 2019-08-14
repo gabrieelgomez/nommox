@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: 1
+  video_self: MyString
+  hours_late: 1
+  notifications_enabled: false
+  case_cause_ids: 
+  user: one
+
+two:
+  status: 1
+  video_self: MyString
+  hours_late: 1
+  notifications_enabled: false
+  case_cause_ids: 
+  user: two
