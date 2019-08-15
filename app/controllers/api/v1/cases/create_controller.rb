@@ -2,8 +2,7 @@ module Api::V1::Cases
   class CreateController < CasesController
 
     def create
-      @user = User.where(email: params.dig(:user, :email))
-                  .first_or_create(user_params)
+      @user = find_or_create_user
 
       if @user.valid?
         create_case(@user.id)
@@ -13,6 +12,15 @@ module Api::V1::Cases
     end
 
     private
+
+    def find_or_create_user
+      password = user_params.dig(:email).split('@').first + 'nommox'
+      data     = { password: password, role_id: 1 }
+      user     = User.where(email: params.dig(:user, :email))
+                    .first_or_create(user_params.merge(data))
+
+      user
+    end
 
     def create_case(user_id)
       @case = Case.new(case_params.merge(user_id: user_id))
@@ -69,7 +77,6 @@ module Api::V1::Cases
 
     def create_companions(booking_id)
       return if params.dig(:companions).nil?
-
       #pending for implementation in IOS app
     end
   end

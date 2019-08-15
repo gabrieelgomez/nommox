@@ -10,9 +10,9 @@ class User < ApplicationRecord
   mount_uploader :video,                   AttachmentUploader
 
   #locations
-  belongs_to :country
-  belongs_to :city
-  belongs_to :province
+  belongs_to :country,  optional: true
+  belongs_to :cit,      optional: true
+  belongs_to :province, optional: true
   belongs_to :role
   has_many   :cases, dependent: :destroy
 
