@@ -9,7 +9,7 @@ class Case < ApplicationRecord
   mount_uploader :video_self, AttachmentUploader
 
   def case_cause_ids_parsed
-    self.case_cause_ids.join(", ").split(',').map(&:to_i)
+    self.case_cause_ids.join(', ').split(',').map(&:to_i)
   end
 
   def case_causes
