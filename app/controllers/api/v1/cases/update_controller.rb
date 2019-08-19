@@ -1,13 +1,11 @@
 module Api::V1::Cases
   class UpdateController < CasesController
+    include Concerns::Cases::Editable
     before_action :set_case
 
     def update
-      if @case.update(case_params)
-        render json: @case, status: 200
-      else
-        render json: @case.errors, status: 500
-      end
+      handle_edit
+      render json: @case, status: 200
     end
 
     def add_test
@@ -23,25 +21,12 @@ module Api::V1::Cases
 
     private
 
-    def add_images(test, images)
-      return if images.blank?
-      test.update(images: test.images.push(images).flatten)
+    def handle_edit
+      edit_case
+      edit_booking
+      edit_inconvenience
+      edit_tests
+      edit_tickets
     end
-
-    def add_videos(test, videos)
-      return if videos.blank?
-      test.update(videos: test.videos.push(videos).flatten)
-    end
-
-    def add_voices(test, voices)
-      return if voices.blank?
-      test.update(voices: test.voices.push(voices).flatten)
-    end
-
-    def add_documents(test, documents)
-      return if documents.blank?
-      test.update(documents: test.documents.push(documents).flatten)
-    end
-
   end
 end
