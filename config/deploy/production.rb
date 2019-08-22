@@ -9,7 +9,7 @@ server "18.224.54.238", user: "deploy", roles: %w{app db web}
 set :rails_env, "production"
 
 set :rvm_type, :system                     # Defaults to: :auto
-set :rvm_ruby_version, '2.3.7'             # Defaults to: 'default'
+set :rvm_ruby_version, '2.5.1'             # Defaults to: 'default'
 set :rvm_custom_path, '/home/deploy/.rvm'    # only needed if not detected
 
 set :branch, :master
