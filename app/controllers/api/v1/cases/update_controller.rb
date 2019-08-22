@@ -1,6 +1,6 @@
 module Api::V1::Cases
   class UpdateController < CasesController
-    include Concerns::Cases::Editable
+    # include Concerns::Cases::Editable
     before_action :set_case
 
     def update

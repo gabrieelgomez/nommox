@@ -1,6 +1,6 @@
 module Api::V1::Cases
   class CreateController < CasesController
-    include Concerns::Cases::HandleCasesData
+    # include Concerns::Cases::HandleCasesData
 
     def create
       @user = find_or_create_user
