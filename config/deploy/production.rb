@@ -3,11 +3,50 @@
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
 
-# server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
+server "18.224.54.238", user: "deploy", roles: %w{app db web}
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
+set :rails_env, "production"
 
+set :rvm_type, :system                     # Defaults to: :auto
+set :rvm_ruby_version, '2.3.7'             # Defaults to: 'default'
+set :rvm_custom_path, '/home/deploy/.rvm'    # only needed if not detected
 
+set :branch, :master
+set :stage,  :production
+
+namespace :deploy do
+  desc "Make sure local git is in sync with remote."
+  task :check_revision do
+    on roles(:app) do
+      unless `git rev-parse HEAD` == `git rev-parse origin/master`
+        puts "WARNING: HEAD is not the same as origin/master"
+        puts "Run `git push` to sync changes."
+        exit
+      end
+    end
+  end
+
+  desc 'Initial Deploy'
+  task :initial do
+    on roles(:app) do
+      before 'deploy:restart', 'puma:start'
+      invoke 'deploy'
+    end
+  end
+
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      invoke! 'puma:restart'
+    end
+  end
+
+  before :starting,     :check_revision
+  after  :finishing,    :compile_assets
+  #after  :finishing,    :cleanup
+  #after  :finishing,    :restart
+end
 
 # role-based syntax
 # ==================
@@ -59,20 +98,3 @@
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
-
-set :stage, :production
-set :rails_env, :production
-
-# Default branch is :master
-# ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
-set :branch, 'master'
-
-role :app, %w{deploy@18.188.177.228}
-role :web, %w{deploy@18.188.177.228}
-role :db,  %w{deploy@18.188.177.228}
-
-set :ssh_options, {
-   keys: %w(nommox.pem),
-   forward_agent: false,
-   auth_methods: %w(publickey)
- }
