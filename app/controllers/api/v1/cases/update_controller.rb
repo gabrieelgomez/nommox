@@ -7,6 +7,14 @@ module Api::V1::Cases
       render json: @case, status: 200
     end
 
+    def update_status
+      if @case.update(status: params.dig(:status))
+        render json: @case, status: 200
+      else
+        render json: @case.errors
+      end
+    end
+
     def add_test
       @test = @case.tests
 
