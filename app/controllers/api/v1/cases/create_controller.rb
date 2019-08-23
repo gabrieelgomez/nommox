@@ -45,11 +45,14 @@ module Api::V1::Cases
     end
 
     def create_tests(case_id)
-      return if params.dig(:test).nil?
-      @test = Test.new(test_params.merge(case_id: case_id))
+      if params.dig(:test).nil?
+        @test = Test.create(case_id: case_id)
+      else
+        @test = Test.new(test_params.merge(case_id: case_id))
 
-      unless @test.save
-        render json: @test.errors, status: 500
+        unless @test.save
+          render json: @test.errors, status: 500
+        end
       end
     end
 
