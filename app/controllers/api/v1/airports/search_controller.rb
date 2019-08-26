@@ -3,11 +3,11 @@ module Api::V1
     before_action :set_airports
 
     def filter_airports
-      query = params.dig(:query)
+      query = params.dig(:query)&.downcase
       @results = Array.new
 
       @airports.each do |a|
-        next unless a['country'].include?(query) || a['city'].include?(query)
+        next unless a['country']&.downcase&.include?(query) || a['city']&.downcase&.include?(query)
         @results.push(build_hash(a))
       end
 

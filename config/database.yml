@@ -9,8 +9,8 @@ default: &default
   pool: 5
   timeout: 5000
   encoding: unicode
-  user: deploy
-  password: pass
+  user: root #deploy
+  password: root #pass
   host: localhost
 
 development:
