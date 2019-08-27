@@ -6,7 +6,7 @@ module Api::V1
     def case_params
       params.require(:case).permit(
         :status, :video_self, :hours_late, :notifications_enabled, :user_id,
-        { case_cause_ids: [] }
+        :done, { case_cause_ids: [] }
       )
     end
 

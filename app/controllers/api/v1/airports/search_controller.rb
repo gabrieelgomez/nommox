@@ -7,7 +7,12 @@ module Api::V1
       @results = Array.new
 
       @airports.each do |a|
-        next unless a['country']&.downcase&.include?(query) || a['city']&.downcase&.include?(query)
+        next unless a['country']&.downcase&.include?(query) ||
+                    a['city']&.downcase&.include?(query)    ||
+                    a['code']&.downcase&.include?(query)    ||
+                    a['tz']&.downcase&.include?(query)      ||
+                    a['name']&.downcase&.include?(query)
+
         @results.push(build_hash(a))
       end
 

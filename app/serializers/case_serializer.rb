@@ -1,6 +1,6 @@
 class CaseSerializer < ActiveModel::Serializer
-  attributes :id, :status, :video_self, :hours_late, :notifications_enabled,
-                  :case_causes
+  attributes :id, :done, :status, :video_self, :hours_late,
+                  :notifications_enabled, :case_causes
 
   belongs_to :user
   has_one    :inconvenience
