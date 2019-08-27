@@ -98,3 +98,6 @@ gem 'rmagick', '2.16.0'
 
 #permissions
 gem 'pundit'
+
+#twilio
+gem 'twilio-ruby', '~> 5.25.4'
