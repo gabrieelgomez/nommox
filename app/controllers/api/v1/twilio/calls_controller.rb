@@ -2,45 +2,15 @@ module Api::V1::Twilio
   class CallsController < TwilioController
     before_action :load_credentials, only: [:call, :connect]
     before_action :authenticate_twilio_request, only: [:connect]
-    # def voice
-    #   response = Twilio::TwiML::VoiceResponse.new do |r|
-    #   	r.say(message: "Hello Pedro")
-    #   end
-    #   #
-    #   # render xml: response.to_xml
-    #
-    #   # render json: response
-    #   account_sid = 'AC50de35afe1e9d2766abd19690247c604'
-    #   auth_token  = 'c1107bf787f15766a2a55a778409c902'
-    #   #
-    #   # # set up a client to talk to the Twilio REST API
-    #   @client = Twilio::REST::Client.new(account_sid, auth_token)
-    #   #
-    #   call = @client.calls.create(
-    #     to:   "+584121281876",
-    #     from: "+17864851185"
-    #   )
-    #   #
-    #   redirect_to root_path
-    # end
-
-    # Before we allow the incoming request to connect, verify
-    # that it is a Twilio request
-
-
-    # Render home page
-    def index
-      render 'index'
-    end
-
+    
     # Handle a POST from our web form and connect a call via REST API
     def call
       @client = Twilio::REST::Client.new @twilio_sid, @twilio_token
       # Connect an outbound call to the number submitted
       @call = @client.calls.create(
-        to:   '+584169554052',
+        to:   '+584121281876',
         from: @twilio_number,
-        url: "http://2d043e08.ngrok.io/connect/+584169554052" # Fetch instructions from this URL when the call connects
+        url: "#{@api_host}/api/v1/twilio/connect/+18002842622/call" # Fetch instructions from this URL when the call connects
       )
 
       # Let's respond to the ajax call with some positive reinforcement
@@ -52,15 +22,9 @@ module Api::V1::Twilio
     # This URL contains instructions for the call that is connected with a lead
     # that is using the web form.
     def connect
-      # Our response to this request will be an XML document in the "TwiML"
-      # format. Our Ruby library provides a helper for generating one
-      # of these documents
       response = Twilio::TwiML::VoiceResponse.new do |r|
-        r.say('Thanks for contacting our sales department. Our '\
-          'next available representative will take your call.', voice: 'alice')
-        r.dial number: '+584169554052'
+        r.dial number: '+18002842622'
       end
-
 
       render xml: response.to_s
     end
@@ -101,7 +65,7 @@ module Api::V1::Twilio
       @twilio_sid    = 'AC50de35afe1e9d2766abd19690247c604'
       @twilio_token  = 'c1107bf787f15766a2a55a778409c902'
       @twilio_number = '+17864851185'
-      @api_host      = 'http://2d043e08.ngrok.io'
+      @api_host      = 'http://18.224.54.238'
     end
 
   end
