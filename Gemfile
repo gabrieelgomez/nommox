@@ -101,3 +101,7 @@ gem 'pundit'
 
 #twilio
 gem 'twilio-ruby', '~> 5.25.4'
+
+# Html to Image
+gem 'imgkit'
+gem 'wkhtmltoimage-binary'
