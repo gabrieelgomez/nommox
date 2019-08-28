@@ -2,7 +2,6 @@ class UsersController < InternalController
   before_action :authenticate , except: [:new, :create]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_variables, only: [:new, :edit, :create]
-  # layout 'front', only: [:new]
 
   # GET /users
   # GET /users.json
@@ -10,7 +9,7 @@ class UsersController < InternalController
     @users = User.all.includes(:country, :city, :province)
     respond_to_formats(:index, @users)
   end
-  
+
   # GET /users/1
   # GET /users/1.json
   def show

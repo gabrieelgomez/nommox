@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   #routes for api
   namespace :api do
     namespace :v1 do
+      draw :users_api
       draw :carousels_api
       draw :case_causes_api
       draw :airlines_api

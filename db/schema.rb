@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_14_142555) do
+ActiveRecord::Schema.define(version: 2019_08_28_170650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2019_08_14_142555) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "done", default: false
     t.index ["user_id"], name: "index_cases_on_user_id"
   end
 
@@ -162,6 +163,8 @@ ActiveRecord::Schema.define(version: 2019_08_14_142555) do
     t.string "firm"
     t.string "video"
     t.bigint "role_id"
+    t.string "identification_document_back"
+    t.string "identification_document_front"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
   end
