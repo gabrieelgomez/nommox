@@ -15,16 +15,15 @@ module Api::V1::Twilio
     #
     # # Validate contact
     # if call_request.valid?
-      @client = Twilio::REST::Client.new @twilio_sid, @twilio_token
-      # Connect an outbound call to the number submitted
-      @call = @client.calls.create(
-        to:   '+584121281876',
-        from: '+17864851185',
-        url: 'http://demo.twilio.com/docs/voice.xml',
-        # url: "http://991f84ae.ngrok.io/api/v1/twilio/connect/#{call_request.encoded_to_phone}" # Fetch instructions from this URL when the call connects
-      )
+    @client = Twilio::REST::Client.new @twilio_sid, @twilio_token
+    # Connect an outbound call to the number submitted
+    @call = @client.calls.create(
+      to:   params.dig(:to),
+      from: '+18179184011',
+      url: "http://ba51a728.ngrok.io/api/v1/twilio/connect/#{params.dig(:to)}" # Fetch instructions from this URL when the call connects
+    )
 
-      @msg = { message: 'Phone call incoming!', status: 'ok' }
+    @msg = { message: 'Phone call incoming!', status: 'ok' }
 
 
     # else
@@ -38,10 +37,9 @@ module Api::V1::Twilio
     # that is using the web form.
     def connect
       response = Twilio::TwiML::VoiceResponse.new
-      response.dial(number: params.dig(:to))
-      response.say(message: 'Goodbye')
+      response.say(message: 'Thanks for use Nommox!')
 
-      puts response
+      render xml: response.to_xml
     end
 
     def access_token
@@ -101,14 +99,14 @@ module Api::V1::Twilio
     end
 
     def load_credentials
-      # Define our Twilio credentials as instance variables for later use
       @twilio_sid    = ENV["TWILIO_SID"]
       @twilio_token  = ENV["TWILIO_TOKEN"]
       @twilio_number = ENV["TWILIO_NUMBER"]
-      @api_host      = 'http://991f84ae.ngrok.io'
-      @app_sid       = 'SK5afcdc97d82d5baa9b59897f8156ded5'
-      @app_secret    = 'ThKkEQUljKl6foS57NR20tc8kaM4QTCE'
-      @twiml_sid     = 'APf86663ec0a3429c8f2baafe0f31520a9'
+      @app_sid       = ENV["APP_SID"]
+      @app_secret    = ENV["APP_SECRET"]
+      @twiml_sid     = ENV["TWIML_SID"]
+
+      # '+17864851185',
     end
 
   end
