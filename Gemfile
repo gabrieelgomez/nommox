@@ -110,3 +110,6 @@ gem 'wkhtmltoimage-binary'
 
 # Validate phone numbers easily
 gem 'phony_rails'
+
+# Manage environments variables
+gem 'dotenv-rails'

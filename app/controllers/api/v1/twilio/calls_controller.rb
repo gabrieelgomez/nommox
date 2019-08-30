@@ -8,17 +8,17 @@ module Api::V1::Twilio
 
     # Handle a POST from our web form and connect a call via REST API
     def call
-      call_request      = CallRequest.new
-      call_request.from = params.dig(:from)
-      call_request.to   = params.dig(:to)
-
-
-    # Validate contact
-    if call_request.valid?
+    #   call_request      = CallRequest.new
+    #   call_request.from = params.dig(:from)
+    #   call_request.to   = params.dig(:to)
+    #
+    #
+    # # Validate contact
+    # if call_request.valid?
       @client = Twilio::REST::Client.new @twilio_sid, @twilio_token
       # Connect an outbound call to the number submitted
       @call = @client.calls.create(
-        to:   call_request.to,
+        to:   '+584121281876',
         from: '+17864851185',
         url: 'http://demo.twilio.com/docs/voice.xml',
         # url: "http://991f84ae.ngrok.io/api/v1/twilio/connect/#{call_request.encoded_to_phone}" # Fetch instructions from this URL when the call connects
@@ -27,10 +27,10 @@ module Api::V1::Twilio
       @msg = { message: 'Phone call incoming!', status: 'ok' }
 
 
-    else
-      @msg = { message: call_request.errors.full_messages, status: 'ok' }
-    end
-      puts call_request.encoded_to_phone
+    # else
+    #   @msg = { message: call_request.errors.full_messages, status: 'ok' }
+    # end
+    #   puts call_request.encoded_to_phone
       render json: @msg
     end
 
@@ -102,9 +102,9 @@ module Api::V1::Twilio
 
     def load_credentials
       # Define our Twilio credentials as instance variables for later use
-      @twilio_sid    = 'AC50de35afe1e9d2766abd19690247c604'
-      @twilio_token  = 'c1107bf787f15766a2a55a778409c902'
-      @twilio_number = '+17864851185'
+      @twilio_sid    = ENV["TWILIO_SID"]
+      @twilio_token  = ENV["TWILIO_TOKEN"]
+      @twilio_number = ENV["TWILIO_NUMBER"]
       @api_host      = 'http://991f84ae.ngrok.io'
       @app_sid       = 'SK5afcdc97d82d5baa9b59897f8156ded5'
       @app_secret    = 'ThKkEQUljKl6foS57NR20tc8kaM4QTCE'
