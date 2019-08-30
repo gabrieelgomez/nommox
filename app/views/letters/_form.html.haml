@@ -1,0 +1,8 @@
+.box-body
+  = simple_form_for [@letter] do |f|
+    .form-group
+      = f.input :country_id, collection: @countries, include_blank: false, label: 'País', input_html: { class: 'form-control' }
+    .form-group
+      = f.input :text, label: 'Texto', input_html: { class: 'form-control' }
+    .form-group.pull-right
+      = f.submit 'GUARDAR', class: 'btn btn-primary'

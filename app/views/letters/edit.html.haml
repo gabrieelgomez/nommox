@@ -1,0 +1,21 @@
+%section.content-header
+  %h1
+    = link_to letters_path do
+      %button.btn.btn-primary
+        Atrás
+  %ol.breadcrumb
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Cartas
+
+    %li.active Editar
+
+.container-fluid.mt-10
+  .row
+    .col-md-12
+      .box.box-primary
+        .box-header.with-border
+          %h3.box-title Editar Carta
+
+        = render 'form'

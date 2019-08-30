@@ -1,0 +1,2 @@
+class LetterPolicy < ControllersPolicy
+end
