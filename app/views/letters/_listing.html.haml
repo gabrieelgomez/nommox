@@ -1,0 +1,17 @@
+- @letters.each_with_index do |letter, index|
+  %tr
+    %td= index + 1
+    %td= letter.country.name
+    %td= letter.text
+    - if policy(:letter).show?
+      %td
+        = link_to letter_path(letter) do
+          %button.btn.btn-primary.btn-sm Ver
+    - if policy(:letter).edit?
+      %td
+        = link_to edit_letter_path(letter) do
+          %button.btn.btn-primary.btn-sm Editar
+    - if policy(:letter).destroy?
+      %td
+        = link_to letter_path(letter), method: :delete, data: { confirm: '¿Estás seguro?' } do
+          %button.btn.btn-danger.btn-sm Eliminar

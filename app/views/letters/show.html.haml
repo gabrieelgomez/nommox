@@ -1,0 +1,38 @@
+%section.content-header
+  %h1
+    = link_to :back do
+      %button.btn.btn-primary
+        Atrás
+  %ol.breadcrumb
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Cartas
+    %li.active Detalle
+
+.container-fluid.mt-10
+  .row
+    .col-lg-12
+      .box.slice-box
+        .box-body.no-padding
+          %table.table
+            %thead
+              %tr
+                %th
+                  País
+                %th
+                  Texto
+                %th
+                %th
+            %tbody
+              %tr
+                %td= @letter.country.name
+                %td= @letter.text
+                - if policy(:letter).edit?
+                  %td
+                    = link_to edit_letter_path(@letter) do
+                      %button.btn.btn-primary.btn-sm Editar
+                - if policy(:letter).destroy?
+                  %td
+                    = link_to letter_path(@letter), method: :delete, data: { confirm: '¿Estás seguro?' } do
+                      %button.btn.btn-danger.btn-sm Eliminar
