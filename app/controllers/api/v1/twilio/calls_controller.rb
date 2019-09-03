@@ -20,24 +20,30 @@ module Api::V1::Twilio
     @call = @client.calls.create(
       to:   params.dig(:to),
       from: '+18179184011',
-      url: "http://ba51a728.ngrok.io/api/v1/twilio/connect/#{params.dig(:to)}" # Fetch instructions from this URL when the call connects
+      url: "http://4a0b92b1.ngrok.io/api/v1/twilio/connect/#{params.dig(:to)}" # Fetch instructions from this URL when the call connects
     )
 
-    @msg = { message: 'Phone call incoming!', status: 'ok' }
+    # @msg = { message: 'Phone call incoming!', status: 'ok' }
 
 
     # else
     #   @msg = { message: call_request.errors.full_messages, status: 'ok' }
     # end
     #   puts call_request.encoded_to_phone
-      render json: @msg
+      respond_to do |format|
+        format.json { render json: @msg }
+        format.xml
+      end
     end
 
     # This URL contains instructions for the call that is connected with a lead
     # that is using the web form.
     def connect
+      # response = Twilio::TwiML::VoiceResponse.new do |r|
+      #   r.dial number: params.dig(:to)
+      # end
       response = Twilio::TwiML::VoiceResponse.new
-      response.say(message: 'Thanks for use Nommox!')
+      response.say(message: 'Thanks for use nommox')
 
       render xml: response.to_xml
     end
@@ -105,8 +111,7 @@ module Api::V1::Twilio
       @app_sid       = ENV["APP_SID"]
       @app_secret    = ENV["APP_SECRET"]
       @twiml_sid     = ENV["TWIML_SID"]
-
-      # '+17864851185',
+      @host          = 'http://4a0b92b1.ngrok.io/api/v1/twilio/connect/'
     end
 
   end
