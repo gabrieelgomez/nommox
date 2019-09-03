@@ -1,5 +1,4 @@
 require 'twilio-ruby'
-require 'pry'
 
 module Api::V1::Twilio
   class CallsController < TwilioController
