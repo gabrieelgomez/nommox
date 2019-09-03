@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       draw :cases_api
       draw :locations_api
       draw :search_airports
+      draw :boardingpass_api
       draw :twilio
       draw :letters_api
     end

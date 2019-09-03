@@ -1,4 +1,5 @@
 namespace :twilio do
-  get 'call', to: 'calls#call'
-  post 'connect/:to/call', to: 'calls#connect'
+  post 'call', to: 'calls#call'
+  post 'connect/:to', to: 'calls#connect'
+  get  'accessToken', to: 'calls#access_token'
 end

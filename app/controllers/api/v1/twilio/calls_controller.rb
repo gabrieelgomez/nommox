@@ -1,38 +1,82 @@
+require 'twilio-ruby'
+require 'pry'
+
 module Api::V1::Twilio
   class CallsController < TwilioController
-    before_action :load_credentials, only: [:call, :connect]
-    before_action :authenticate_twilio_request, only: [:connect]
-    
+    before_action :load_credentials, only: [:call, :connect, :access_token]
+    # before_action :authenticate_twilio_request, only: [:connect]
+
     # Handle a POST from our web form and connect a call via REST API
     def call
-      @client = Twilio::REST::Client.new @twilio_sid, @twilio_token
-      # Connect an outbound call to the number submitted
-      @call = @client.calls.create(
-        to:   '+584121281876',
-        from: @twilio_number,
-        url: "#{@api_host}/api/v1/twilio/connect/+18002842622/call" # Fetch instructions from this URL when the call connects
-      )
+    #   call_request      = CallRequest.new
+    #   call_request.from = params.dig(:from)
+    #   call_request.to   = params.dig(:to)
+    #
+    #
+    # # Validate contact
+    # if call_request.valid?
+    @client = Twilio::REST::Client.new @twilio_sid, @twilio_token
+    # Connect an outbound call to the number submitted
+    @call = @client.calls.create(
+      to:   params.dig(:to),
+      from: '+18179184011',
+      url: "http://4a0b92b1.ngrok.io/api/v1/twilio/connect/#{params.dig(:to)}" # Fetch instructions from this URL when the call connects
+    )
 
-      # Let's respond to the ajax call with some positive reinforcement
-      @msg = { message: 'Phone call incoming!', status: 'ok' }
+    # @msg = { message: 'Phone call incoming!', status: 'ok' }
 
-      render json: @msg
+
+    # else
+    #   @msg = { message: call_request.errors.full_messages, status: 'ok' }
+    # end
+    #   puts call_request.encoded_to_phone
+      respond_to do |format|
+        format.json { render json: @msg }
+        format.xml
+      end
     end
 
     # This URL contains instructions for the call that is connected with a lead
     # that is using the web form.
     def connect
-      response = Twilio::TwiML::VoiceResponse.new do |r|
-        r.dial number: '+18002842622'
-      end
+      # response = Twilio::TwiML::VoiceResponse.new do |r|
+      #   r.dial number: params.dig(:to)
+      # end
+      response = Twilio::TwiML::VoiceResponse.new
+      response.say(message: 'Thanks for use nommox')
 
-      render xml: response.to_s
+      render xml: response.to_xml
     end
 
-    # Authenticate that all requests to our public-facing TwiML pages are
-    # coming from Twilio. Adapted from the example at
-    # http://twilio-ruby.readthedocs.org/en/latest/usage/validation.html
-    # Read more on Twilio Security at https://www.twilio.com/docs/security
+    def access_token
+      account_sid = @twilio_sid
+      api_key     = @app_sid
+      api_secret  = @app_secret
+
+      # Required for Voice
+      outgoing_application_sid = @twiml_sid
+      identity = 'user'
+
+      # Create Voice grant for our token
+      grant = Twilio::JWT::AccessToken::VoiceGrant.new
+      grant.outgoing_application_sid = outgoing_application_sid
+
+      # Optional: add to allow incoming calls
+      grant.incoming_allow = true
+
+      # Create an Access Token
+      token = Twilio::JWT::AccessToken.new(
+        account_sid,
+        api_key,
+        api_secret,
+        [grant],
+        identity: identity
+      )
+
+      # Generate the token
+      render json: token.to_jwt
+    end
+
     private
 
     def authenticate_twilio_request
@@ -61,11 +105,13 @@ module Api::V1::Twilio
     end
 
     def load_credentials
-      # Define our Twilio credentials as instance variables for later use
-      @twilio_sid    = 'AC50de35afe1e9d2766abd19690247c604'
-      @twilio_token  = 'c1107bf787f15766a2a55a778409c902'
-      @twilio_number = '+17864851185'
-      @api_host      = 'http://18.224.54.238'
+      @twilio_sid    = ENV["TWILIO_SID"]
+      @twilio_token  = ENV["TWILIO_TOKEN"]
+      @twilio_number = ENV["TWILIO_NUMBER"]
+      @app_sid       = ENV["APP_SID"]
+      @app_secret    = ENV["APP_SECRET"]
+      @twiml_sid     = ENV["TWIML_SID"]
+      @host          = 'http://4a0b92b1.ngrok.io/api/v1/twilio/connect/'
     end
 
   end
