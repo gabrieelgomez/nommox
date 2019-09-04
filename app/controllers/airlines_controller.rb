@@ -60,7 +60,7 @@ class AirlinesController < ApplicationController
   end
 
   def airline_params
-    params.require(:airline).permit(:name, :phone, :country_id)
+    params.require(:airline).permit(:name, :phone, :country_id, :code)
   end
 
   def set_countries
