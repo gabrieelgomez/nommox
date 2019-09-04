@@ -8,11 +8,11 @@ module Api::V1
       @airports = YAML.load_file("#{Rails.root}/config/airports.yml")
     end
 
-    def build_hash(departure, arrival, airline)
+    def build_hash(from, to, airline)
       temp_hash = Hash.new
-      temp_hash[:departure_airport] = departure
-      temp_hash[:arrival_airport]   = arrival
-      temp_hash[:airline]           = airline
+      temp_hash[:from]    = from
+      temp_hash[:to]      = to
+      temp_hash[:airline] = airline
 
       temp_hash
     end
