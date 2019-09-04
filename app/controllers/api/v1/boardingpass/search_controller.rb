@@ -4,24 +4,24 @@ module Api::V1::Boardingpass
     before_action :set_airports
 
     def filter
-      to      = params.dig(:departure_airport_code)&.upcase
-      from    = params.dig(:arrival_airport_code)&.upcase
-      airline = params.dig(:airline_code)&.upcase
+      from    = params.dig(:from)&.upcase
+      to      = params.dig(:to)&.upcase
+      airline = params.dig(:airline)&.upcase
 
       @result = Array.new
       @airline = @airlines.dig(airline)
 
       @airports.each do |airport|
-        @departure = "#{airport['name']} - #{airport['code']}"
-        break if airport['code'].upcase.eql?(to)
-      end
-
-      @airports.each do |airport|
-        @arrival = "#{airport['name']} - #{airport['code']}"
+        @from = "#{airport['name']} - #{airport['code']}"
         break if airport['code'].upcase.eql?(from)
       end
 
-      @result.push(build_hash(@departure, @arrival, @airline))
+      @airports.each do |airport|
+        @to = "#{airport['name']} - #{airport['code']}"
+        break if airport['code'].upcase.eql?(to)
+      end
+
+      @result.push(build_hash(@from, @to, @airline))
 
       render json: @result, status: 200
     end
