@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get '/search_airports/index'
-  root '/front#index'
+  root 'front#index'
   get  '/main', to: 'pages#main'
 
   #sessions routes
