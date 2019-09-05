@@ -39,11 +39,23 @@ module Api::V1::Twilio
     # This URL contains instructions for the call that is connected with a lead
     # that is using the web form.
     def connect
+      callerId = 'client:quick_start';
+      to = params&.dig(:to) || ''
+      callerNumber = '+18179184011';
+
       response = Twilio::TwiML::VoiceResponse.new
-      # response.dial(caller_id: '+18179184011') do |dial|
-      #   dial.number(params.dig(:to))
-      # end
-      response.say(message: 'Thanks for use Nommox!')
+
+      if to.blank?
+        response.say(message: 'Thanks for use Nommox!')
+      elsif to.include?('+')
+        response.dial(caller_id: callerId) do |dial|
+          dial.number(to)
+        end
+      else
+        response.dial(caller_id: callerId) do |dial|
+          dial.client(to)
+        end
+      end
 
       render xml: response.to_xml
     end
