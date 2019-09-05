@@ -19,7 +19,7 @@ module Api::V1::Twilio
     @call = @client.calls.create(
       to:   params.dig(:to),
       from: '+18179184011',
-      url: "http://4a0b92b1.ngrok.io/api/v1/twilio/connect/#{params.dig(:to)}" # Fetch instructions from this URL when the call connects
+      url: "https://nommox.com/api/v1/twilio/connect/#{params.dig(:to)}" # Fetch instructions from this URL when the call connects
     )
 
     # @msg = { message: 'Phone call incoming!', status: 'ok' }
@@ -42,7 +42,7 @@ module Api::V1::Twilio
       #   r.dial number: params.dig(:to)
       # end
       response = Twilio::TwiML::VoiceResponse.new
-      response.say(message: 'Thanks for use nommox')
+      response.say(message: 'Thanks for use nommox!')
 
       render xml: response.to_xml
     end
@@ -110,7 +110,7 @@ module Api::V1::Twilio
       @app_sid       = ENV["APP_SID"]
       @app_secret    = ENV["APP_SECRET"]
       @twiml_sid     = ENV["TWIML_SID"]
-      @host          = 'http://4a0b92b1.ngrok.io/api/v1/twilio/connect/'
+      @host          = 'https://nommox.com/api/v1/'
     end
 
   end
