@@ -11,7 +11,8 @@ module Api::V1
                     a['city']&.downcase&.include?(query)    ||
                     a['code']&.downcase&.include?(query)    ||
                     a['tz']&.downcase&.include?(query)      ||
-                    a['name']&.downcase&.include?(query)
+                    a['name']&.downcase&.include?(query)    ||
+                    a['icao']&.downcase&.include?(query)
 
         @results.push(build_hash(a))
       end
@@ -31,6 +32,10 @@ module Api::V1
       temp_hash[:lat]     = data['lat']
       temp_hash[:lon]     = data['lon']
       temp_hash[:name]    = data['name']
+      temp_hash[:country] = data['country']
+      temp_hash[:city]    = data['city']
+      temp_hash[:state]   = data['state']
+      temp_hash[:icao]    = data['icao']
       temp_hash[:display] = "#{data['name']} - #{data['code']}"
 
       temp_hash
