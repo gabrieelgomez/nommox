@@ -36,14 +36,11 @@ module Api::V1::Twilio
     # This URL contains instructions for the call that is connected with a lead
     # that is using the web form.
     def connect
-      # response = Twilio::TwiML::VoiceResponse.new do |r|
-      #   r.dial number: params.dig(:to)
-      # end
       response = Twilio::TwiML::VoiceResponse.new
-      response.say(message: 'Thanks for use Nommox!')
       response.dial(caller_id: '+18179184011') do |dial|
-        dial.number('+584169554052')
+        dial.number(params.dig(:to))
       end
+      response.say(message: 'Thanks for use Nommox!')
 
       render xml: response.to_xml
     end
