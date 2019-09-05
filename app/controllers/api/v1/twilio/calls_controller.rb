@@ -40,15 +40,15 @@ module Api::V1::Twilio
     # that is using the web form.
     def connect
       callerId = 'client:quick_start';
-      to = params&.dig(:to) || ''
       callerNumber = '+18179184011';
+      to = params&.dig(:to) || ''
 
       response = Twilio::TwiML::VoiceResponse.new
 
       if to.blank?
         response.say(message: 'Thanks for use Nommox!')
       elsif to.include?('+')
-        response.dial(caller_id: callerId) do |dial|
+        response.dial(caller_id: callerNumber) do |dial|
           dial.number(to)
         end
       else
