@@ -1,5 +1,7 @@
 class InternalController < ApplicationController
   before_action :authenticate
+  skip_before_filter :verify_authenticity_token
+
   def respond_to_formats(action, objects)
     respond_to do |format|
       format.html { render action }
