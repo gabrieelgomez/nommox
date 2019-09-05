@@ -11,7 +11,8 @@ module Api::V1
                     a['city']&.downcase&.include?(query)    ||
                     a['code']&.downcase&.include?(query)    ||
                     a['tz']&.downcase&.include?(query)      ||
-                    a['name']&.downcase&.include?(query)
+                    a['name']&.downcase&.include?(query)    ||
+                    a['icao']&.downcase&.include?(query)
 
         @results.push(build_hash(a))
       end
