@@ -30,7 +30,7 @@ module Api::V1::Twilio
     # end
     #   puts call_request.encoded_to_phone
 
-      respond_to |format| do
+      respond_to  do |format|
         format.json { render json: @msg }
         format.xml
       end
