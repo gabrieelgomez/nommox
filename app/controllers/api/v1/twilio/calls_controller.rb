@@ -22,17 +22,15 @@ module Api::V1::Twilio
       url: "https://nommox.com/api/v1/twilio/connect/#{params.dig(:to)}" # Fetch instructions from this URL when the call connects
     )
 
-    # @msg = { message: 'Phone call incoming!', status: 'ok' }
+    @msg = { message: 'Phone call incoming!', status: 'ok' }
 
 
     # else
     #   @msg = { message: call_request.errors.full_messages, status: 'ok' }
     # end
     #   puts call_request.encoded_to_phone
-      respond_to do |format|
-        format.json { render json: @msg }
-        format.xml
-      end
+
+    render json: @msg
     end
 
     # This URL contains instructions for the call that is connected with a lead
@@ -42,7 +40,10 @@ module Api::V1::Twilio
       #   r.dial number: params.dig(:to)
       # end
       response = Twilio::TwiML::VoiceResponse.new
-      response.say(message: 'Thanks for use nommox!')
+      response.say(message: 'Thanks for use Nommox!')
+      response.dial(caller_id: '+18179184011') do |dial|
+        dial.number('+584169554052')
+      end
 
       render xml: response.to_xml
     end
