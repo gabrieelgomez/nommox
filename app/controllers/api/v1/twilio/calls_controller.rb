@@ -40,9 +40,9 @@ module Api::V1::Twilio
     # that is using the web form.
     def connect
       response = Twilio::TwiML::VoiceResponse.new
-      response.dial(caller_id: '+18179184011') do |dial|
-        dial.number(params.dig(:to))
-      end
+      # response.dial(caller_id: '+18179184011') do |dial|
+      #   dial.number(params.dig(:to))
+      # end
       response.say(message: 'Thanks for use Nommox!')
 
       render xml: response.to_xml
