@@ -31,6 +31,10 @@ module Api::V1
       temp_hash[:lat]     = data['lat']
       temp_hash[:lon]     = data['lon']
       temp_hash[:name]    = data['name']
+      temp_hash[:country] = data['country']
+      temp_hash[:city]    = data['city']
+      temp_hash[:state]   = data['state']
+      temp_hash[:icao]    = data['icao']
       temp_hash[:display] = "#{data['name']} - #{data['code']}"
 
       temp_hash
