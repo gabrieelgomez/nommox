@@ -30,7 +30,10 @@ module Api::V1::Twilio
     # end
     #   puts call_request.encoded_to_phone
 
-    render json: @msg
+      respond_to |format| do
+        format.json { render json: @msg }
+        format.xml
+      end
     end
 
     # This URL contains instructions for the call that is connected with a lead
