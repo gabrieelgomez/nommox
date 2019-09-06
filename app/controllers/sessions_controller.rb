@@ -7,6 +7,8 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by_email(params[:email])
     if user && user.authenticate(params[:password])
+      puts "************************* #{user.inspect}"
+      puts "************************* #{params}"
       session[:user_id] = user.id
       respond_to do |format|
         format.html { redirect_to 'https://nommox.com/main' }
