@@ -7,75 +7,24 @@ module Api::V1::Twilio
 
     # Handle a POST from our web form and connect a call via REST API
     def call
-    #   call_request      = CallRequest.new
-    #   call_request.from = params.dig(:from)
-    #   call_request.to   = params.dig(:to)
-    #
-    #
-    # # Validate contact
-    # if call_request.valid?
-    to = params&.dig(:to) || ''
-    callerNumber = '+18179184011';
+      to = params&.dig(:to) || ''
+      callerNumber = '+18179184011';
 
-    response = Twilio::TwiML::VoiceResponse.new
+      response = Twilio::TwiML::VoiceResponse.new
 
-    if to.blank?
-      response.say(message: 'Thanks for use Nommox!')
-    elsif to.include?('+')
-      response.dial(caller_id: callerNumber) do |dial|
-        dial.number(to)
+      if to.blank?
+        response.say(message: 'Thanks for use Nommox!')
+      elsif to.include?('+')
+        response.dial(caller_id: callerNumber) do |dial|
+          dial.number(to)
+        end
+      else
+        response.dial(caller_id: callerNumber) do |dial|
+          dial.client(to)
+        end
       end
-    else
-      response.dial(caller_id: callerNumber) do |dial|
-        dial.client(to)
-      end
-    end
 
-    response.say(message: 'Thanks for use Nommox!')
-    # @client = Twilio::REST::Client.new @twilio_sid, @twilio_token
-    # # Connect an outbound call to the number submitted
-    # @call = @client.calls.create(
-    #   to:   params.dig(:from),
-    #   from: '+18179184011',
-    #   url: "https://nommox.com/api/v1/twilio/connect/#{params.dig(:to)}" # Fetch instructions from this URL when the call connects
-    # )
-    #
-    # @msg = { message: 'Phone call incoming!', status: 'ok' }
-
-
-    # else
-    #   @msg = { message: call_request.errors.full_messages, status: 'ok' }
-    # end
-    #   puts call_request.encoded_to_phone
-
-    render xml: response
-    end
-
-    # This URL contains instructions for the call that is connected with a lead
-    # that is using the web form.
-    def connect
-      to = params&.dig(:to)
-
-      response.dial(caller_id: callerId) do |dial|
-        dial.client(to)
-      end
-      # callerId = 'client:quick_start';
-      # callerNumber = '+18179184011';
-      #  || ''
-      #
-      # response = Twilio::TwiML::VoiceResponse.new
-      #
-      # if to.blank?
-      #   response.say(message: 'Thanks for use Nommox!')
-      # elsif to.include?('+')
-      #   response.dial(caller_id: callerNumber) do |dial|
-      #     dial.number(to)
-      #   end
-      # else
-      #
-      # end
-
-      render xml: response.to_xml
+      render xml: response
     end
 
     def access_token
