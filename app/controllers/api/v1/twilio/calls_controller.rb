@@ -15,7 +15,9 @@ module Api::V1::Twilio
       if to.blank?
         response.say(message: 'Thanks for use Nommox!')
       elsif to.include?('+')
-        response.dial(caller_id: callerNumber) do |dial|
+        response.dial(caller_id: callerNumber,
+                      record: 'record-from-ringing-dual',
+                      recording_status_callback: 'https://nommox.com/api/v1/twilio/record') do |dial|
           dial.number(to)
         end
       else
@@ -25,6 +27,10 @@ module Api::V1::Twilio
       end
 
       render xml: response
+    end
+
+    def record
+      puts "*************************************** #{params}"
     end
 
     def access_token
