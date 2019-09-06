@@ -33,7 +33,7 @@ module Api::V1::Twilio
     end
 
     def record
-      puts "*************************************** #{params}"
+      render json: params
     end
 
     def access_token
