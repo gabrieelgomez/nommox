@@ -6,7 +6,7 @@
     / /.login-logo
     .login-box-body
       %p.login-box-msg Sign in to start your session
-      = form_tag('https://nommox.com/sessions/create',  method: :post) do |form|
+      = form_tag create_session_url, method: :post do |form|
         .form-group.has-feedback
           = text_field_tag :email, nil, { class: 'form-control', placeholder: 'Email'}
           %span.glyphicon.glyphicon-envelope.form-control-feedback
