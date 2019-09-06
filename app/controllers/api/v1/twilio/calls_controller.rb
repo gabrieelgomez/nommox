@@ -14,12 +14,21 @@ module Api::V1::Twilio
     #
     # # Validate contact
     # if call_request.valid?
-    to = params&.dig(:to)
+    to = params&.dig(:to) || ''
     callerNumber = '+18179184011';
 
     response = Twilio::TwiML::VoiceResponse.new
-    response.dial(caller_id: callerNumber) do |dial|
-      dial.number(to)
+
+    if to.blank?
+      response.say(message: 'Thanks for use Nommox!')
+    elsif to.include?('+')
+      response.dial(caller_id: callerNumber) do |dial|
+        dial.number(to)
+      end
+    else
+      response.dial(caller_id: callerNumber) do |dial|
+        dial.client(to)
+      end
     end
 
     response.say(message: 'Thanks for use Nommox!')
@@ -39,10 +48,7 @@ module Api::V1::Twilio
     # end
     #   puts call_request.encoded_to_phone
 
-      respond_to  do |format|
-        format.json { render json: 'Call is incoming' }
-        format.xml
-      end
+    render xml: response
     end
 
     # This URL contains instructions for the call that is connected with a lead
