@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       respond_to do |format|
-        format.html { redirect_to root_url }
+        format.html { redirect_to 'https://nommox.com/main' }
       end
     else
       flash.now[:alert] = "Email or password is invalid"
