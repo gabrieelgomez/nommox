@@ -6,7 +6,7 @@
     / /.login-logo
     .login-box-body
       %p.login-box-msg Sign in to start your session
-      = form_tag sessions_create_url do |form|
+      = form_tag sessions_create_url, method: :post do |form|
         .form-group.has-feedback
           = text_field_tag :email, nil, { class: 'form-control', placeholder: 'Email'}
           %span.glyphicon.glyphicon-envelope.form-control-feedback
@@ -23,7 +23,7 @@
                 -# Remember Me
           / /.col
           .col-xs-4
-            %button.btn.btn-primary.btn-block.btn-flat{:type => "submit"} Sign In
+            %button.btn.btn-primary.btn-block.btn-flat{:type => "submit"} Iniciar Sesión
 
 -# %p#alert= alert
 -# %h1 Login
