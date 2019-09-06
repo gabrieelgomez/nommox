@@ -15,14 +15,14 @@ module Api::V1::Twilio
       if to.blank?
         response.say(message: 'Thanks for use Nommox!')
       elsif to.include?('+')
-        response.dial(caller_id: callerNumber) do |dial|
-          dial.number(to)
-        end
-        # response.dial(caller_id: callerNumber,
-        #               record: 'record-from-ringing-dual',
-        #               recording_status_callback: 'https://nommox.com/api/v1/twilio/record') do |dial|
+        # response.dial(caller_id: callerNumber) do |dial|
         #   dial.number(to)
         # end
+        response.dial(caller_id: callerNumber,
+                      record: 'record-from-ringing-dual',
+                      recording_status_callback: 'https://nommox.com/api/v1/twilio/record') do |dial|
+          dial.number(to)
+        end
       else
         response.dial(caller_id: callerNumber) do |dial|
           dial.client(to)
