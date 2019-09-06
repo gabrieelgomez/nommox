@@ -4,7 +4,7 @@ module Api::V1::Airlines
     before_action :set_airline, only: %i[show]
 
     def index
-      @airlines = Airline.all
+      @airlines = Airline.all.includes(:country)
       render json: @airlines, status: 200
     end
 
