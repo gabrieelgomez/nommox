@@ -17,10 +17,12 @@ module Api::V1::Twilio
     to = params&.dig(:to)
     callerNumber = '+18179184011';
 
+    response = Twilio::TwiML::VoiceResponse.new
     response.dial(caller_id: callerNumber) do |dial|
       dial.number(to)
     end
 
+    response.say(message: 'Thanks for use Nommox!')
     # @client = Twilio::REST::Client.new @twilio_sid, @twilio_token
     # # Connect an outbound call to the number submitted
     # @call = @client.calls.create(
