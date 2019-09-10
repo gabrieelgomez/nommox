@@ -3,16 +3,17 @@ module Api::V1
     before_action :set_airports
 
     def filter_airports
-      query = params.dig(:query)&.downcase
+      query = decode(params.dig(:query)&.downcase)
+
       @results = Array.new
 
       @airports.each do |a|
-        next unless a['country']&.downcase&.include?(query) ||
-                    a['city']&.downcase&.include?(query)    ||
-                    a['code']&.downcase&.include?(query)    ||
-                    a['tz']&.downcase&.include?(query)      ||
-                    a['name']&.downcase&.include?(query)    ||
-                    a['icao']&.downcase&.include?(query)
+        next unless decode(a['country']&.downcase).include?(query) ||
+                    decode(a['city']&.downcase).include?(query)    ||
+                    decode(a['code']&.downcase).include?(query)    ||
+                    decode(a['tz']&.downcase).include?(query)      ||
+                    decode(a['name']&.downcase).include?(query)    ||
+                    decode(a['icao']&.downcase).include?(query)
 
         @results.push(build_hash(a))
       end
@@ -39,6 +40,10 @@ module Api::V1
       temp_hash[:display] = "#{data['name']} - #{data['code']}"
 
       temp_hash
+    end
+
+    def decode(str)
+      I18n.transliterate(str)
     end
   end
 end
