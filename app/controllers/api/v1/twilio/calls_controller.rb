@@ -31,10 +31,10 @@ module Api::V1::Twilio
     end
 
     def record
-      call_sid       = params.dig(:CallSid)
-      record_url_sid = params.dig(:RecordingUrl)
+      call_sid   = params.dig(:CallSid)
+      record_url = params.dig(:RecordingUrl)
 
-      return if call_sid.nil? || record_url_sid.blank?
+      return if call_sid.nil? || record_url.blank?
 
       @record = Record.create(call_sid: call_sid, record_url: record_url)
     end
