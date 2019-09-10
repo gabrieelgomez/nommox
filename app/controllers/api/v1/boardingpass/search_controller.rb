@@ -23,7 +23,7 @@ module Api::V1::Boardingpass
 
       @result.push(build_hash(@from, @to, @airline))
 
-      render json: @result, status: 200
+      render json: @result[0], status: 200
     end
 
   end
