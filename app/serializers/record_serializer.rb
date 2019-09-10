@@ -1,3 +1,5 @@
 class RecordSerializer < ActiveModel::Serializer
-  attributes :id, :call_sid, :record_url
+  attribute :id
+  attribute :call_sid,   key: :sid
+  attribute :record_url, key: :url
 end
