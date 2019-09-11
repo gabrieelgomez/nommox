@@ -41,7 +41,7 @@ module Api::V1::Twilio
 
     def get_record
       call_sid = params.dig(:call_sid)
-      @record = Record.find_by_call_sid(call_sid)
+      @record = Record.find_by_call_sid(call_sid) || { sid: call_sid, url: '' }
 
       render json: @record
     end
