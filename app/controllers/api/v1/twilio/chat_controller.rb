@@ -23,7 +23,7 @@ module Api::V1::Twilio
         identity: identity
       )
 
-      render json: token.to_jwt
+      render json: { token: token.to_jwt }
     end
 
   end
