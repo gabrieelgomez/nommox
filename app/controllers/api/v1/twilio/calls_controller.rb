@@ -102,15 +102,5 @@ module Api::V1::Twilio
       validator.validate(request.url, post_vars, twilio_signature)
     end
 
-    def load_credentials
-      @twilio_sid    = ENV["TWILIO_SID"]
-      @twilio_token  = ENV["TWILIO_TOKEN"]
-      @twilio_number = ENV["TWILIO_NUMBER"]
-      @app_sid       = ENV["APP_SID"]
-      @app_secret    = ENV["APP_SECRET"]
-      @twiml_sid     = ENV["TWIML_SID"]
-      @host          = 'https://nommox.com/api/v1/'
-    end
-
   end
 end
