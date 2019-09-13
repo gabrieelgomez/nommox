@@ -50,6 +50,10 @@ class Chat {
                   that.addChannel(channel)
                   $('.loader').addClass('hidden')
                 }
+              })
+              .catch((error) => {
+                window.location.reload()
+                console.log(error)
               });
             });
         }
@@ -72,9 +76,9 @@ class Chat {
 
     channelContainer.innerHTML = this.channels.map(channel =>
        `<div class="chat_list" id="${channel.uniqueName}">
-        <div class="chat_people chat_box" id="${channel.uniqueName}">
+        <div class="chat_people chat_box">
           <div class="chat_img">
-          <img src="/assets/profile.jpg"></img>
+          <img src="https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg"></img>
           </div>
           <div class="chat_ib"></div>
           <h4>
@@ -161,31 +165,6 @@ class Chat {
     });
   }
 
-  // setupForm(channel) {
-  //   console.log('setupForm', window.chat)
-  //   // this.initialize(channel.uniqueName)
-  //
-  //   const form  = $('.chat form');
-  //   const input = document.querySelector('.chat form input');
-  //   const that  = this;
-  //
-  //   // form.submit(function(e) {
-  //   //   console.log('form is submitted')
-  //   //   event.preventDefault();
-  //   //   console.log(input.value)
-  //   //   console.log(channel.uniqueName)
-  //   //   window.chat.channel.sendMessage(input.value);
-  //   //   input.value = '';
-  //   //   let messageContainer = document.querySelector(".chat .messages");
-  //   //   messageContainer.scrollTop = messageContainer.scrollHeight;
-  //   //   return false;
-  //   // })
-  // }
-
-  // sendMessageToChannel() {
-  //
-  // }
-
   setupClient(client, channel_name) {
 
     this.client           = client;
@@ -196,12 +175,6 @@ class Chat {
         that.setupChannel(channel)
         window.chat.channel = channel;
       })
-      // .catch((error) => {
-      //   this.client.createChannel({
-      //     uniqueName: channel_name,
-      //     friendlyName: `${channel_name} Chat Channel`
-      //   }).then((channel) => this.setupChannel(channel));
-      // });
 
       this.client.on('channelJoined', function(channel) {
         console.log('Joined channel ' + channel.uniqueName);

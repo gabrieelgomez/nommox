@@ -63,6 +63,10 @@
                 %i.fa.fa-envelope
                 %span Cartas
             %li.treeview
+              = link_to chat_index_path, target: '_blank' do
+                %i.fa.fa-comments
+                %span Chat
+            %li.treeview
               = link_to logout_path do
                 %i.fa.fa-sign-out-alt
                 %span Logout

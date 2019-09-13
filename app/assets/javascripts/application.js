@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.chat = new Chat();
   }
 
-  $('body').on('click', '.chat_box', function() {
+  $('body').on('click', '.chat_list', function() {
     id = $(this).attr('id');
     window.chat = new Chat(id);
     $('#'+id).addClass('channel-active');
@@ -41,7 +41,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const input = document.querySelector('.chat input');
     if (input.value != "") {
       window.chat.channel.sendMessage(input.value)
-      input.value = ''
+      input.value = '';
+      setTimeout(function() {
+        let messageContainer = document.querySelector(".chat .messages");
+        messageContainer.scrollTop = messageContainer.scrollHeight - 10;
+      }, 500)
+
     }
   })
 
@@ -49,7 +54,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if(e.which == 10 || e.which == 13) {
       if ($(this).val() != "") {
         window.chat.channel.sendMessage($(this).val())
-        $(this).val('')
+        $(this).val('');
+        setTimeout(function() {
+          let messageContainer = document.querySelector(".chat .messages");
+          messageContainer.scrollTop = messageContainer.scrollHeight - 10;
+        }, 500)
       }
     }
   });
