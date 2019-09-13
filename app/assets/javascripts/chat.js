@@ -1,17 +1,17 @@
 
 class Chat {
-  constructor(channel_name) {
+  constructor(channel_sid) {
     this.channel  = null;
     this.client   = null;
     this.identity = null;
     this.channels = [];
     this.messages = [];
-    this.initialize(channel_name);
+    this.initialize(channel_sid);
     this.getChannels();
     console.log('constructor')
   }
 
-  initialize(channel_name) {
+  initialize(channel_sid) {
     this.renderMessages();
 
     Rails.ajax({
@@ -24,8 +24,8 @@ class Chat {
         Twilio.Chat.Client
           .create(data.token)
           .then(function(client) {
-            if (channel_name) {
-              that.setupClient(client, channel_name);
+            if (channel_sid) {
+              that.setupClient(client, channel_sid);
             }
           });
       }
@@ -75,7 +75,7 @@ class Chat {
     let channelContainer = document.querySelector('.inbox_chat');
 
     channelContainer.innerHTML = this.channels.map(channel =>
-       `<div class="chat_list" id="${channel.uniqueName}">
+       `<div class="chat_list" id="${channel.sid}">
         <div class="chat_people chat_box">
           <div class="chat_img">
           <img src="https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg"></img>
@@ -165,12 +165,12 @@ class Chat {
     });
   }
 
-  setupClient(client, channel_name) {
+  setupClient(client, channel_sid) {
 
     this.client           = client;
     window.chat.client    = client;
     var that              = this;
-    this.client.getChannelByUniqueName(channel_name)
+    this.client.getChannelBySid(channel_sid)
       .then(function(channel) {
         that.setupChannel(channel)
         window.chat.channel = channel;
