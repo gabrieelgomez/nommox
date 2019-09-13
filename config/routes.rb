@@ -27,6 +27,9 @@ Rails.application.routes.draw do
   #flights routes
   draw :letters
 
+  #chat routes
+  draw :chat
+
   #routes for api
   namespace :api do
     namespace :v1 do

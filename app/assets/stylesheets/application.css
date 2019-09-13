@@ -14,5 +14,7 @@
 *= require adminlte
 *= require skin-blue
 *= require custom
+*= require chat
+*= require preloaders
 *= require_self
  */
