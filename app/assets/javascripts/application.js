@@ -16,3 +16,61 @@
 //= require activestorage
 //= require twitter/bootstrap
 //= require_tree .
+
+// Rails.ajax({
+//   url: "/tokens",
+//   type: "POST",
+//   success: function(data) {
+//     console.log(data);
+//   }
+// });
+document.addEventListener("DOMContentLoaded", () => {
+  if (document.querySelector(".chat")) {
+    window.chat = new Chat();
+  }
+
+  $('body').on('click', '.chat_box', function() {
+    id = $(this).attr('id');
+    window.chat = new Chat(id);
+    $('#'+id).addClass('channel-active');
+    $('.type_msg').removeClass('hidden')
+    $('.loader').removeClass('hidden')
+  });
+
+  $('.msg_send_btn').click(function() {
+    const input = document.querySelector('.chat input');
+    if (input.value != "") {
+      window.chat.channel.sendMessage(input.value)
+      input.value = ''
+    }
+  })
+
+  $('.chat input').keypress(function(e) {
+    if(e.which == 10 || e.which == 13) {
+      if ($(this).val() != "") {
+        window.chat.channel.sendMessage($(this).val())
+        $(this).val('')
+      }
+    }
+  });
+
+});
+
+Rails.ajax({
+  url: "/tokens",
+  type: "POST",
+  success: function(data) {
+    Twilio.Chat.Client
+      .create(data.token)
+      .then(function(chatClient) {
+        if (window.chat.channels.length == 0) {
+          chatClient.getPublicChannelDescriptors().then(function(paginator) {
+            for (i = 0; i < paginator.items.length; i++) {
+              const channel = paginator.items[i];
+              // console.log('Channel: ' + channel.uniqueName);
+            }
+          });
+        }
+      });
+  }
+});

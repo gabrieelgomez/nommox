@@ -1,0 +1,27 @@
+!!!
+%html
+  %head
+
+  %body
+    .messaging.chat{ style: 'padding: 0'}
+      .inbox_msg
+        .inbox_people
+          .headind_srch
+            .recent_heading
+              %h4 Canales
+          .inbox_chat
+
+        .mesgs
+          %center.loader
+            .lds-ring
+              %div
+              %div
+              %div
+              %div
+
+          .msg_history.messages
+          .type_msg.hidden
+            .input_msg_write
+              %input.write_msg{ placeholder: "Escribe un mensaje", type: 'text' }
+              %button.msg_send_btn
+                %i.fa.fa-paper-plane-o{ 'aria-hidden': 'true' }
