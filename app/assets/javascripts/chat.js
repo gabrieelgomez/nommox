@@ -94,7 +94,7 @@ class Chat {
           <h4>
             <span style="padding-left: 20px; color: #fff">${channel[0].uniqueName}</span>
           </h4>
-            <span style="padding-left: 20px" class="channel-date">${that.formatDate(channel[0].dateUpdated)}</span>
+            <span style="padding-left: 20px" class="channel-date">Creado: ${that.formatDate(channel[0].dateCreated)}</span>
             <br>
             <span style="padding-left: 58px" class="channel-date">${channel[1]}</span><span style="padding-left: 20px"
           <p></p>
