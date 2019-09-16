@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       draw :boardingpass_api
       draw :twilio
       draw :letters_api
+      draw :activity
     end
   end
 end
