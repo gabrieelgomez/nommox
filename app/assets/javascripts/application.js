@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let messageContainer = document.querySelector(".chat .messages");
         messageContainer.scrollTop = messageContainer.scrollHeight - 10;
       }, 500)
-
     }
   })
 

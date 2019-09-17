@@ -1,4 +1,3 @@
-
 class Chat {
   constructor(channel_sid) {
     this.channel  = null;
@@ -8,7 +7,6 @@ class Chat {
     this.messages = [];
     this.initialize(channel_sid);
     this.getChannels();
-    console.log('constructor')
   }
 
   initialize(channel_sid) {
@@ -47,13 +45,20 @@ class Chat {
               client.getPublicChannelDescriptors().then(function(paginator) {
                 for (i = 0; i < paginator.items.length; i++) {
                   const channel = paginator.items[i];
-                  that.addChannel(channel)
-                  $('.loader').addClass('hidden')
+                  Rails.ajax({
+                    url: `/api/v1/activities/show/${channel.createdBy}`,
+                    type: "GET",
+                    success: function(data) {
+
+                      that.addChannel(channel, data['parsed_date'])
+                      $('.loader').addClass('hidden')
+                    }
+                  });
                 }
               })
               .catch((error) => {
                 window.location.reload()
-                console.log(error)
+
               });
             });
         }
@@ -61,10 +66,9 @@ class Chat {
     }
   }
 
-  addChannel(channel) {
-    console.log('Add Channel', channel)
+  addChannel(channel, lastConnection) {
     if (channel.uniqueName) {
-      this.channels.push(channel);
+      this.channels.push([channel, lastConnection]);
     }
     this.renderChannel();
   }
@@ -74,23 +78,24 @@ class Chat {
     let channelContainer = document.querySelector('.inbox_chat');
 
     channelContainer.innerHTML = this.channels.map(channel =>
-       `<div class="chat_list" id="${channel.sid}">
+       `<div class="chat_list" id="${channel[0].sid}">
         <div class="chat_people chat_box">
           <div class="chat_img">
           <img src="https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg"></img>
           </div>
           <div class="chat_ib"></div>
           <h4>
-            <span style="padding-left: 20px; color: #fff">${channel.uniqueName}</span>
+            <span style="padding-left: 20px; color: #fff">${channel[0].uniqueName}</span>
           </h4>
-          <span style="padding-left: 20px" class="channel-date">${that.formatDate(channel.dateCreated)}</span>
+            <span style="padding-left: 20px" class="channel-date">Creado: ${that.formatDate(channel[0].dateCreated)}</span>
+            <br>
+            <span style="padding-left: 58px" class="channel-date">${channel[1]}</span><span style="padding-left: 20px"
           <p></p>
         </div>
       </div>`).join("");
   }
 
   addMessage(message) {
-    console.log('addMessage', message)
     let html = "";
 
     if (message.author && message.body) {
@@ -125,19 +130,14 @@ class Chat {
   }
 
   joinChannel() {
-    console.log('Join Channel', this.channel.uniqueName)
-
     if (this.channel.state.status !== 'joined') {
       this.channel.join().then(function(channel) {
-        // console.log(`Joined ${channel.uniqueName} Channel`);
+        console.log('Joined to' + channel.uniqueName)
        });
-    } else {
-      // console.log('Join Channel', channel.uniqueName)
-    }
+     }
   }
 
   setupChannel(channel) {
-    console.log('setupChannel', channel.uniqueName)
     this.channel = null;
     this.channel = channel;
     this.joinChannel();
@@ -148,7 +148,6 @@ class Chat {
   }
 
   getChannelMessages(channel) {
-    console.log('getChannelMessages', channel.uniqueName)
     const that = this;
 
     channel.getMessages().then(function(messages) {
@@ -159,26 +158,27 @@ class Chat {
         $('.loader').addClass('hidden')
       }
     });
+
+    setTimeout(function() {
+      let messageContainer = document.querySelector(".chat .messages");
+      messageContainer.scrollTop = messageContainer.scrollHeight - 10;
+    }, 500)
   }
 
-  setupClient(client, channel_sid) {
 
+  setupClient(client, channel_sid) {
     this.client           = client;
     window.chat.client    = client;
+
     var that              = this;
     this.client.getChannelBySid(channel_sid)
       .then(function(channel) {
         that.setupChannel(channel)
         window.chat.channel = channel;
       })
-
-      this.client.on('channelJoined', function(channel) {
-        console.log('Joined channel ' + channel.uniqueName);
-      });
   }
 
   renderMessages() {
-    console.log('renderMessages', this.channel)
     let messageContainer = document.querySelector(".chat .messages");
     messageContainer.innerHTML = this.messages
       .map(message => message).join("");
