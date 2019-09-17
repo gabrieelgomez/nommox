@@ -10,11 +10,11 @@ module Api::V1::Airlines
     end
 
     def filter_airlines
-      query = params.dig(:query)&.upcase
+      query = decode(params.dig(:query)&.upcase)
       @results = Array.new
 
       @airlines.each do |a|
-        if a[0].include?(query) || a[1].upcase.include?(query)
+        if decode(a[0]).include?(query) || decode(a[1]).upcase.include?(query)
           @results.push(build_hash(a))
         end
       end
@@ -33,6 +33,8 @@ module Api::V1::Airlines
       temp_hash
     end
 
-
+    def decode(str)
+      I18n.transliterate(str)
+    end
   end
 end
