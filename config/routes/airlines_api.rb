@@ -4,4 +4,5 @@ namespace :airlines do
   post  '/create',               to: 'create#create'
   patch '/:airline_id/update',   to: 'update#update'
   get   '/:query/search',        to: 'search#find_airline'
+  get   '/:query/filter',        to: 'search#filter_airlines'
 end

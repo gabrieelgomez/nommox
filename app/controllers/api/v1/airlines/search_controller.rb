@@ -11,19 +11,24 @@ module Api::V1::Airlines
 
     def filter_airlines
       query = params.dig(:query)&.upcase
+      @results = Array.new
 
-      @result = Array.new
-      @airline = @airlines.dig(airline)
-      render json: @result[0], status: 200
+      @airlines.each do |a|
+        if a[0].include?(query) || a[1].upcase.include?(query)
+          @results.push(build_hash(a))
+        end
+      end
+
+      render json: @results
     end
-    
+
     private
 
-    def build_hash(from, to, airline)
+    def build_hash(data)
       temp_hash = Hash.new
-      temp_hash[:from]    = from
-      temp_hash[:to]      = to
-      temp_hash[:airline] = airline
+
+      temp_hash[:code] = data[0]
+      temp_hash[:name] = data[1]
 
       temp_hash
     end
