@@ -1,0 +1,6 @@
+es:
+  date:
+    day_names: [Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado]
+  time:
+    pm: PM
+    am: AM
