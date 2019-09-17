@@ -10,5 +10,9 @@ module Api::V1
     def set_airline
       @airline = Airline.find_by_id(params.dig(:airline_id)) || Object.new
     end
+
+    def set_airlines
+      @airlines = YAML.load_file("#{Rails.root}/config/airlines.yml")
+    end
   end
 end
