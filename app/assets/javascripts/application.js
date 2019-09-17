@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let messageContainer = document.querySelector(".chat .messages");
         messageContainer.scrollTop = messageContainer.scrollHeight - 10;
       }, 500)
+
     }
   })
 
@@ -54,7 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
-
 });
 
 Rails.ajax({
@@ -68,7 +68,6 @@ Rails.ajax({
           chatClient.getPublicChannelDescriptors().then(function(paginator) {
             for (i = 0; i < paginator.items.length; i++) {
               const channel = paginator.items[i];
-              // console.log('Channel: ' + channel.uniqueName);
             }
           });
         }

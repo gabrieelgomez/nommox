@@ -8,6 +8,7 @@ class Chat {
     this.messages = [];
     this.initialize(channel_sid);
     this.getChannels();
+    console.log('constructor')
   }
 
   initialize(channel_sid) {
@@ -46,17 +47,9 @@ class Chat {
               client.getPublicChannelDescriptors().then(function(paginator) {
                 for (i = 0; i < paginator.items.length; i++) {
                   const channel = paginator.items[i];
-                  Rails.ajax({
-                    url: `/api/v1/activities/show/${channel.createdBy}`,
-                    type: "GET",
-                    success: function(data) {
-
-                      that.addChannel(channel, data['parsed_date'])
-                      $('.loader').addClass('hidden')
-                    }
-                  });
+                  that.addChannel(channel)
+                  $('.loader').addClass('hidden')
                 }
-
               })
               .catch((error) => {
                 window.location.reload()
@@ -68,19 +61,15 @@ class Chat {
     }
   }
 
-  addChannel(channel, lastConnection) {
-    // console.log('Add Channel name', channel.createdBy)
-    // console.log('Add Channel name', channel.sid)
-    // console.log('Add Channel channel', channel)
-    // console.log('Add Channel client', channel.client)
+  addChannel(channel) {
+    console.log('Add Channel', channel)
     if (channel.uniqueName) {
-      this.channels.push([channel, lastConnection]);
+      this.channels.push(channel);
     }
     this.renderChannel();
   }
 
   renderChannel() {
-    // console.log('renderChannel')
     var that             = this;
     let channelContainer = document.querySelector('.inbox_chat');
 
@@ -92,18 +81,16 @@ class Chat {
           </div>
           <div class="chat_ib"></div>
           <h4>
-            <span style="padding-left: 20px; color: #fff">${channel[0].uniqueName}</span>
+            <span style="padding-left: 20px; color: #fff">${channel.uniqueName}</span>
           </h4>
-            <span style="padding-left: 20px" class="channel-date">Creado: ${that.formatDate(channel[0].dateCreated)}</span>
-            <br>
-            <span style="padding-left: 58px" class="channel-date">${channel[1]}</span><span style="padding-left: 20px"
+          <span style="padding-left: 20px" class="channel-date">${that.formatDate(channel.dateCreated)}</span>
           <p></p>
         </div>
       </div>`).join("");
   }
 
   addMessage(message) {
-    // console.log('addMessage', message)
+    console.log('addMessage', message)
     let html = "";
 
     if (message.author && message.body) {
@@ -138,6 +125,8 @@ class Chat {
   }
 
   joinChannel() {
+    console.log('Join Channel', this.channel.uniqueName)
+
     if (this.channel.state.status !== 'joined') {
       this.channel.join().then(function(channel) {
         // console.log(`Joined ${channel.uniqueName} Channel`);
@@ -148,8 +137,7 @@ class Chat {
   }
 
   setupChannel(channel) {
-    // console.log('setupChannel', channel.uniqueName)
-    // console.log('setupChannel window', window.channel.uniqueName)
+    console.log('setupChannel', channel.uniqueName)
     this.channel = null;
     this.channel = channel;
     this.joinChannel();
@@ -157,11 +145,10 @@ class Chat {
     this.channel.on('messageAdded', message => this.addMessage(message));;
 
     this.getChannelMessages(channel)
-    this.getLastConnection(channel)
   }
 
   getChannelMessages(channel) {
-    // console.log('getChannelMessages', channel.uniqueName)
+    console.log('getChannelMessages', channel.uniqueName)
     const that = this;
 
     channel.getMessages().then(function(messages) {
@@ -172,28 +159,12 @@ class Chat {
         $('.loader').addClass('hidden')
       }
     });
-
-    setTimeout(function() {
-      let messageContainer = document.querySelector(".chat .messages");
-      messageContainer.scrollTop = messageContainer.scrollHeight - 10;
-    }, 500)
   }
 
-  // getLastConnection(channel) {
-  //   Rails.ajax({
-  //     url: `/api/v1/activities/show/${channel.createdBy}`,
-  //     type: "GET",
-  //     success: function(data) {
-  //       console.log(data)
-  //       return data['parsed_date']
-  //     }
-  //   });
-  // }
-
   setupClient(client, channel_sid) {
+
     this.client           = client;
     window.chat.client    = client;
-    // console.log('client', client)
     var that              = this;
     this.client.getChannelBySid(channel_sid)
       .then(function(channel) {
@@ -202,15 +173,8 @@ class Chat {
       })
 
       this.client.on('channelJoined', function(channel) {
-        // console.log('Joined channel ' + channel.uniqueName);
+        console.log('Joined channel ' + channel.uniqueName);
       });
-
-    this.client.getUserChannelDescriptors().then(function(paginator) {
-      for (i=0; i<paginator.items.length; i++) {
-        var channel = paginator.items[i];
-        console.log('Channel User: ' + channel.friendlyName);
-      }
-    });
   }
 
   renderMessages() {
