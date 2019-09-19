@@ -6,6 +6,7 @@ class Chat {
     this.channels = [];
     this.messages = [];
     this.initialize(channel_sid);
+    // this.initializeFirebase();
     this.getChannels();
   }
 
@@ -49,7 +50,6 @@ class Chat {
                     url: `/api/v1/activities/show/${channel.createdBy}`,
                     type: "GET",
                     success: function(data) {
-
                       that.addChannel(channel, data['parsed_date'])
                       $('.loader').addClass('hidden')
                     }
@@ -58,7 +58,6 @@ class Chat {
               })
               .catch((error) => {
                 window.location.reload()
-
               });
             });
         }
@@ -176,6 +175,8 @@ class Chat {
         that.setupChannel(channel)
         window.chat.channel = channel;
       })
+
+
   }
 
   renderMessages() {
