@@ -1,7 +1,5 @@
 !!!
 %html
-  %head
-
   %body
     .messaging.chat{ style: 'padding: 0'}
       .inbox_msg
@@ -25,3 +23,19 @@
               %input.write_msg{ placeholder: "Escribe un mensaje", type: 'text' }
               %button.msg_send_btn
                 %i.fa.fa-paper-plane-o{ 'aria-hidden': 'true' }
+
+:javascript
+  var firebaseConfig = {
+    apiKey: "AIzaSyA--lKRilsCUOYiTRF3Vg4foRzUXYYonjE",
+    authDomain: "nommox-app.firebaseapp.com",
+    databaseURL: "https://nommox-app.firebaseio.com",
+    projectId: "nommox-app",
+    storageBucket: "",
+    messagingSenderId: "757853850589",
+    appId: "1:757853850589:web:2478e5359b461da2c1c434"
+  };
+
+  // Initialize Firebase
+  if (firebase) {
+    firebase.initializeApp(firebaseConfig);
+  }

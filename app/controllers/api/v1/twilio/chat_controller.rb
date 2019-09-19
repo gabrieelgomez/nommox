@@ -7,12 +7,12 @@ module Api::V1::Twilio
 
     def access_token
       # Required for Chat
-      service_sid = @service_sid
-      identity    = params&.dig(:identity) || 'default'
+      identity = params&.dig(:identity) || 'default'
 
       # Create Chat grant for our token
       grant = Twilio::JWT::AccessToken::ChatGrant.new
-      grant.service_sid = service_sid
+      grant.service_sid         = @service_sid
+      grant.push_credential_sid = @push_credential_apn_sid
 
       # Create an Access Token
       token = Twilio::JWT::AccessToken.new(

@@ -17,6 +17,7 @@
 //= require twitter/bootstrap
 //= require_tree .
 
+
 document.addEventListener("DOMContentLoaded", () => {
   if (document.querySelector(".chat")) {
     window.chat = new Chat();
@@ -45,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
   $('.chat input').keypress(function(e) {
     if(e.which == 10 || e.which == 13) {
       if ($(this).val() != "") {
-        window.chat.channel.sendMessage($(this).val())
+        window.chat.channel.sendMessage($(this).val());
         $(this).val('');
         setTimeout(function() {
           let messageContainer = document.querySelector(".chat .messages");
@@ -63,13 +64,33 @@ Rails.ajax({
     Twilio.Chat.Client
       .create(data.token)
       .then(function(chatClient) {
-        if (window.chat.channels.length == 0) {
-          chatClient.getPublicChannelDescriptors().then(function(paginator) {
-            for (i = 0; i < paginator.items.length; i++) {
-              const channel = paginator.items[i];
-            }
-          });
-        }
-      });
+        const messaging = firebase.messaging();
+
+        if (firebase && messaging) {
+          messaging.requestPermission().then(() => {
+          // getting FCM token
+          messaging.getToken().then((fcmToken) => {
+            // passing FCM token to the `chatClientInstance` to register for push notifications
+            chatClient.setPushRegistrationId('fcm', fcmToken);
+
+            // registering event listener on new message from firebase to pass it to the Chat SDK for parsing
+            messaging.onMessage(payload => {
+              chatClient.handlePushNotification(payload);
+            });
+           }).catch((err) => {
+            console.log(err)
+           });
+         }).catch((err) => {
+          console.log(err)
+         });
+       }
+      if (window.chat.channels.length == 0) {
+        chatClient.getPublicChannelDescriptors().then(function(paginator) {
+          for (i = 0; i < paginator.items.length; i++) {
+            const channel = paginator.items[i];
+          }
+        });
+      }
+    });
   }
 });
