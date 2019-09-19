@@ -27,14 +27,14 @@ class TokensController < ApplicationController
   private
 
   def load_credentials
-    @twilio_sid          = ENV["TWILIO_SID"]
-    @twilio_token        = ENV["TWILIO_TOKEN"]
-    @twilio_number       = ENV["TWILIO_NUMBER"]
-    @app_sid             = ENV["APP_SID"]
-    @app_secret          = ENV["APP_SECRET"]
-    @twiml_sid           = ENV["TWIML_SID"]
-    @service_sid         = ENV["SERVICE_SID"]
-    @push_credential_sid = ENV["PUSH_CREDENTIAL_SID"]
+    @twilio_sid              = ENV["TWILIO_SID"]
+    @twilio_token            = ENV["TWILIO_TOKEN"]
+    @twilio_number           = ENV["TWILIO_NUMBER"]
+    @app_sid                 = ENV["APP_SID"]
+    @app_secret              = ENV["APP_SECRET"]
+    @twiml_sid               = ENV["TWIML_SID"]
+    @service_sid             = ENV["SERVICE_SID"]
+    @push_credential_fcm_sid = ENV["PUSH_CREDENTIAL_FCM_SID"]
   end
 
 end
