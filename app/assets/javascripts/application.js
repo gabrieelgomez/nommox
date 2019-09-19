@@ -15,11 +15,7 @@
 //= require adminlte
 //= require activestorage
 //= require twitter/bootstrap
-//= require airlines
-//= require chat.js
-//= require cases
-//= require filter_locations.js
-//= require main.js
+//= require_tree .
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -73,16 +69,12 @@ Rails.ajax({
         if (firebase && messaging) {
           messaging.requestPermission().then(() => {
           // getting FCM token
-          console.log('You Have Permission')
           messaging.getToken().then((fcmToken) => {
-            console.log('Token', fcmToken)
-            console.log(chatClient)
             // passing FCM token to the `chatClientInstance` to register for push notifications
             chatClient.setPushRegistrationId('fcm', fcmToken);
 
             // registering event listener on new message from firebase to pass it to the Chat SDK for parsing
             messaging.onMessage(payload => {
-              console.log('payload')
               chatClient.handlePushNotification(payload);
             });
            }).catch((err) => {
