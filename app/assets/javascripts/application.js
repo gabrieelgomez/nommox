@@ -23,12 +23,16 @@ document.addEventListener("DOMContentLoaded", () => {
     window.chat = new Chat();
   }
 
-  $('body').on('click', '.chat_list', function() {
+  $('body').on('click', '.chat_list', function(e) {
+    e.preventDefault();
     id = $(this).attr('id');
     window.chat = new Chat(id);
-    $('#'+id).addClass('channel-active');
     $('.type_msg').removeClass('hidden')
     $('.loader').removeClass('hidden')
+
+    setTimeout(function() {
+      $('#'+id).addClass('channel-active');
+    }, 1500)
   });
 
   $('.msg_send_btn').click(function() {
