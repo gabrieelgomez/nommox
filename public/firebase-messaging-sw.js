@@ -4,6 +4,7 @@
 // are not available in the service worker.
 importScripts('https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/6.6.1/firebase-messaging.js');
+importScripts('https://code.jquery.com/jquery-3.4.1.slim.min.js');
 
 // Initialize the Firebase app in the service worker by passing in the
 // messagingSenderId.
@@ -26,6 +27,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
 
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
 
+  docum
   $('#'+id).find('.notification-badge').removeClass('hiddden')
 
   // Customize notification here
