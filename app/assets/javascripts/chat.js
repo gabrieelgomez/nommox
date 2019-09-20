@@ -159,7 +159,10 @@ class Chat {
     setTimeout(function() {
       let messageContainer = document.querySelector(".chat .messages");
       messageContainer.scrollTop = messageContainer.scrollHeight - 10;
-    }, 500)
+      $('#'+channel.sid).find('.notification-badge').addClass('hiddden')
+      $('#'+channel.sid).addClass('.channel-active')
+    }, 2000)
+
   }
 
 

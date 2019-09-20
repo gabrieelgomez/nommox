@@ -22,7 +22,12 @@ const messaging = firebase.messaging();
 // [START background_handler]
 messaging.setBackgroundMessageHandler(function(payload) {
   var body = payload.data.twi_body.split(':')[1].trim()
+  var id   = payload.data.channel_sid;
+
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
+
+  $('#'+id).find('.notification-badge').removeClass('hiddden')
+
   // Customize notification here
   const notificationTitle = `Tienes un nuevo mensaje de ${payload.data.author}`;
   const notificationOptions = {
