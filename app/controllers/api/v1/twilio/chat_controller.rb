@@ -14,6 +14,10 @@ module Api::V1::Twilio
       grant.service_sid         = @service_sid
       grant.push_credential_sid = @push_credential_apn_sid
 
+      puts @service_sid
+      puts @push_credential_apn_sid
+
+      puts grant.inspect
       # Create an Access Token
       token = Twilio::JWT::AccessToken.new(
         @twilio_sid,
