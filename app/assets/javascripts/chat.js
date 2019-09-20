@@ -57,7 +57,8 @@ class Chat {
                 }
               })
               .catch((error) => {
-                window.location.reload()
+                window.location.reload();
+                console.log(error)
               });
             });
         }
@@ -77,7 +78,8 @@ class Chat {
     let channelContainer = document.querySelector('.inbox_chat');
 
     channelContainer.innerHTML = this.channels.map(channel =>
-      `<div class="chat_list active_chat">
+      `<div class="chat_list" id="${channel[0].sid}">
+        <span class="notification-badge hidden"></span>
         <div class="chat_people">
           <div class="chat_img"> <img src="https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg" alt="sunil"> </div>
           <div class="chat_ib">
@@ -88,19 +90,6 @@ class Chat {
           </div>
         </div>
       </div>`).join("");
-      //  `<div class="chat_list" id="${channel[0].sid}">
-      //   <div class="chat_people chat_box">
-      //     <div class="chat_img">
-      //     <img src="https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg"></img>
-      //     </div>
-      //     <h4>${channel[0].uniqueName}<span class="chat_date">25 dec</span></h4>
-      //     <h5>
-      //       <span style="display: block"" class="channel-date">Creado: ${that.formatDate(channel[0].dateCreated)}</span>
-      //       <span style="padding-left: 60px; padding-top: 5px; display: block"" class="channel-date">${channel[1]}</span>
-      //     <h5>
-      //
-      //   </div>
-      // </div>`).join("");
   }
 
   addMessage(message) {

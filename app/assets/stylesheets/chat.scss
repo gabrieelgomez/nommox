@@ -104,6 +104,7 @@ img {
   margin: 0;
   padding: 10px;
   cursor: pointer;
+  // position: relative;
 }
 
 .inbox_chat {
@@ -155,7 +156,7 @@ img {
 
 .mesgs {
   float: left;
-  width: 80%;
+  width: 70%;
   height: 100%;
   background: #E6EAEA
 }
@@ -190,6 +191,7 @@ img {
 .type_msg {
   border-top: 1px solid #c4c4c4;
   position: relative;
+  bottom: 20px;
 }
 
 .msg_send_btn {
@@ -229,25 +231,13 @@ img {
   border-right: 5px solid #435f7a;
 }
 
-.speech-bubble-right {
-  position: relative;
-  background: #00aabb;
-  border-radius: .4em;
-}
-
-.speech-bubble-right:after {
-  content: '';
+.notification-badge {
+  width: 12px;
+  height: 12px;
+  background-color: green;
+  border-radius: 50%;
   position: absolute;
-  right: 0;
-  top: 50%;
-  width: 0;
-  height: 0;
-  border: 20px solid transparent;
-  border-left-color: #00aabb;
-  border-right: 0;
-  border-bottom: 0;
-  margin-top: -10px;
-  margin-right: -20px;
+  right: 10px;
 }
 
 ::-webkit-scrollbar {
