@@ -6,13 +6,10 @@ class Chat {
     this.channels = [];
     this.messages = [];
     this.initialize(channel_sid);
-    // this.initializeFirebase();
     this.getChannels();
   }
 
   initialize(channel_sid) {
-    this.renderMessages();
-
     Rails.ajax({
       url: '/tokens',
       type: 'POST',
@@ -76,8 +73,9 @@ class Chat {
   renderChannel() {
     var that             = this;
     let channelContainer = document.querySelector('.inbox_chat');
+    let ordered_channels = this.channels.sort((a, b) => (a[0].dateCreated > b[0].dateCreated) ? -1 : 1)
 
-    channelContainer.innerHTML = this.channels.map(channel =>
+    channelContainer.innerHTML = ordered_channels.map(channel =>
       `<div class="chat_list" id="${channel[0].sid}">
         <span class="notification-badge hidden"></span>
         <div class="chat_people">
@@ -127,6 +125,8 @@ class Chat {
   }
 
   joinChannel() {
+    var that = this;
+
     if (this.channel.state.status !== 'joined') {
       this.channel.join().then(function(channel) {
         console.log('Joined to' + channel.uniqueName)
@@ -159,10 +159,7 @@ class Chat {
     setTimeout(function() {
       let messageContainer = document.querySelector(".chat .messages");
       messageContainer.scrollTop = messageContainer.scrollHeight - 10;
-      $('#'+channel.sid).find('.notification-badge').addClass('hiddden')
-      $('#'+channel.sid).addClass('.channel-active')
-    }, 2000)
-
+    }, 2000);
   }
 
 
@@ -180,8 +177,7 @@ class Chat {
 
   renderMessages() {
     let messageContainer = document.querySelector(".chat .messages");
-    messageContainer.innerHTML = this.messages
-      .map(message => message).join("");
+    messageContainer.innerHTML = this.messages.map(message => message).join("");
   }
 
   formatDate(date) {

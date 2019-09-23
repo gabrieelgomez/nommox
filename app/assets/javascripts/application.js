@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(function() {
       $('#'+id).addClass('channel-active');
-    }, 1500)
+    }, 2500)
   });
 
   $('.msg_send_btn').click(function() {
@@ -79,6 +79,7 @@ Rails.ajax({
 
             // registering event listener on new message from firebase to pass it to the Chat SDK for parsing
             messaging.onMessage(payload => {
+              console.log('onMessage')
               chatClient.handlePushNotification(payload);
             });
            }).catch((err) => {
