@@ -70,15 +70,25 @@ module Api::V1::Cases
       @booking = Booking.new(booking_params.merge(case_id: case_id))
 
       if @booking.save
-        create_companions(@booking.id)
+        create_companions(@booking)
       else
         render json: @booking.errors, status: 500
       end
     end
 
-    def create_companions(booking_id)
-      return if params.dig(:companions).nil?
-      #pending for implementation in IOS app
+    def create_companions(booking)
+      companions = params.dig(:companions)
+      return if companions.nil?
+
+      companions.each do |companion|
+        booking.companions.create(
+          names:                   companion[:name],
+          surnames:                companion[:surname],
+          identification_document: companion[:identification_document],
+          passport:                companion[:passport],
+        )
+      end
+
     end
   end
 end
