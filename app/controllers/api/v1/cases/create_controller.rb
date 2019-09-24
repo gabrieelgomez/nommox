@@ -25,6 +25,7 @@ module Api::V1::Cases
 
       if @case.save
         create_tickets(@case.id)
+        create_flights(@case.id)
         create_tests(@case.id)
         create_inconvenience(@case.id)
         create_booking(@case.id)
@@ -88,7 +89,23 @@ module Api::V1::Cases
           passport:                companion[:passport],
         )
       end
+    end
 
+    def create_flights(case_id)
+      flights = params.dig(:flights)
+      return if flights.nil?
+
+      flights.each do |flight|
+        Flight.create!(
+          airline:                flight[:airline],
+          departure_airport_name: flight[:departure],
+          arrival_airport_name:   flight[:arrival],
+          hour:                   flight[:hour],
+          date:                   flight[:date],
+          flight_number:          flight[:flight_number],
+          case_id:                case_id
+        )
+      end
     end
   end
 end

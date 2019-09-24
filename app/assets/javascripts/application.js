@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(function() {
       $('#'+id).addClass('channel-active');
-    }, 2500)
+    }, 3000)
   });
 
   $('.msg_send_btn').click(function() {
