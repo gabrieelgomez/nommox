@@ -27,19 +27,16 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     id = $(this).attr('id');
     window.chat = new Chat(id);
+    $('.messages').html('')
     $('.type_msg').removeClass('hidden')
     $('.loader').removeClass('hidden')
-
-    setTimeout(function() {
-      $('#'+id).addClass('channel-active');
-    }, 2500)
   });
 
   $('.msg_send_btn').click(function() {
-    const input = document.querySelector('.chat input');
-    if (input.value != "") {
+    const input = $('.chat input');
+    if (input.val() != "") {
       window.chat.channel.sendMessage(input.value)
-      input.value = '';
+      input.val('');
       setTimeout(function() {
         let messageContainer = document.querySelector(".chat .messages");
         messageContainer.scrollTop = messageContainer.scrollHeight - 10;
