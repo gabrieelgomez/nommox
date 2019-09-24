@@ -152,8 +152,13 @@ class Chat {
       for (i = 0; i < totalMessages; i++) {
         const message = messages.items[i];
         that.addMessage(message);
-        $('.loader').addClass('hidden')
+        $('.loader').addClass('hidden');
       }
+
+      $('.chat_list').removeClass('channel-active');
+      setTimeout(function() {
+        $('#'+channel.sid).addClass('channel-active');
+      }, 1000)
     });
 
     setTimeout(function() {
@@ -164,6 +169,7 @@ class Chat {
 
 
   setupClient(client, channel_sid) {
+    console.log('setupClient')
     this.client           = client;
     window.chat.client    = client;
 
