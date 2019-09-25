@@ -36,12 +36,17 @@ img {
 }
 
 .headind_srch {
-  padding:10px 29px 10px 20px;
+  padding: 5px 10px;
   overflow:hidden;
   border-bottom:1px solid #c4c4c4;
+  background: #2c3e50 none repeat scroll 0 0;
+
+  .channel-detail {
+    color: #fafafa;
+  }
 }
 
-.recent_heading h4 {
+.recent_heading h5 {
   color: #fafafa;
   font-size: 21px;
   margin: auto;
@@ -157,7 +162,7 @@ img {
 .mesgs {
   float: left;
   width: 70%;
-  height: 100%;
+  height: 90%;
   background: #E6EAEA
 }
 

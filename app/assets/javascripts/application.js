@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     id = $(this).attr('id');
     window.chat = new Chat(id);
     $('.messages').html('')
+    $('.channel-detail').addClass('hidden')
     $('.type_msg').removeClass('hidden')
     $('.loader').removeClass('hidden')
   });

@@ -142,6 +142,8 @@ class Chat {
     this.channel.on('messageAdded', message => this.addMessage(message));;
 
     this.getChannelMessages(channel)
+    $('.channel-detail').removeClass('hidden')
+    $('#channel-name').html(channel.uniqueName)
   }
 
   getChannelMessages(channel) {
