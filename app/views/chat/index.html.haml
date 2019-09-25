@@ -3,10 +3,17 @@
   %body
     .messaging.chat{ style: 'padding: 0'}
       .inbox_msg
+        .headind_srch
+          .recent_heading{ style: 'display: inline-block'}
+            %h5{ style: 'margin-top: 5px; font-weight: bold;'}
+              = image_tag('Icon-App-20x20@3x.png', style: 'width: 30px; height: 30px; margin-right: 10px')
+              Nommox Chat
+          .channel-detail.hidden
+            .pull-right
+              %h5
+                %span#channel-name{ style: 'font-weight: bold'}
+                = image_tag('https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg', style: 'width: 30px; height: 30px; margin-right: 10px')
         .inbox_people
-          .headind_srch
-            .recent_heading
-              %h4 Canales
           .inbox_chat
 
         .mesgs

@@ -26,10 +26,14 @@ document.addEventListener("DOMContentLoaded", () => {
   $('body').on('click', '.chat_list', function(e) {
     e.preventDefault();
     id = $(this).attr('id');
+    var element = $('#'+id);
+
     window.chat = new Chat(id);
     $('.messages').html('')
+    $('.channel-detail').addClass('hidden')
     $('.type_msg').removeClass('hidden')
     $('.loader').removeClass('hidden')
+    element.find('.notification-badge').addClass('hidden')
   });
 
   $('.msg_send_btn').click(function() {
@@ -57,6 +61,38 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+navigator.serviceWorker.addEventListener('message', function (event) {
+  var id        = event.data,
+      element   = $('#'+id),
+      sound_url = "<%= asset_url('notification.mp3') %>";
+
+  console.log('event listener', event.data);
+  element.addClass('channel-active')
+  element.find('.notification-badge').removeClass('hidden')
+
+  var sound = new Audio(sound_url);
+  sound.play();
+});
+
+// function send_message_to_sw(msg) {
+//   return new Promise(function(resolve, reject){
+//     // Create a Message Channel
+//     var msg_chan = new MessageChannel();
+//
+//     // Handler for recieving message reply from service worker
+//     msg_chan.port1.onmessage = function(event){
+//       if(event.data.error){
+//           reject(event.data.error);
+//       }else{
+//           resolve(event.data);
+//       }
+//     };
+//
+//     // Send message to service worker along with port for reply
+//     navigator.serviceWorker.controller.postMessage("Client 1 says '"+msg+"'", [msg_chan.port2]);
+//   });
+// }
 
 Rails.ajax({
   url: "/tokens",

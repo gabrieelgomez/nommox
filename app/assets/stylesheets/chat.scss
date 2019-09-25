@@ -6,7 +6,7 @@ img {
 }
 
 .inbox_people {
-  background: #2c3e50 none repeat scroll 0 0;
+  background: #0E6AB3 none repeat scroll 0 0;
   float: left;
   overflow: hidden;
   width: 30%;
@@ -36,12 +36,17 @@ img {
 }
 
 .headind_srch {
-  padding:10px 29px 10px 20px;
+  padding: 5px 10px;
   overflow:hidden;
   border-bottom:1px solid #c4c4c4;
+  background: #0E6AB3 none repeat scroll 0 0;
+
+  .channel-detail {
+    color: #fafafa;
+  }
 }
 
-.recent_heading h4 {
+.recent_heading h5 {
   color: #fafafa;
   font-size: 21px;
   margin: auto;
@@ -104,7 +109,7 @@ img {
   margin: 0;
   padding: 10px;
   cursor: pointer;
-  // position: relative;
+  position: relative;
 }
 
 .inbox_chat {
@@ -150,14 +155,14 @@ img {
 
 .received_withd_msg {
   width: auto;
-  background: #2c3e50;
+  background: #0E6AB3;
   border-radius: 15px;
 }
 
 .mesgs {
   float: left;
   width: 70%;
-  height: 100%;
+  height: 90%;
   background: #E6EAEA
 }
 
@@ -195,7 +200,7 @@ img {
 }
 
 .msg_send_btn {
-  background: #05728f none repeat scroll 0 0;
+  background: #1295EE none repeat scroll 0 0;
   border: medium none;
   border-radius: 50%;
   color: #fff;
@@ -227,14 +232,14 @@ img {
 }
 
 .channel-active {
-  background: #375069;
+  background: #1295EE;
   border-right: 5px solid #435f7a;
 }
 
 .notification-badge {
-  width: 12px;
-  height: 12px;
-  background-color: green;
+  width: 14px;
+  height: 14px;
+  background-color: #0E6AB3;
   border-radius: 50%;
   position: absolute;
   right: 10px;

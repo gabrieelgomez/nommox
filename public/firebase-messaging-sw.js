@@ -21,17 +21,27 @@ const messaging = firebase.messaging();
 // implement this optional method.
 // [START background_handler]
 messaging.setBackgroundMessageHandler(function(payload) {
-  var body = payload.data.twi_body.split(':')[1].trim()
-  var id   = payload.data.channel_sid;
+  var body        = payload.data.twi_body.split(':')[1].trim();
 
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
+  console.log(payload.data.channel_sid)
+
+  messaging.setBackgroundMessageHandler(function (payload) {
+    const response = payload;
+    console.log('[firebase-messaging-sw.js] Received background message ', payload);
+    self.clients.matchAll({includeUncontrolled: true}).then(function (clients) {
+      //you can see your main window client in this list.
+      clients.forEach(function(client) {
+        client.postMessage(response.data.channel_sid);
+      })
+    })
+  });
 
   // Customize notification here
   const notificationTitle = `Tienes un nuevo mensaje de ${payload.data.author}`;
   const notificationOptions = {
     body:   body,
     icon:   '/assets/Icon-App-20x20@3x.png',
-    sound:  '/assets/notification.mp3'
   };
 
   return self.registration.showNotification(notificationTitle,
