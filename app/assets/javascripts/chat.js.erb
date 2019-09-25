@@ -132,13 +132,6 @@ class Chat {
       this.channel.join().then(function(channel) {
         console.log('Joined to' + channel.uniqueName)
       });
-    } else {
-      console.log('joined to', this.channel.uniqueName)
-      console.log('channel', this.channel.sid)
-      var id = this.channel.sid;
-      setTimeout(function() {
-        $('#'+id).addClass('channel-active');
-      }, 1000)
     }
   }
 
@@ -149,7 +142,7 @@ class Chat {
     this.joinChannel();
     this.addMessage({ body: `Joined ${channel.uniqueName} channel as ${this.identity}` });
     this.channel.on('messageAdded', function(message) {
-      that.addMessage(message.channel.sid)
+      that.addMessage(message)
       $('#'+message.channel.sid).find('notification-badge').removeClass('hidden')
     });
 
