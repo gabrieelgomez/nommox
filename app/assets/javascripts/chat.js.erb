@@ -74,12 +74,13 @@ class Chat {
     var that             = this;
     let channelContainer = document.querySelector('.inbox_chat');
     let ordered_channels = this.channels.sort((a, b) => (a[0].dateCreated > b[0].dateCreated) ? -1 : 1)
+    let img              = "<%= asset_url('profile.jpg') %>";
 
     channelContainer.innerHTML = ordered_channels.map(channel =>
       `<div class="chat_list" id="${channel[0].sid}">
         <span class="notification-badge hidden"></span>
         <div class="chat_people">
-          <div class="chat_img"> <img src="https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg" alt="sunil"> </div>
+          <div class="chat_img"> <img src="${img}" alt="sunil"> </div>
           <div class="chat_ib">
             <h5 style="color: #fafafa; font-weight: bold ">${channel[0].uniqueName}</h5>
             <span style="color: #fafafa">Creado: ${that.formatDate(channel[0].dateCreated)}</span>

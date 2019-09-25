@@ -60,13 +60,15 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 navigator.serviceWorker.addEventListener('message', function (event) {
-  var id      = event.data,
-      element = $('#'+id);
+  var id        = event.data,
+      element   = $('#'+id),
+      sound_url = "<%= asset_url('notification.mp3') %>";
+
   console.log('event listener', event.data);
   element.addClass('channel-active')
   element.find('.notification-badge').removeClass('hidden')
 
-  var sound = new Audio("http://localhost:3000/assets/notification.mp3");
+  var sound = new Audio(sound_url);
   sound.play();
 });
 
