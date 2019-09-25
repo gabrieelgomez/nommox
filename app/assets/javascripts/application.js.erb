@@ -34,6 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
     $('.type_msg').removeClass('hidden')
     $('.loader').removeClass('hidden')
     element.find('.notification-badge').addClass('hidden')
+    $('.chat_list').removeClass('channel-active')
+    element.addClass('channel-active')
   });
 
   $('.msg_send_btn').click(function() {
