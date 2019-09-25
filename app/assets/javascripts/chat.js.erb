@@ -6,7 +6,10 @@ class Chat {
     this.channels = [];
     this.messages = [];
     this.initialize(channel_sid);
-    this.getChannels();
+
+    if (typeof channel_sid == 'undefined') {
+      this.getChannels();
+    }
   }
 
   initialize(channel_sid) {
@@ -161,11 +164,6 @@ class Chat {
         that.addMessage(message);
         $('.loader').addClass('hidden');
       }
-
-      $('.chat_list').removeClass('channel-active');
-      // setTimeout(function() {
-      //   $('#'+channel.sid).addClass('channel-active');
-      // }, 1000)
     });
 
     setTimeout(function() {
