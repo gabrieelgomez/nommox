@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   $('.msg_send_btn').click(function() {
     const input = $('.chat input');
     if (input.val() != "") {
-      window.chat.channel.sendMessage(input.value)
+      window.chat.channel.sendMessage(input.val())
       input.val('');
       setTimeout(function() {
         let messageContainer = document.querySelector(".chat .messages");
@@ -76,7 +76,9 @@ Rails.ajax({
 
             // registering event listener on new message from firebase to pass it to the Chat SDK for parsing
             messaging.onMessage(payload => {
-              console.log('onMessage')
+              console.log('onMessage', payload)
+              console.log('onMessage', payload.data.channel_sid)
+              $('#'+payload.data.channel_sid).addClass('channel-active')
               chatClient.handlePushNotification(payload);
             });
            }).catch((err) => {
