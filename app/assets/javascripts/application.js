@@ -59,6 +59,36 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+navigator.serviceWorker.addEventListener('message', function (event) {
+  var id      = event.data,
+      element = $('#'+id);
+  console.log('event listener', event.data);
+  element.addClass('channel-active')
+  element.find('.notification-badge').removeClass('hidden')
+
+  var sound = new Audio("http://localhost:3000/assets/notification.mp3");
+  sound.play();
+});
+
+// function send_message_to_sw(msg) {
+//   return new Promise(function(resolve, reject){
+//     // Create a Message Channel
+//     var msg_chan = new MessageChannel();
+//
+//     // Handler for recieving message reply from service worker
+//     msg_chan.port1.onmessage = function(event){
+//       if(event.data.error){
+//           reject(event.data.error);
+//       }else{
+//           resolve(event.data);
+//       }
+//     };
+//
+//     // Send message to service worker along with port for reply
+//     navigator.serviceWorker.controller.postMessage("Client 1 says '"+msg+"'", [msg_chan.port2]);
+//   });
+// }
+
 Rails.ajax({
   url: "/tokens",
   type: "POST",

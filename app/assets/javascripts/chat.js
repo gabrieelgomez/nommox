@@ -81,7 +81,7 @@ class Chat {
         <div class="chat_people">
           <div class="chat_img"> <img src="https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg" alt="sunil"> </div>
           <div class="chat_ib">
-            <h5 style="color: #fafafa ">${channel[0].uniqueName}</h5>
+            <h5 style="color: #fafafa; font-weight: bold ">${channel[0].uniqueName}</h5>
             <span style="color: #fafafa">Creado: ${that.formatDate(channel[0].dateCreated)}</span>
             <br>
             <span style="color: #fafafa; margin-top: 5px">${channel[1]}</span>
@@ -130,20 +130,31 @@ class Chat {
     if (this.channel.state.status !== 'joined') {
       this.channel.join().then(function(channel) {
         console.log('Joined to' + channel.uniqueName)
-       });
-     }
+      });
+    } else {
+      console.log('joined to', this.channel.uniqueName)
+      console.log('channel', this.channel.sid)
+      var id = this.channel.sid;
+      setTimeout(function() {
+        $('#'+id).addClass('channel-active');
+      }, 1000)
+    }
   }
 
   setupChannel(channel) {
+    var that = this;
     this.channel = null;
     this.channel = channel;
     this.joinChannel();
     this.addMessage({ body: `Joined ${channel.uniqueName} channel as ${this.identity}` });
-    this.channel.on('messageAdded', message => this.addMessage(message));;
+    this.channel.on('messageAdded', function(message) {
+      that.addMessage(message.channel.sid)
+      $('#'+message.channel.sid).find('notification-badge').removeClass('hidden')
+    });
 
     this.getChannelMessages(channel)
-    $('.channel-detail').removeClass('hidden')
-    $('#channel-name').html(channel.uniqueName)
+    $('.channel-detail').removeClass('hidden');
+    $('#channel-name').html(channel.uniqueName);
   }
 
   getChannelMessages(channel) {
@@ -158,9 +169,9 @@ class Chat {
       }
 
       $('.chat_list').removeClass('channel-active');
-      setTimeout(function() {
-        $('#'+channel.sid).addClass('channel-active');
-      }, 1000)
+      // setTimeout(function() {
+      //   $('#'+channel.sid).addClass('channel-active');
+      // }, 1000)
     });
 
     setTimeout(function() {
