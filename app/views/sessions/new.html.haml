@@ -3,9 +3,10 @@
     .login-logo
       = link_to root_path do
         %b Nommox
-    / /.login-logo
+        = image_tag('Icon-App-20x20@3x.png')
+
     .login-box-body
-      %p.login-box-msg Sign in to start your session
+      %p.login-box-msg Ingresa para iniciar tu sesión
       = form_tag create_session_url, method: :post do |form|
         .form-group.has-feedback
           = text_field_tag :email, nil, { class: 'form-control', placeholder: 'Email'}
@@ -23,16 +24,4 @@
                 -# Remember Me
           / /.col
           .col-xs-4
-            %button.btn.btn-primary.btn-block.btn-flat{:type => "submit"} Iniciar Sesión
-
--# %p#alert= alert
--# %h1 Login
--# = form_tag sessions_create_path do |form|
--#   .field
--#     = label_tag :email
--#     = text_field_tag :email
--#   .field
--#     = label_tag :password
--#     = password_field_tag :password
--#   .actions
--#     = submit_tag "Login"
+            %button.btn.btn-primary.btn-block.btn-flat{:type => "submit", style: 'padding: 5px 15px 5px 5px'} Iniciar Sesión

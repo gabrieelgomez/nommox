@@ -30,8 +30,8 @@ messaging.setBackgroundMessageHandler(function(payload) {
   const notificationTitle = `Tienes un nuevo mensaje de ${payload.data.author}`;
   const notificationOptions = {
     body:   body,
-    icon:   'https://nommox.com/assets/ItunesArtwork@2x.png',
-    sound:  'https://nommox.com/assets/notification.mp3'
+    icon:   '/assets/Icon-App-20x20@3x.png',
+    sound:  '/assets/notification.mp3'
   };
 
   return self.registration.showNotification(notificationTitle,
