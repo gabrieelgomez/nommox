@@ -34,7 +34,7 @@
             %a{"data-toggle" => "tab", :href => "#tab_7"} Pruebas
           %li
             %a{"data-toggle" => "tab", :href => "#tab_8"} Cambiar estado
-          %li
+          %li.comments-tab
             %a{"data-toggle" => "tab", :href => "#tab_9"} Comentarios
 
         .tab-content
@@ -236,12 +236,42 @@
                 %i.icon.fa.fa-check
                 Estado actualizado!
 
-            = simple_form_for @case, url: case_status_path(@case), method: :post do
-              .form-group
-                - @case_statuses.each do |case_status|
-                  .toggle
-                    %input{ type: "checkbox", id: case_status.id, name: 'case[case_status_id]', value: case_status.id, 'data-status-name': case_status.name, checked: @case.status_name.eql?(case_status.name) }
-                    %label{ for: case_status.id }= case_status.name
+
+            .form-group
+              - @case_statuses.each do |case_status|
+                .toggle
+                  %input{ type: "checkbox", id: case_status.id, name: 'case[case_status_id]', value: case_status.id, 'data-status-name': case_status.name, checked: @case.status_name.eql?(case_status.name) }
+                  %label{ for: case_status.id }= case_status.name
+
+          #tab_9.tab-pane
+            .box.box-primary.direct-chat.direct-chat-primary
+              .box-header.with-border
+              .box-body
+                .direct-chat-messages{ style: 'height: 500px' }
+                  - @case.comments.each do |comment|
+                    - if comment.user.id.eql?(current_user.id)
+                      .direct-chat-msg.right
+                        .direct-chat-info.clearfix
+                          %span.direct-chat-name.pull-right= comment.user.name
+                          %span.direct-chat-timestamp.pull-left= comment.created_at.strftime('%d/%m/%y %H:%M %p')
+                        %img.direct-chat-img{:alt => "Message User Image", :src => "/assets/profile.jpg"}
+                        .direct-chat-text
+                          = comment.text
+                    - else
+                      .direct-chat-msg
+                        .direct-chat-info.clearfix
+                          %span.direct-chat-name.pull-left= comment.user.name
+                          %span.direct-chat-timestamp.pull-right= comment.created_at.strftime('%d/%M/%y %H:%M %p')
+
+                        %img.direct-chat-img{:alt => "Message User Image", :src => "/assets/profile.jpg"}/
+                        .direct-chat-text
+                          = comment.text
+                  %span#end
+              .box-footer
+                .input-group
+                  %input.form-control#comment{:name => "message", :placeholder => "Escribe un mensaje ...", :type => "text"}/
+                  %span.input-group-btn
+                    %button.btn.btn-primary.btn-flat.btn-send{ type: "button" } Enviar
 
 :javascript
   $('.toggle').click(function() {
@@ -270,3 +300,62 @@
       }
     });
   })
+
+  function getDate(date) {
+    var monthNames = [
+      "Enero", "Febrero", "Marzo",
+      "Abril", "Mayo", "Junio", "Julio",
+      "Agosto", "Septiembre", "Octubre",
+      "Noviembre", "Diciembre"
+    ];
+
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+
+    return day + '/' +monthIndex + '/' + year;
+  }
+
+  function getTime(date) {
+    return date.getHours() + ":" + date.getMinutes()
+  }
+
+  $('.btn-send').click(function() {
+    var text = $('#comment').val(),
+        case_id   = #{@case.id},
+        now       = new Date(),
+        date      = getDate(now),
+        time      = getTime(now),
+        user_name = "#{current_user.name}",
+        user_id   = "#{current_user.id}",
+        data      = { comment: text, user_id: user_id };
+
+
+    var html = `<div class="direct-chat-msg right">
+                  <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-name pull-right">${user_name}</span>
+                    <span class="direct-chat-timestamp pull-left">${date} ${time}</span>
+                  </div>
+                  <img alt="Message User Image" class="direct-chat-img" src="/assets/profile.jpg"/>
+                  <div class="direct-chat-text">
+                    ${text}
+                  </div>
+                </div>`
+
+
+    if (comment != '') {
+      $.ajax({
+        type: "POST",
+        url: `/cases/${case_id}/add_comment`,
+        data: data,
+        success: function(data) {
+          $('.direct-chat-messages').append(html)
+          $('#comment').val('')
+          document.getElementById('end').scrollIntoView(true)
+        },
+        error: function(data) {
+          console.log('error', data)
+        }
+      });
+    }
+  });

@@ -1,5 +1,5 @@
 class CasesController < InternalController
-  before_action :authenticate, except: :update_status
+  before_action :authenticate, except: [:update_status, :add_comment]
   before_action :set_case, only: %i[edit update show destroy]
 
   def index
@@ -59,6 +59,20 @@ class CasesController < InternalController
     if @case.update(case_status_id: params.dig(:case_status_id))
       render json: true
     end
+  end
+
+  def add_comment
+    @case = Case.find_by_id(params.dig(:case_id))
+
+    @comment = @case.comments.new(
+      text:    params.dig(:comment),
+      user_id: params.dig(:user_id)
+    )
+
+    if @comment.save
+      render json: true
+    end
+
   end
 
   private

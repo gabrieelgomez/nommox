@@ -6,6 +6,7 @@ class Case < ApplicationRecord
   has_one    :booking,       dependent: :destroy
   has_one    :tests,         dependent: :destroy, class_name: 'Test'
   belongs_to :status,        dependent: :destroy, class_name: 'CaseStatus', foreign_key: 'case_status_id'
+  has_many   :comments,      dependent: :destroy
 
   #uploader
   mount_uploader :video_self, AttachmentUploader
