@@ -1,5 +1,5 @@
 class CaseStatusPolicy < ControllersPolicy
   def index?
-    is_super_admin? || is_asesor?
+    is_super_admin?
   end
 end
