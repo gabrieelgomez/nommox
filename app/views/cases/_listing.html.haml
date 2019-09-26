@@ -8,10 +8,10 @@
       %td
         = link_to case_path(c) do
           %button.btn.btn-primary.btn-sm Ver
-    - if policy(:case).edit?
-      %td
-        = link_to edit_case_path(c) do
-          %button.btn.btn-primary.btn-sm Editar
+    -# - if policy(:case).edit?
+    -#   %td
+    -#     = link_to edit_case_path(c) do
+    -#       %button.btn.btn-primary.btn-sm Editar
     - if policy(:case).destroy?
       %td
         = link_to case_path(c), method: :delete, data: { confirm: '¿Estás seguro?' } do
