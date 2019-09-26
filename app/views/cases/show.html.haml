@@ -57,7 +57,7 @@
                       %tbody
                         %tr
                           %td= @case.hours_late
-                          %td#status_name= @case.status_name
+                          %td.status_name= @case.status_name
                           %td= @case.created_at.strftime('%d/%m/%y %H:%M %p')
                           %td= @case.updated_at.strftime('%d/%m/%y %H:%M %p')
 
@@ -240,20 +240,22 @@
               .form-group
                 - @case_statuses.each do |case_status|
                   .toggle
-                    %input{ type: "checkbox", id: case_status.id, name: 'case[case_status_id]', value: case_status.id }
+                    %input{ type: "checkbox", id: case_status.id, name: 'case[case_status_id]', value: case_status.id, 'data-status-name': case_status.name, checked: @case.status_name.eql?(case_status.name) }
                     %label{ for: case_status.id }= case_status.name
 
 :javascript
   $('.toggle').click(function() {
     $('#alert').addClass('hidden')
 
-    var id      = $(this).find('input').val(),
-        case_id = #{@case.id};
+    var id          = $(this).find('input').val(),
+        case_id     = #{@case.id},
+        status_name = $(this).find('input').attr('data-status-name');
 
     $('input:checkbox').not('#'+id).removeAttr('checked');
+    console.log(status_name)
+    $('.status_name').html(status_name)
 
     data = { case_status_id: id }
-    console.log(id)
 
     $.ajax({
       type: "POST",
