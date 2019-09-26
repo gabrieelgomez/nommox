@@ -30,11 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.chat = new Chat(id);
     $('.messages').html('')
+    $('.type_msg').addClass('hidden')
     $('.channel-detail').addClass('hidden')
-    $('.type_msg').removeClass('hidden')
     $('.loader').removeClass('hidden')
-    element.find('.notification-badge').addClass('hidden')
-    $('.chat_list').removeClass('channel-active')
     element.addClass('channel-active')
   });
 
@@ -69,8 +67,7 @@ navigator.serviceWorker.addEventListener('message', function (event) {
       element   = $('#'+id),
       sound_url = "<%= asset_url('notification.mp3') %>";
 
-  console.log('event listener', event.data);
-  element.addClass('channel-active')
+  element.addClass('new-message')
   element.find('.notification-badge').removeClass('hidden')
 
   var sound = new Audio(sound_url);

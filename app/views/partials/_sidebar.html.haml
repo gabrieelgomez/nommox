@@ -3,7 +3,7 @@
     = link_to root_path, class: 'logo' do
       %span.logo-lg
         .pull-left
-          = image_tag('Icon-App-20x20@3x.png')
+          = image_tag('Icon-App-20x20@3x.png', class: 'img')
           %b{ style: 'margin-left: 10px'} Nommox
     %nav.navbar.navbar-static-top
       %a.sidebar-toggle{"data-toggle" => "push-menu", :href => "#", :role => "button"}
@@ -16,49 +16,61 @@
             = link_to users_path do
               %i.fa.fa-user
               %span Usuarios
-        %li.treeview
-          %a{:href => "#"}
-            %i.fa.fa-map
-            %span Ubicaciones
-            %span.pull-right-container
-              %i.fa.fa-angle-left.pull-right
-          %ul.treeview-menu
-            %li
-              = link_to countries_path do
-                %i.fa.fa-circle-o
-                Paises
-            %li
-              = link_to cities_path do
-                %i.fa.fa-circle-o
-                Ciudades
-            %li
-              = link_to provinces_path do
-                %i.fa.fa-circle-o
-                Provincias
-        %li.treeview
-          = link_to airlines_path do
-            %i.fa.fa-plane-departure
-            %span Aerolíneas
-        %li.treeview
-          = link_to carousel_configurations_path do
-            %i.fa.fa-font
-            %span Carrusel
-        %li.treeview
-          = link_to case_causes_path do
-            %i.fa.fa-align-justify
-            %span Causas de casos
-        %li.treeview
-          = link_to flights_path do
-            %i.fa.fa-plane
-            %span Vuelos
-        %li.treeview
-          = link_to letters_path do
-            %i.fa.fa-envelope
-            %span Cartas
-        %li.treeview
-          = link_to chat_index_path, target: '_blank' do
-            %i.fa.fa-comments
-            %span Chat
+        - if policy(:ubication).index?
+          %li.treeview
+            %a{:href => "#"}
+              %i.fa.fa-map
+              %span Ubicaciones
+              %span.pull-right-container
+                %i.fa.fa-angle-left.pull-right
+            %ul.treeview-menu
+              %li
+                = link_to countries_path do
+                  %i.fa.fa-circle-o
+                  Paises
+              %li
+                = link_to cities_path do
+                  %i.fa.fa-circle-o
+                  Ciudades
+              %li
+                = link_to provinces_path do
+                  %i.fa.fa-circle-o
+                  Provincias
+        - if policy(:airline).index?
+          %li.treeview
+            = link_to airlines_path do
+              %i.fa.fa-plane-departure
+              %span Aerolíneas
+        - if policy(:carousel_configuration).index?
+          %li.treeview
+            = link_to carousel_configurations_path do
+              %i.fa.fa-font
+              %span Carrusel
+        - if policy(:case_cause).index?
+          %li.treeview
+            = link_to case_causes_path do
+              %i.fa.fa-align-justify
+              %span Causas de casos
+        - if policy(:flight).index?
+          %li.treeview
+            = link_to flights_path do
+              %i.fa.fa-plane
+              %span Vuelos
+        - if policy(:letter).index?
+          %li.treeview
+            = link_to letters_path do
+              %i.fa.fa-envelope
+              %span Cartas
+        - if policy(:case).index?
+          %li.treeview
+            = link_to cases_path do
+              %i.fa.fa-gavel
+              %span Casos
+        - if policy(:chat).index?
+          %li.treeview
+            = link_to chat_index_path, target: '_blank' do
+              %i.fa.fa-comments
+              %span Chat
         %li.treeview
           = link_to logout_path do
             %i.fa.fa-sign-out-alt

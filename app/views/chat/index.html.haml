@@ -5,9 +5,10 @@
       .inbox_msg
         .headind_srch
           .recent_heading{ style: 'display: inline-block'}
-            %h5{ style: 'margin-top: 5px; font-weight: bold;'}
-              = image_tag('Icon-App-20x20@3x.png', style: 'width: 30px; height: 30px; margin-right: 10px')
-              Nommox Chat
+            = link_to root_path do
+              %h5{ style: 'margin-top: 5px; font-weight: bold;'}
+                = image_tag('Icon-App-20x20@3x.png', style: 'width: 30px; height: 30px; margin-right: 10px')
+                Nommox Chat
           .channel-detail.hidden
             .pull-right
               %h5

@@ -1,0 +1,2 @@
+class UbicationPolicy < ControllersPolicy
+end

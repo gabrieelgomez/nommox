@@ -37,6 +37,7 @@ module Api::V1::Cases
     end
 
     def create_tickets(case_id)
+      byebug
       return if params.dig(:ticket).nil?
       @ticket = Ticket.new(ticket_params&.merge(case_id: case_id))
 

@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   def respond_to_formats(action, objects)
     respond_to do |format|
       format.html { render action }
@@ -26,6 +28,14 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user
     redirect_to login_path unless current_user.present?
+  end
+
+  private
+
+  def user_not_authorized
+    return unless request.format.symbol.eql?(:html)
+    flash[:alert] = "No tiene permiso para realizar ésta acción."
+    redirect_to(root_path)
   end
 
 end

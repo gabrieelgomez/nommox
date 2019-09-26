@@ -9,4 +9,8 @@ class ApplicationPolicy
   def is_super_admin?
     @user.has_role?(:super_admin) || @user.has_role?(:admin)
   end
+
+  def is_asesor?
+    @user.has_role?(:asesor)
+  end
 end

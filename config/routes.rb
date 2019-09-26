@@ -30,6 +30,9 @@ Rails.application.routes.draw do
   #chat routes
   draw :chat
 
+  #chat routes
+  draw :cases
+
   #routes for api
   namespace :api do
     namespace :v1 do
