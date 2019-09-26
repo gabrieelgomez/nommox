@@ -1,0 +1,28 @@
+%section.content-header
+  -# %h1
+  -#   - if policy(:case).new?
+  -#     = link_to new_case_path do
+  -#       %button.btn.btn-primary
+  -#         Nuevo
+  %ol.breadcrumb
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Casos
+    %li.active Listado
+
+.container-fluid.mt-10
+  .row
+    .col-lg-12
+      .box.slice-box
+        .box-body.no-padding
+          %table.table
+            %thead
+              %tr
+                %th #
+                %th Nombre
+                %th País
+                %th
+                %th
+            %tbody
+              = render 'listing'

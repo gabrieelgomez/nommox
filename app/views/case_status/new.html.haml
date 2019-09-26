@@ -1,0 +1,25 @@
+%section.content-header
+  %h1
+    = link_to :back do
+      %button.btn.btn-primary
+        Atrás
+  %ol.breadcrumb
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Estado del Caso
+    %li.active Crear
+
+.container-fluid.mt-10
+  .row
+    .col-md-12
+      .box.box-primary
+        .box-header.with-border
+          %h3.box-title Crear Estado del Caso
+
+        .box-body
+          = simple_form_for @case_status, url: case_status_index_path, method: :post do |f|
+            .form-group
+              = f.input :name, label: 'Nombre', input_html: { class: 'form-control' }
+            .form-group.pull-right
+              = f.submit 'GUARDAR', class: 'btn btn-primary'

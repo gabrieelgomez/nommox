@@ -16,5 +16,6 @@
 *= require custom
 *= require chat
 *= require preloaders
+*= require switch
 *= require_self
  */

@@ -30,6 +30,12 @@ Rails.application.routes.draw do
   #chat routes
   draw :chat
 
+  #cases routes
+  draw :cases
+
+  #cases_status routes
+  draw :case_status
+
   #routes for api
   namespace :api do
     namespace :v1 do

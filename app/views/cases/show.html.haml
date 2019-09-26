@@ -1,0 +1,361 @@
+%section.content-header
+  %h1
+    = link_to :back do
+      %button.btn.btn-primary
+        Atrás
+  %ol.breadcrumb
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Casos
+    %li.active Detalle
+
+.container-fluid.mt-10
+  .row
+
+    .col-lg-12
+      .nav-tabs-custom
+        %ul.nav.nav-tabs
+          %li.active
+            %a{"data-toggle" => "tab", :href => "#tab_0"} Datos del caso
+          %li
+            %a{"data-toggle" => "tab", :href => "#tab_1"} Usuario
+          %li
+            %a{"data-toggle" => "tab", :href => "#tab_2"} Causas del caso
+          %li
+            %a{"data-toggle" => "tab", :href => "#tab_3"} Vuelos
+          %li
+            %a{"data-toggle" => "tab", :href => "#tab_4"} Pasabordos
+          %li
+            %a{"data-toggle" => "tab", :href => "#tab_5"} Inconvenientes
+          %li
+            %a{"data-toggle" => "tab", :href => "#tab_6"} Datos de reservación
+          %li
+            %a{"data-toggle" => "tab", :href => "#tab_7"} Pruebas
+          %li
+            %a{"data-toggle" => "tab", :href => "#tab_8"} Cambiar estado
+          %li.comments-tab
+            %a{"data-toggle" => "tab", :href => "#tab_9"} Comentarios
+
+        .tab-content
+          #tab_0.tab-pane.active
+            .row
+              .col-lg-12
+                .box.slice-box
+                  .box-body.no-padding
+                    %table.table
+                      %thead
+                        %tr
+                          %th
+                            Horas de retraso
+                          %th
+                            Estado
+                          %th
+                            Fecha de Creación
+                          %th
+                            Última actualización
+                      %tbody
+                        %tr
+                          %td= @case.hours_late
+                          %td.status_name= @case.status_name
+                          %td= @case.created_at.strftime('%d/%m/%y %H:%M %p')
+                          %td= @case.updated_at.strftime('%d/%m/%y %H:%M %p')
+
+          #tab_1.tab-pane
+            .row
+              .col-lg-12
+                .box.slice-box
+                  .box-body.no-padding
+                    %table.table
+                      %thead
+                        %tr
+                          %th
+                            Email
+                          %th
+                            Nombre
+                          %th
+                            Teléfono
+                          %th
+                            País
+                          %th
+                            Ciudad
+                          %th
+                            Provincia
+                      %tbody
+                        %tr
+                          %td= @case.user.email
+                          %td= @case.user.name
+                          %td= @case.user.phone           || 'Sin asignar'
+                          %td= @case.user&.country&.name  || 'Sin asignar'
+                          %td= @case.user&.city&.name     || 'Sin asignar'
+                          %td= @case.user&.province&.name || 'Sin asignar'
+
+          #tab_2.tab-pane
+            .row
+              .col-lg-12
+                .box.slice-box
+                  .box-body.no-padding
+                    %table.table
+                      %thead
+                        %tr
+                          %th
+                            Nombre
+                      %tbody
+                      - @case.case_causes.each do |case_cause|
+                        %tr
+                          %td
+                            = case_cause.name
+
+          #tab_3.tab-pane
+            .row
+              .col-lg-12
+                .box.slice-box
+                  .box-body.no-padding
+                    %table.table
+                      %thead
+                        %tr
+                          %th Nombre Apto. de Salida
+                          %th Nombre Apto. de Llegada
+                          %th Fecha
+                          %th Hora
+                          %th Aerolínea
+                          %th Número de Vuelo
+                          %th
+                          %th
+                      %tbody
+                        - @case.flights.each do |flight|
+                          %tr
+                            %td= flight.departure_airport_name
+                            %td= flight.arrival_airport_name
+                            %td= flight&.date&.strftime('%d/%Y/%m')
+                            %td= flight&.date&.strftime('%H:%M')
+                            %td= flight.airline
+                            %td= flight.flight_number
+
+          #tab_4.tab-pane
+            .row
+              .col-lg-12
+                .box.slice-box
+                  .box-body.no-padding
+                    - @case.tickets.first.tickets.each do |ticket|
+                      .col-md-12{ style: 'margin-bottom: 20px'}
+                        %td= image_tag(ticket.url, style: 'width: 100%; heigth: 100%; object-fit: cover;  ')
+
+          #tab_5.tab-pane
+            .row
+              .col-lg-12
+                .box.slice-box
+                  .box-body.no-padding
+                    %table.table
+                      %thead
+                        %tr
+                          %th Conexión Perdida
+                          %th Evento Perdido
+                          %th Descripción del evento perdido
+                          %th Prueba
+                      %tbody
+                        %tr
+                          %td= @case.inconvenience.lost_connection? ? 'Sí' : 'No'
+                          %td= @case.inconvenience.lost_event? ? 'Sí' : 'No'
+                          %td= @case.inconvenience&.description || 'No ha perdido ningún evento'
+                          %td= image_tag(@case.inconvenience&.image&.url || '' )
+
+          #tab_6.tab-pane
+            .row
+              .col-lg-12
+                .box.slice-box
+                  .box-body.no-padding
+                    %table.table
+                      %thead
+                        %tr
+                          %th Código
+                      %tbody
+                        %tr
+                          %td= @case.booking.code
+
+            .row
+              .col-lg-12
+                .box.slice-box
+                  .box-header
+                    %h3.box-title Acompañantes
+                  .box-body.no-padding
+                    %table.table
+                      %thead
+                        %tr
+                          %th Nombres
+                          %th Apellidos
+                          %th Documento de Identificación
+                          %th Pasaporte
+                      %tbody
+                        - @case.booking.companions.each do |companion|
+                          %tr
+                            %td= companion.names
+                            %td= companion.surnames
+                            %td= image_tag(companion.identification_document&.url || '')
+                            %td= image_tag(companion.passport&.url || '')
+
+          #tab_7.tab-pane
+            .nav-tabs-custom
+              %ul.nav.nav-tabs
+                %li.active
+                  %a{"data-toggle" => "tab", :href => "#images"} Imágenes
+                %li
+                  %a{"data-toggle" => "tab", :href => "#documents"} Documentos
+                %li
+                  %a{"data-toggle" => "tab", :href => "#voices"} Audios
+                %li
+                  %a{"data-toggle" => "tab", :href => "#videos"} Vídeos
+
+              .tab-content
+                #images.tab-pane.active
+                  - @case.tests.images.each do |image|
+                    .col-md-12{ style: 'margin-bottom: 20px'}
+                      %td= image_tag(image.url, style: 'width: 100%; heigth: 100%; object-fit: cover;  ')
+
+
+                #documents.tab-pane
+                  - @case.tests.documents.each do |document|
+                    %embed{:height => "700px", :src => document.url, :type => "application/pdf", :width => "500"}
+
+                #voices.tab-pane
+                  - @case.tests.voices.each do |voice|
+                    %audio{:controls => "", style: "width: 45%; margin.right: 40px"}
+                      %source{:src => voice.url, :type => "audio/mpeg"}
+                        Your browser does not support the audio element.
+
+                #videos.tab-pane
+                  - @case.tests.videos.each do |video|
+                    %video{:controls => "", :height => "300", :width => "500"}
+                      %source{:src => video.url, :type => "video/mp4"}
+                        Your browser does not support the video tag.
+
+          #tab_8.tab-pane
+            .alert.alert-success.alert-dismissible.hidden#alert
+              %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
+              %h4
+                %i.icon.fa.fa-check
+                Estado actualizado!
+
+
+            .form-group
+              - @case_statuses.each do |case_status|
+                .toggle
+                  %input{ type: "checkbox", id: case_status.id, name: 'case[case_status_id]', value: case_status.id, 'data-status-name': case_status.name, checked: @case.status_name.eql?(case_status.name) }
+                  %label{ for: case_status.id }= case_status.name
+
+          #tab_9.tab-pane
+            .box.box-primary.direct-chat.direct-chat-primary
+              .box-header.with-border
+              .box-body
+                .direct-chat-messages{ style: 'height: 500px' }
+                  - @case.comments.each do |comment|
+                    - if comment.user.id.eql?(current_user.id)
+                      .direct-chat-msg.right
+                        .direct-chat-info.clearfix
+                          %span.direct-chat-name.pull-right= comment.user.name
+                          %span.direct-chat-timestamp.pull-left= comment.created_at.strftime('%d/%m/%y %H:%M %p')
+                        %img.direct-chat-img{:alt => "Message User Image", :src => "/assets/profile.jpg"}
+                        .direct-chat-text
+                          = comment.text
+                    - else
+                      .direct-chat-msg
+                        .direct-chat-info.clearfix
+                          %span.direct-chat-name.pull-left= comment.user.name
+                          %span.direct-chat-timestamp.pull-right= comment.created_at.strftime('%d/%M/%y %H:%M %p')
+
+                        %img.direct-chat-img{:alt => "Message User Image", :src => "/assets/profile.jpg"}/
+                        .direct-chat-text
+                          = comment.text
+                  %span#end
+              .box-footer
+                .input-group
+                  %input.form-control#comment{:name => "message", :placeholder => "Escribe un mensaje ...", :type => "text"}/
+                  %span.input-group-btn
+                    %button.btn.btn-primary.btn-flat.btn-send{ type: "button" } Enviar
+
+:javascript
+  $('.toggle').click(function() {
+    $('#alert').addClass('hidden')
+
+    var id          = $(this).find('input').val(),
+        case_id     = #{@case.id},
+        status_name = $(this).find('input').attr('data-status-name');
+
+    $('input:checkbox').not('#'+id).removeAttr('checked');
+    console.log(status_name)
+    $('.status_name').html(status_name)
+
+    data = { case_status_id: id }
+
+    $.ajax({
+      type: "POST",
+      url: `/cases/${case_id}/status`,
+      data: data,
+      success: function(data) {
+        console.log('success', data)
+        $('#alert').removeClass('hidden')
+      },
+      error: function(data) {
+        console.log('error', data)
+      }
+    });
+  })
+
+  function getDate(date) {
+    var monthNames = [
+      "Enero", "Febrero", "Marzo",
+      "Abril", "Mayo", "Junio", "Julio",
+      "Agosto", "Septiembre", "Octubre",
+      "Noviembre", "Diciembre"
+    ];
+
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+
+    return day + '/' +monthIndex + '/' + year;
+  }
+
+  function getTime(date) {
+    return date.getHours() + ":" + date.getMinutes()
+  }
+
+  $('.btn-send').click(function() {
+    var text = $('#comment').val(),
+        case_id   = #{@case.id},
+        now       = new Date(),
+        date      = getDate(now),
+        time      = getTime(now),
+        user_name = "#{current_user.name}",
+        user_id   = "#{current_user.id}",
+        data      = { comment: text, user_id: user_id };
+
+
+    var html = `<div class="direct-chat-msg right">
+                  <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-name pull-right">${user_name}</span>
+                    <span class="direct-chat-timestamp pull-left">${date} ${time}</span>
+                  </div>
+                  <img alt="Message User Image" class="direct-chat-img" src="/assets/profile.jpg"/>
+                  <div class="direct-chat-text">
+                    ${text}
+                  </div>
+                </div>`
+
+
+    if (comment != '') {
+      $.ajax({
+        type: "POST",
+        url: `/cases/${case_id}/add_comment`,
+        data: data,
+        success: function(data) {
+          $('.direct-chat-messages').append(html)
+          $('#comment').val('')
+          document.getElementById('end').scrollIntoView(true)
+        },
+        error: function(data) {
+          console.log('error', data)
+        }
+      });
+    }
+  });

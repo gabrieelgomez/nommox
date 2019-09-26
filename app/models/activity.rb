@@ -2,7 +2,8 @@ class Activity < ApplicationRecord
   before_save :set_date
 
   def parsed_date
-    date.present? ? "Últ. Conexión: #{ I18n.l(self.date, format: '%A %d, %m %I:%M %p')}" : ''
+    I18n.l(self.date, format: '%A %d, %m %I:%M %p')
+    # date.present? ? "Últ. Conexión: #{ }" : ''
   end
 
   private

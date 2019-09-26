@@ -3,5 +3,6 @@ class ChatController < ApplicationController
   layout 'front'
 
   def index
+    authorize :chat, :index?
   end
 end

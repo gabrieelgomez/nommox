@@ -1,4 +1,4 @@
-img {
+.img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -232,6 +232,11 @@ img {
 }
 
 .channel-active {
+  background: #1295EE;
+  border-right: 5px solid #435f7a;
+}
+
+.new-message {
   background: #1295EE;
   border-right: 5px solid #435f7a;
 }

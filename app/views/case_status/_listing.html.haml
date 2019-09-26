@@ -1,0 +1,16 @@
+- @case_statuses.each_with_index do |case_status, index|
+  %tr
+    %td= index + 1
+    %td= case_status.name
+    - if policy(:case_status).show?
+      %td
+        = link_to case_status_path(case_status) do
+          %button.btn.btn-primary.btn-sm Ver
+    - if policy(:case_status).edit?
+      %td
+        = link_to edit_case_status_path(case_status) do
+          %button.btn.btn-primary.btn-sm Editar
+    - if policy(:case_status).destroy?
+      %td
+        = link_to case_status_path(case_status), method: :delete, data: { confirm: '¿Estás seguro?' } do
+          %button.btn.btn-danger.btn-sm Eliminar
