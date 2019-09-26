@@ -57,7 +57,7 @@
                       %tbody
                         %tr
                           %td= @case.hours_late
-                          %td= @case.status
+                          %td#status_name= @case.status_name
                           %td= @case.created_at.strftime('%d/%m/%y %H:%M %p')
                           %td= @case.updated_at.strftime('%d/%m/%y %H:%M %p')
 
@@ -228,3 +228,43 @@
                     %video{:controls => "", :height => "300", :width => "500"}
                       %source{:src => video.url, :type => "video/mp4"}
                         Your browser does not support the video tag.
+
+          #tab_8.tab-pane
+            .alert.alert-success.alert-dismissible.hidden#alert
+              %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
+              %h4
+                %i.icon.fa.fa-check
+                Estado actualizado!
+
+            = simple_form_for @case, url: case_status_path(@case), method: :post do
+              .form-group
+                - @case_statuses.each do |case_status|
+                  .toggle
+                    %input{ type: "checkbox", id: case_status.id, name: 'case[case_status_id]', value: case_status.id }
+                    %label{ for: case_status.id }= case_status.name
+
+:javascript
+  $('.toggle').click(function() {
+    $('#alert').addClass('hidden')
+
+    var id      = $(this).find('input').val(),
+        case_id = #{@case.id};
+
+    $('input:checkbox').not('#'+id).removeAttr('checked');
+
+    data = { case_status_id: id }
+    console.log(id)
+
+    $.ajax({
+      type: "POST",
+      url: `/cases/${case_id}/status`,
+      data: data,
+      success: function(data) {
+        console.log('success', data)
+        $('#alert').removeClass('hidden')
+      },
+      error: function(data) {
+        console.log('error', data)
+      }
+    });
+  })

@@ -1,5 +1,5 @@
 class CasesController < InternalController
-  before_action :authenticate
+  before_action :authenticate, except: :update_status
   before_action :set_case, only: %i[edit update show destroy]
 
   def index
@@ -42,6 +42,7 @@ class CasesController < InternalController
   end
 
   def show
+    @case_statuses = CaseStatus.all
     respond_to_formats(:show, @case)
   end
 
@@ -50,6 +51,13 @@ class CasesController < InternalController
     respond_to do |format|
       format.html { redirect_to cases_url, notice: 'Case Cause was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def update_status
+    @case = Case.find_by_id(params.dig(:case_id))
+    if @case.update(case_status_id: params.dig(:case_status_id))
+      render json: true
     end
   end
 

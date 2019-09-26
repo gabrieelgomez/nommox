@@ -5,6 +5,7 @@ class Case < ApplicationRecord
   has_one    :inconvenience, dependent: :destroy
   has_one    :booking,       dependent: :destroy
   has_one    :tests,         dependent: :destroy, class_name: 'Test'
+  belongs_to :status,        dependent: :destroy, class_name: 'CaseStatus', foreign_key: 'case_status_id'
 
   #uploader
   mount_uploader :video_self, AttachmentUploader
@@ -16,4 +17,9 @@ class Case < ApplicationRecord
   def case_causes
     CaseCause.where(id: case_cause_ids_parsed)
   end
+
+  def status_name
+    status&.name || ''
+  end
+
 end

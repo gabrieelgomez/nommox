@@ -66,6 +66,11 @@
             = link_to cases_path do
               %i.fa.fa-gavel
               %span Casos
+        - if policy(:case).index?
+          %li.treeview
+            = link_to case_status_index_path do
+              %i.fa.fa-check
+              %span Estados de los casos
         - if policy(:chat).index?
           %li.treeview
             = link_to chat_index_path, target: '_blank' do

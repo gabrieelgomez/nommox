@@ -1,0 +1,40 @@
+%section.content-header
+  %h1
+    = link_to :back do
+      %button.btn.btn-primary
+        Atrás
+  %ol.breadcrumb
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        Estado del Caso
+    %li
+      %a{:href => "#"}
+        %i.fa.fa-dashboard
+        = @case_status.name
+    %li.active Detalle
+
+.container-fluid.mt-10
+  .row
+    .col-lg-12
+      .box.slice-box
+        .box-body.no-padding
+          %table.table
+            %thead
+              %tr
+                %th
+                  Nombre
+                %th
+                %th
+            %tbody
+              %tr
+                %td
+                  = @case_status.name
+                - if policy(:case_status).edit?
+                  %td
+                    = link_to edit_case_status_path(@case_status) do
+                      %button.btn.btn-primary.btn-sm Editar
+                - if policy(:case_status).destroy?
+                  %td
+                    = link_to case_status_path(@case_status), method: :delete, data: { confirm: '¿Estás seguro?' } do
+                      %button.btn.btn-danger.btn-sm Eliminar

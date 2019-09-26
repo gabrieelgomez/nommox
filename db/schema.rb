@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_24_150255) do
+ActiveRecord::Schema.define(version: 2019_09_26_170939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,8 +52,13 @@ ActiveRecord::Schema.define(version: 2019_09_24_150255) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "case_statuses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "cases", force: :cascade do |t|
-    t.integer "status"
     t.string "video_self"
     t.integer "hours_late", default: 0
     t.boolean "notifications_enabled", default: false
@@ -62,6 +67,8 @@ ActiveRecord::Schema.define(version: 2019_09_24_150255) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "done", default: false
+    t.bigint "case_status_id"
+    t.index ["case_status_id"], name: "index_cases_on_case_status_id"
     t.index ["user_id"], name: "index_cases_on_user_id"
   end
 
@@ -195,6 +202,7 @@ ActiveRecord::Schema.define(version: 2019_09_24_150255) do
 
   add_foreign_key "airlines", "countries"
   add_foreign_key "bookings", "cases"
+  add_foreign_key "cases", "case_statuses"
   add_foreign_key "cases", "users"
   add_foreign_key "cities", "countries"
   add_foreign_key "companions", "bookings"
