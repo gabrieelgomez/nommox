@@ -21,15 +21,13 @@ const messaging = firebase.messaging();
 // implement this optional method.
 // [START background_handler]
 messaging.setBackgroundMessageHandler(function(payload) {
-  // var body        = payload.data.twi_body.split(':')[1].trim();
   var body = payload.data.twi_body;
 
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
-  console.log(payload.data.channel_sid)
 
   messaging.setBackgroundMessageHandler(function (payload) {
     const response = payload;
-    console.log('[firebase-messaging-sw.js] Received background message ', payload);
+
     self.clients.matchAll({includeUncontrolled: true}).then(function (clients) {
       //you can see your main window client in this list.
       clients.forEach(function(client) {
@@ -50,7 +48,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
 });
 
 self.addEventListener('notificationclick', function(event) {
-  let url = 'https://nommox.com/chat';
+  let url = 'https://nommox.com/chat/';
   event.notification.close(); // Android needs explicit close.
   event.waitUntil(
     clients.matchAll({ type: 'window' }).then( windowClients => {

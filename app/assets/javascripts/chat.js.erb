@@ -93,13 +93,13 @@ class Chat {
         </div>
       </div>`).join("");
 
-      ordered_channels.map(function(channel) {
-        var local = localStorage.getItem(channel[0].sid)
-        console.log(local)
-        if (local != null) {
-          $('#'+channel[0].sid).find('.notification-badge').removeClass('hidden').html(local);
-        }
-      })
+      // ordered_channels.map(function(channel) {
+      //   var local = localStorage.getItem(channel[0].sid)
+      //   console.log(local)
+      //   if (local != null) {
+      //     $('#'+channel[0].sid).find('.notification-badge').removeClass('hidden').html(local);
+      //   }
+      // })
 
   }
 
@@ -164,7 +164,7 @@ class Chat {
     $('.channel-detail').removeClass('hidden');
     $('#channel-name').html(channel.uniqueName);
     $('.type_msg').removeClass('hidden')
-    localStorage.removeItem(channel.sid);
+    // localStorage.removeItem(channel.sid);
   }
 
   getChannelMessages(channel) {
