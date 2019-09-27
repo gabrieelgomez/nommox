@@ -76,13 +76,12 @@ class Chat {
   renderChannel() {
     var that             = this;
     let channelContainer = document.querySelector('.inbox_chat');
-    console.log(this.channels)
     let ordered_channels = this.channels.sort((a, b) => (a[1] < b[1]) ? -1 : 1)
     let img              = "<%= asset_url('profile.jpg') %>";
 
     channelContainer.innerHTML = ordered_channels.map(channel =>
       `<div class="chat_list" id="${channel[0].sid}">
-        <span class="notification-badge hidden"></span>
+        <span class="notification-badge hidden">1</span>
         <div class="chat_people">
           <div class="chat_img"> <img src="${img}" class="img" alt="sunil"> </div>
           <div class="chat_ib">
@@ -159,7 +158,8 @@ class Chat {
   }
 
   getChannelMessages(channel) {
-    const that = this;
+    const that    = this;
+    var   element = $('#'+channel.sid);
 
     channel.getMessages().then(function(messages) {
       const totalMessages = messages.items.length;
@@ -169,13 +169,14 @@ class Chat {
         $('.loader').addClass('hidden');
         let messageContainer = document.querySelector(".chat .messages");
         messageContainer.scrollTop = messageContainer.scrollHeight - 10;
+        element.removeClass('new-message');
+        element.find('.notification-badge').addClass('hidden');
       }
     });
   }
 
 
   setupClient(client, channel_sid) {
-    console.log('setupClient')
     this.client           = client;
     window.chat.client    = client;
 

@@ -233,21 +233,26 @@
 
 .channel-active {
   background: #1295EE;
-  border-right: 5px solid #435f7a;
+  border-right: 5px solid #0E6AB3;
 }
 
 .new-message {
   background: #1295EE;
-  border-right: 5px solid #435f7a;
+  border-right: 5px solid #0E6AB3;
 }
 
 .notification-badge {
-  width: 14px;
-  height: 14px;
+  width: 25px;
+  height: 25px;
   background-color: #0E6AB3;
   border-radius: 50%;
   position: absolute;
   right: 10px;
+  color: #fafafa;
+  padding-top: 2px;
+  color: #fafafa;
+  text-align: center;
+  font-weight: bold;
 }
 
 ::-webkit-scrollbar {
