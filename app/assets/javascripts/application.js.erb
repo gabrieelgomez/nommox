@@ -98,9 +98,6 @@ Rails.ajax({
 
             // registering event listener on new message from firebase to pass it to the Chat SDK for parsing
             messaging.onMessage(payload => {
-              console.log('onMessage', payload)
-              console.log('onMessage', payload.data.channel_sid)
-              $('#'+payload.data.channel_sid).addClass('channel-active')
               chatClient.handlePushNotification(payload);
             });
            }).catch((err) => {
