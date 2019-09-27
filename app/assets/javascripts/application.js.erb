@@ -72,6 +72,10 @@ navigator.serviceWorker.addEventListener('message', function (event) {
   element.addClass('new-message')
   badge.removeClass('hidden')
 
+  var messagesCount = parseInt(badge.html()) + 1
+
+  badge.html(messagesCount);
+
   var sound = new Audio(sound_url);
   sound.play();
 });
