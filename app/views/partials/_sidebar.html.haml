@@ -66,7 +66,7 @@
             = link_to cases_path do
               %i.fa.fa-gavel
               %span Casos
-        - if policy(:case).index?
+        - if policy(:case_status).index?
           %li.treeview
             = link_to case_status_index_path do
               %i.fa.fa-check

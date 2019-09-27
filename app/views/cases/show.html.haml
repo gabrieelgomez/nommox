@@ -137,7 +137,7 @@
               .col-lg-12
                 .box.slice-box
                   .box-body.no-padding
-                    - @case.tickets.first.tickets.each do |ticket|
+                    - @case&.tickets&.first&.tickets&.each do |ticket|
                       .col-md-12{ style: 'margin-bottom: 20px'}
                         %td= image_tag(ticket.url, style: 'width: 100%; heigth: 100%; object-fit: cover;  ')
 
@@ -155,10 +155,10 @@
                           %th Prueba
                       %tbody
                         %tr
-                          %td= @case.inconvenience.lost_connection? ? 'Sí' : 'No'
-                          %td= @case.inconvenience.lost_event? ? 'Sí' : 'No'
-                          %td= @case.inconvenience&.description || 'No ha perdido ningún evento'
-                          %td= image_tag(@case.inconvenience&.image&.url || '' )
+                          %td= @case&.inconvenience&.lost_connection? ? 'Sí' : 'No'
+                          %td= @case&.inconvenience&.lost_event? ? 'Sí' : 'No'
+                          %td= @case&.inconvenience&.description || 'No ha perdido ningún evento'
+                          %td= image_tag(@case&.inconvenience&.image&.url || '' )
 
           #tab_6.tab-pane
             .row
@@ -187,12 +187,12 @@
                           %th Documento de Identificación
                           %th Pasaporte
                       %tbody
-                        - @case.booking.companions.each do |companion|
+                        - @case&.booking&.companions&.each do |companion|
                           %tr
                             %td= companion.names
                             %td= companion.surnames
-                            %td= image_tag(companion.identification_document&.url || '')
-                            %td= image_tag(companion.passport&.url || '')
+                            %td= image_tag(companion&.identification_document&.url || '')
+                            %td= image_tag(companion&.passport&.url || '')
 
           #tab_7.tab-pane
             .nav-tabs-custom
@@ -208,23 +208,23 @@
 
               .tab-content
                 #images.tab-pane.active
-                  - @case.tests.images.each do |image|
+                  - @case&.tests&.images&.each do |image|
                     .col-md-12{ style: 'margin-bottom: 20px'}
                       %td= image_tag(image.url, style: 'width: 100%; heigth: 100%; object-fit: cover;  ')
 
 
                 #documents.tab-pane
-                  - @case.tests.documents.each do |document|
+                  - @case&.tests&.documents&.each do |document|
                     %embed{:height => "700px", :src => document.url, :type => "application/pdf", :width => "500"}
 
                 #voices.tab-pane
-                  - @case.tests.voices.each do |voice|
+                  - @case&.tests&.voices&.each do |voice|
                     %audio{:controls => "", style: "width: 45%; margin.right: 40px"}
                       %source{:src => voice.url, :type => "audio/mpeg"}
                         Your browser does not support the audio element.
 
                 #videos.tab-pane
-                  - @case.tests.videos.each do |video|
+                  - @case&.tests&.videos&.each do |video|
                     %video{:controls => "", :height => "300", :width => "500"}
                       %source{:src => video.url, :type => "video/mp4"}
                         Your browser does not support the video tag.
@@ -248,7 +248,7 @@
               .box-header.with-border
               .box-body
                 .direct-chat-messages{ style: 'height: 500px' }
-                  - @case.comments.each do |comment|
+                  - @case&.comments&.each do |comment|
                     - if comment.user.id.eql?(current_user.id)
                       .direct-chat-msg.right
                         .direct-chat-info.clearfix
