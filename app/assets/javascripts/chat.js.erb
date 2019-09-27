@@ -77,7 +77,7 @@ class Chat {
     var that             = this;
     let channelContainer = document.querySelector('.inbox_chat');
     console.log(this.channels)
-    let ordered_channels = this.channels.sort((a, b) => (a[1] < b[1]) ? 1 : -1)
+    let ordered_channels = this.channels.sort((a, b) => (a[1] < b[1]) ? -1 : 1)
     let img              = "<%= asset_url('profile.jpg') %>";
 
     channelContainer.innerHTML = ordered_channels.map(channel =>
