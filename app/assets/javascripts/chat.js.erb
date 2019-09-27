@@ -76,7 +76,7 @@ class Chat {
   renderChannel() {
     var that             = this;
     let channelContainer = document.querySelector('.inbox_chat');
-    let ordered_channels = this.channels.sort((a, b) => (a[1] < b[1]) ? -1 : 1)
+    let ordered_channels = this.channels.sort((a, b) => (a[0].dateCreated < b[0].dateCreated) ? 1 : -1)
     let img              = "<%= asset_url('profile.jpg') %>";
 
     channelContainer.innerHTML = ordered_channels.map(channel =>
@@ -92,6 +92,15 @@ class Chat {
           </div>
         </div>
       </div>`).join("");
+
+      ordered_channels.map(function(channel) {
+        var local = localStorage.getItem(channel[0].sid)
+        console.log(local)
+        if (local != null) {
+          $('#'+channel[0].sid).find('.notification-badge').removeClass('hidden').html(local);
+        }
+      })
+
   }
 
   addMessage(message) {
@@ -155,6 +164,7 @@ class Chat {
     $('.channel-detail').removeClass('hidden');
     $('#channel-name').html(channel.uniqueName);
     $('.type_msg').removeClass('hidden')
+    localStorage.removeItem(channel.sid);
   }
 
   getChannelMessages(channel) {
@@ -169,6 +179,7 @@ class Chat {
         $('.loader').addClass('hidden');
         let messageContainer = document.querySelector(".chat .messages");
         messageContainer.scrollTop = messageContainer.scrollHeight - 10;
+        element.removeClass('new-message');
         element.find('.notification-badge').addClass('hidden');
       }
     });
