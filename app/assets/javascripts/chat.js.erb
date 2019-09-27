@@ -169,7 +169,6 @@ class Chat {
         $('.loader').addClass('hidden');
         let messageContainer = document.querySelector(".chat .messages");
         messageContainer.scrollTop = messageContainer.scrollHeight - 10;
-        element.removeClass('new-message');
         element.find('.notification-badge').addClass('hidden');
       }
     });
