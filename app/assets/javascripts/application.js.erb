@@ -69,7 +69,6 @@ navigator.serviceWorker.addEventListener('message', function (event) {
       sound_url = "<%= asset_url('notification.mp3') %>",
       badge     = element.find('.notification-badge');
 
-  element.addClass('new-message')
   badge.removeClass('hidden')
 
   var messagesCount = parseInt(badge.html()) + 1
