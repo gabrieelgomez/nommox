@@ -78,7 +78,7 @@ navigator.serviceWorker.addEventListener('message', function (event) {
   var sound = new Audio(sound_url);
   sound.play();
 
-  // localStorage.setItem(id, messagesCount)
+  localStorage.setItem(id, messagesCount)
 });
 
 Rails.ajax({
