@@ -6,7 +6,6 @@ module Api::V1::Locations
     end
 
     def get_cities
-      byebug
       @cities = Country.find_by_id(params.dig(:country_id))&.cities || Object.new
       render json: @cities, status: 200
     end
