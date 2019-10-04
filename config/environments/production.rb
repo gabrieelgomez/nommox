@@ -32,7 +32,7 @@ Rails.application.configure do
 
   # set https for all routes
   config.action_controller.default_url_options = {
-    protocol: 'http'
+    protocol: 'https'
   }
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
