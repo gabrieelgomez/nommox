@@ -1,0 +1,2 @@
+class UnreadMessage < ApplicationRecord
+end
