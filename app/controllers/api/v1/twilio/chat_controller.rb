@@ -30,5 +30,8 @@ module Api::V1::Twilio
       render json: { token: token.to_jwt }
     end
 
+    def message_received
+    end
+
   end
 end
