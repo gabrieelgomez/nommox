@@ -97,11 +97,16 @@ class Chat {
       </div>`).join("");
 
       ordered_channels.map(function(channel) {
-        var local = localStorage.getItem(channel[0].sid)
-        console.log(local)
-        if (local != null) {
-          $('#'+channel[0].sid).find('.notification-badge').removeClass('hidden').html(local);
-        }
+        Rails.ajax({
+          url: `/api/v1/twilio/get_unread_messages/${channel[0].sid}`,
+          type: "GET",
+          success: function(data) {
+            let count = parseInt(data['messages_count'])
+            if (count != 0) {
+              $('#'+channel[0].sid).find('.notification-badge').removeClass('hidden').html(count)
+            }
+          }
+        });
       })
 
   }
@@ -158,7 +163,6 @@ class Chat {
     this.addMessage({ body: `Joined ${channel.uniqueName} channel as ${this.identity}` });
     this.channel.on('messageAdded', function(message) {
       that.addMessage(message)
-      $('#'+message.channel.sid).find('notification-badge').removeClass('hidden')
       let messageContainer = document.querySelector(".chat .messages");
       messageContainer.scrollTop = messageContainer.scrollHeight - 10;
     });
@@ -167,7 +171,14 @@ class Chat {
     $('.channel-detail').removeClass('hidden');
     $('#channel-name').html(channel.uniqueName);
     $('.type_msg').removeClass('hidden')
-    localStorage.removeItem(channel.sid);
+
+    Rails.ajax({
+      url: `/api/v1/twilio/remove_unread_messages/${channel.sid}`,
+      type: "GET",
+      success: function(data) {
+        $('#'+channel.sid).find('notification-badge').removeClass('hidden')
+      }
+    });
   }
 
   getChannelMessages(channel) {

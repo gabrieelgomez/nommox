@@ -31,6 +31,24 @@ module Api::V1::Twilio
     end
 
     def message_received
+      @channel = UnreadMessage.find_by_channel(params.dig('ChannelSid'))
+
+      if @channel.present?
+        @channel.update(messages_count: @channel.messages_count.to_i + 1)
+      else
+        @channel = UnreadMessage.create(channel: params.dig('ChannelSid'), messages_count: 1)
+      end
+    end
+
+    def get_unread_messages
+      @channel = UnreadMessage.find_by_channel(params.dig('channel_sid'))
+
+      render json: @channel
+    end
+
+    def remove_unread_messages
+      @channel = UnreadMessage.find_by_channel(params.dig('channel_sid'))
+      @channel.update(messages_count: 0) if @channel.present?
     end
 
   end
