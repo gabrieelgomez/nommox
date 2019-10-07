@@ -163,7 +163,6 @@ class Chat {
     this.addMessage({ body: `Joined ${channel.uniqueName} channel as ${this.identity}` });
     this.channel.on('messageAdded', function(message) {
       that.addMessage(message)
-      $('#'+message.channel.sid).find('notification-badge').removeClass('hidden')
       let messageContainer = document.querySelector(".chat .messages");
       messageContainer.scrollTop = messageContainer.scrollHeight - 10;
     });
@@ -177,11 +176,7 @@ class Chat {
       url: `/api/v1/twilio/remove_unread_messages/${channel.sid}`,
       type: "GET",
       success: function(data) {
-        console.log('success')
-        // let count = parseInt(data['messages_count'])
-        // if (count != 0) {
-        //   $('#'+channel[0].sid).find('.notification-badge').removeClass('hidden').html(count)
-        // }
+        $('#'+channel.sid).find('notification-badge').removeClass('hidden')
       }
     });
   }
