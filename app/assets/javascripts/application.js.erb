@@ -64,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 navigator.serviceWorker.addEventListener('message', function (event) {
+  console.log('asd')
   var id        = event.data,
       element   = $('#'+id),
       sound_url = "<%= asset_url('notification.mp3') %>",
