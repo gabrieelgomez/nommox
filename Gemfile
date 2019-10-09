@@ -113,3 +113,9 @@ gem 'phony_rails'
 
 # Manage environments variables
 gem 'dotenv-rails'
+
+#push notifications to iOS
+# gem 'grocer'
+# gem 'jruby-openssl'
+# gem 'rpush'
+gem 'houston'
