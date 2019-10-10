@@ -50,6 +50,7 @@ Rails.application.routes.draw do
       draw :twilio
       draw :letters_api
       draw :activity
+      draw :device
     end
   end
 end

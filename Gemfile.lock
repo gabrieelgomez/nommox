@@ -127,6 +127,7 @@ GEM
       sassc (>= 1.11)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    grocer (0.7.1)
     haml (5.1.1)
       temple (>= 0.8.0)
       tilt
@@ -328,6 +329,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   dotenv-rails
   font-awesome-sass
+  grocer
   haml-rails (~> 2.0)
   imgkit
   jbuilder (~> 2.5)
