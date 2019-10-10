@@ -4,7 +4,7 @@ module Api::V1
     private
 
     def activity_params
-      params.require(:activity).permit(:identity)
+      params.require(:activity).permit(:identity, :channel, :token)
     end
 
     def set_activity
