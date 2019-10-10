@@ -115,7 +115,4 @@ gem 'phony_rails'
 gem 'dotenv-rails'
 
 #push notifications to iOS
-# gem 'grocer'
-# gem 'jruby-openssl'
-# gem 'rpush'
-gem 'houston'
+gem 'grocer'

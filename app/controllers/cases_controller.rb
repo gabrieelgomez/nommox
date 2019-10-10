@@ -56,43 +56,24 @@ class CasesController < InternalController
 
   def update_status
     @case = Case.find_by_id(params.dig(:case_id))
+    @status = CaseStatus.find_by_id(params.dig(:case_status_id))
     if @case.update(case_status_id: params.dig(:case_status_id))
       render json: true
     end
 
-    # pusher = Grocer.pusher(
-    #   certificate: "#{Rails.root}/cert.pem",      # required,
-    #   gateway: 'gateway.sandbox.push.apple.com',
-    # )
-    #
-    # notification = Grocer::Notification.new(
-    #   device_token:      "fe15a27d5df3c34778defb1f4f3880265cc52c0c047682223be59fb68500a9a2",
-    #   alert:             "Testing Notification From Nommox!",
-    #   badge:             42,
-    #   sound:             "siren.aiff",         # optional
-    # )
-    #
-    # pusher.push(notification) # return value is the number of bytes sent successfully
-    require 'houston'
+    pusher = Grocer.pusher(
+      certificate: "#{Rails.root}/pushcert.pem",      # required,
+      gateway: 'gateway.sandbox.push.apple.com',
+    )
 
-    apn = ::Houston::Client.production
-    apn.certificate = File.read("#{Rails.root}/certificate.pem")
+    notification = Grocer::Notification.new(
+      device_token:      "9114390598b1b4ec3ebc170cc5ba48409b1dd02357b148d63bd248f38520d40a",
+      alert:             "Su caso ha sido actualizado a: #{@status.name}",
+      badge:             42,
+      sound:             "siren.aiff",         # optional
+    )
 
-    # An example of the token sent back when a device registers for notifications
-    token = '<47be68cf4ad1a541a3ef5aac52bd8fe081b7cc06feb7bc773edfa9b26a323f8c>'
-
-    # Create a notification that alerts a message to the user, plays a sound, and sets the badge on the app
-    notification = ::Houston::Notification.new(device: token)
-    notification.alert = 'Hello, World!'
-
-    # Notifications can also change the badge count, have a custom sound, have a category identifier, indicate available Newsstand content, or pass along arbitrary data.
-    notification.badge = 57
-    notification.sound = 'sosumi.aiff'
-    notification.content_available = true
-    notification.mutable_content = true
-
-    # And... sent! That's all it takes.
-    apn.push(notification)
+    pusher.push(notification) # return value is the number of bytes sent successfully
   end
 
   def add_comment
