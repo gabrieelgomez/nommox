@@ -32,12 +32,16 @@ module Api::V1::Twilio
 
     def message_received
       @channel = UnreadMessage.find_by_channel(params.dig('ChannelSid'))
+      @token   = Activity.find_by_channel(params.dig('ChannelSid'))&.token
+      @message = params.dig(:Body)
 
       if @channel.present?
         @channel.update(messages_count: @channel.messages_count.to_i + 1)
       else
         @channel = UnreadMessage.create(channel: params.dig('ChannelSid'), messages_count: 1)
       end
+
+      send_notification(@token, @message)
     end
 
     def get_unread_messages
@@ -49,6 +53,25 @@ module Api::V1::Twilio
     def remove_unread_messages
       @channel = UnreadMessage.find_by_channel(params.dig('channel_sid'))
       @channel.update(messages_count: 0) if @channel.present?
+    end
+
+    private
+
+    def send_notification(token, message)
+      return if token.nil?
+      pusher = Grocer.pusher(
+        certificate: "#{Rails.root}/pushcert.pem",      # required,
+        gateway: 'gateway.sandbox.push.apple.com',
+      )
+
+      notification = Grocer::Notification.new(
+        device_token: token,
+        alert:        message,
+        badge:        1,
+        sound:        "siren.aiff",         # optional
+      )
+
+      pusher.push(notification) # return value is the number of bytes sent successfully
     end
 
   end
