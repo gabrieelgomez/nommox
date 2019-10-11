@@ -12,7 +12,7 @@ module Api::V1::Cases
     private
 
     def find_or_create_user
-      password = params.dig(:email).split('@').first + 'nommox'
+      password = params.dig(:user, :email).split('@').first + 'nommox'
       user     = User.where(email: params.dig(:user, :email))
                      .first_or_create(
                         name:        params.dig(:user, :name),
@@ -100,8 +100,8 @@ module Api::V1::Cases
 
       companions.each do |companion|
         booking.companions.create!(
-          names:                   companion[:name],
-          surnames:                companion[:surname],
+          names:                   companion[:names],
+          surnames:                companion[:surnames],
           identification_document: companion[:identification],
           passport:                companion[:passport],
         )
@@ -116,7 +116,7 @@ module Api::V1::Cases
         Flight.create!(
           airline:                flight[:airline],
           departure_airport_name: flight[:from],
-          arrival_airport_name:   flight[:tol],
+          arrival_airport_name:   flight[:to],
           hour:                   flight[:hour],
           date:                   flight[:date],
           flight_number:          flight[:number],
