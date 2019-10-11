@@ -12,19 +12,31 @@ module Api::V1::Cases
     private
 
     def find_or_create_user
-      password = user_params.dig(:email).split('@').first + 'nommox'
-      data     = { password: password, role_id: 1 }
+      password = params.dig(:email).split('@').first + 'nommox'
       user     = User.where(email: params.dig(:user, :email))
-                    .first_or_create(user_params.merge(data))
+                     .first_or_create(
+                        name:        params.dig(:user, :name),
+                        email:       params.dig(:user, :email),
+                        phone:       params.dig(:user, :phone),
+                        country_id:  params.dig(:user, :country),
+                        city_id:     params.dig(:user, :city),
+                        province_id: params.dig(:user, :province),
+                        password:    password,
+                        role_id:     4
+                      )
 
       user
     end
 
     def create_case(user_id)
-      @case = Case.new(case_params.merge(user_id: user_id))
+      @case = Case.new(
+        video_self:      params.dig(:case, :video),
+        hours_late:      params.dig(:case, :hours),
+        case_cause_ids:  params.dig(:case, :caseCauseIds),
+        user_id:         user_id
+      )
 
       if @case.save
-        create_tickets(@case.id)
         create_flights(@case.id)
         create_tests(@case.id)
         create_inconvenience(@case.id)
@@ -32,17 +44,8 @@ module Api::V1::Cases
 
         render json: @case, status: 200
       else
+
         render json: @case.errors, status: 500
-      end
-    end
-
-    def create_tickets(case_id)
-      byebug
-      return if params.dig(:ticket).nil?
-      @ticket = Ticket.new(ticket_params&.merge(case_id: case_id))
-
-      unless @ticket.save
-        render json: @ticket.errors, status: 500
       end
     end
 
@@ -50,7 +53,13 @@ module Api::V1::Cases
       if params.dig(:test).nil?
         @test = Test.create(case_id: case_id)
       else
-        @test = Test.new(test_params.merge(case_id: case_id))
+        @test = Test.new(
+          videos:    params.dig(:test, :videos),
+          documents: params.dig(:test, :documents),
+          images:    params.dig(:test, :images),
+          voices:    params.dig(:test, :voices),
+          case_id:   case_id
+        )
 
         unless @test.save
           render json: @test.errors, status: 500
@@ -60,7 +69,14 @@ module Api::V1::Cases
 
     def create_inconvenience(case_id)
       return if params.dig(:inconvenience).nil?
-      @inconvenience = Inconvenience.new(inconvenience_params.merge(case_id: case_id))
+
+      @inconvenience = Inconvenience.new(
+        lost_connection: params.dig(:inconvenience, :connection),
+        lost_event:      params.dig(:inconvenience, :event),
+        description:     params.dig(:inconvenience, :description),
+        image:           params.dig(:inconvenience, :image),
+        case_id:         case_id
+      )
 
       unless @inconvenience.save
         render json: @inconvenience.errors, status: 500
@@ -69,7 +85,7 @@ module Api::V1::Cases
 
     def create_booking(case_id)
       return if params.dig(:booking).nil?
-      @booking = Booking.new(booking_params.merge(case_id: case_id))
+      @booking = Booking.new(code: params.dig(:booking, :code), case_id: case_id)
 
       if @booking.save
         create_companions(@booking)
@@ -83,10 +99,10 @@ module Api::V1::Cases
       return if companions.nil?
 
       companions.each do |companion|
-        booking.companions.create(
+        booking.companions.create!(
           names:                   companion[:name],
           surnames:                companion[:surname],
-          identification_document: companion[:identification_document],
+          identification_document: companion[:identification],
           passport:                companion[:passport],
         )
       end
@@ -99,11 +115,11 @@ module Api::V1::Cases
       flights.each do |flight|
         Flight.create!(
           airline:                flight[:airline],
-          departure_airport_name: flight[:departure],
-          arrival_airport_name:   flight[:arrival],
+          departure_airport_name: flight[:from],
+          arrival_airport_name:   flight[:tol],
           hour:                   flight[:hour],
           date:                   flight[:date],
-          flight_number:          flight[:flight_number],
+          flight_number:          flight[:number],
           case_id:                case_id
         )
       end
