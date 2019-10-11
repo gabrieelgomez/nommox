@@ -190,10 +190,10 @@ airlines = [
 
 airlines.each do |airline|
   Airline.create(
-    name: airline["name"],
-    phone: airline["phone"],
-    country_id: airline["coutry_id"]
+    name: airline[:name],
+    phone: airline[:phone],
+    country_id: airline[:coutry_id]
   )
 
-  puts "Airline #{airline["name"]} has been created"
+  puts "Airline #{airline[:name]} has been created"
 end
