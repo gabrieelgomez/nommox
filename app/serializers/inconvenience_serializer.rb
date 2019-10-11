@@ -1,3 +1,6 @@
 class InconvenienceSerializer < ActiveModel::Serializer
-  attributes :id, :lost_connection, :lost_event, :description, :image
+  attributes :id,  :description
+  attribute :lost_connection, key: :connection
+  attribute :lost_event, key: :event
+  attribute :image
 end

@@ -55,10 +55,29 @@ class CasesController < InternalController
   end
 
   def update_status
-    @case = Case.find_by_id(params.dig(:case_id))
+    @case   = Case.find_by_id(params.dig(:case_id))
+    @status = CaseStatus.find_by_id(params.dig(:case_status_id))
+    @device = Device.find_by_identity(@case.user.email)
+
     if @case.update(case_status_id: params.dig(:case_status_id))
       render json: true
     end
+
+    message = "Su caso a sido actualizado a: #{@status.name}"
+
+    pusher = Grocer.pusher(
+      certificate: "#{Rails.root}/pushcert.pem",      # required,
+      gateway: 'gateway.sandbox.push.apple.com',
+    )
+
+    notification = Grocer::Notification.new(
+      device_token:      @device.token,
+      alert:             message,
+      badge:             1,
+      sound:             "siren.aiff",         # optional
+    )
+
+    pusher.push(notification) # return value is the number of bytes sent successfully
   end
 
   def add_comment

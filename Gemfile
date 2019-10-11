@@ -113,3 +113,6 @@ gem 'phony_rails'
 
 # Manage environments variables
 gem 'dotenv-rails'
+
+#push notifications to iOS
+gem 'grocer'
