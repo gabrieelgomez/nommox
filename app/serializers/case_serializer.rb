@@ -1,10 +1,11 @@
 class CaseSerializer < ActiveModel::Serializer
-  attributes :id, :done, :status, :video_self, :hours_late,
-                  :notifications_enabled, :case_causes
+  attribute :id
+  attribute :status_name, key: :status
+  attribute :video_self,  key: :video
+  attribute :case_causes, key: :causes
 
   belongs_to :user
   has_one    :inconvenience
   has_one    :booking
   has_many   :tests
-  has_many   :tickets
 end
