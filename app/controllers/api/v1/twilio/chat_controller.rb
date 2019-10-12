@@ -63,7 +63,7 @@ module Api::V1::Twilio
 
       pusher = Grocer.pusher(
         certificate: "#{Rails.root}/pushcert.pem",      # required,
-        gateway: 'gateway.sandbox.push.apple.com',
+        gateway: 'gateway.push.apple.com',
       )
 
       notification = Grocer::Notification.new(
