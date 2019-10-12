@@ -63,21 +63,21 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-navigator.serviceWorker.addEventListener('message', function (event) {
-  var id        = event.data,
-      element   = $('#'+id),
-      sound_url = "<%= asset_url('notification.mp3') %>",
-      badge     = element.find('.notification-badge');
-
-  badge.removeClass('hidden')
-
-  var messagesCount = parseInt(badge.html()) + 1
-
-  badge.html(messagesCount);
-
-  var sound = new Audio(sound_url);
-  sound.play();
-});
+// navigator.serviceWorker.addEventListener('message', function (event) {
+//   var id        = event.data,
+//       element   = $('#'+id),
+//       sound_url = "<%= asset_url('notification.mp3') %>",
+//       badge     = element.find('.notification-badge');
+//
+//   badge.removeClass('hidden')
+//
+//   var messagesCount = parseInt(badge.html()) + 1
+//
+//   badge.html(messagesCount);
+//
+//   var sound = new Audio(sound_url);
+//   sound.play();
+// });
 
 Rails.ajax({
   url: "/tokens",
