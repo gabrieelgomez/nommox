@@ -31,9 +31,9 @@ Rails.application.configure do
   config.assets.compile = false
 
   # set https for all routes
-  # config.action_controller.default_url_options = {
-  #   protocol: 'https'
-  # }
+  config.action_controller.default_url_options = {
+    protocol: 'http'
+  }
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
