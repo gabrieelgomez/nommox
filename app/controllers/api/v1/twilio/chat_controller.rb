@@ -68,7 +68,7 @@ module Api::V1::Twilio
 
       notification = Grocer::Notification.new(
         device_token: activity.token,
-        alert:        "chat: #{message}",
+        alert:        "Chat: #{message}",
         badge:        1,
         sound:        "siren.aiff",         # optional
       )
