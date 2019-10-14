@@ -15,8 +15,6 @@ module BoardingPass
     def build_response(data)
       temp_hash = Hash.new
 
-      temp_hash[:format]    = data.dig("unique", "mandatory", "1", "raw")&.strip
-      temp_hash[:legs]      = data.dig("unique", "mandatory", "5", "raw")&.strip
       temp_hash[:passenger] = data.dig("unique", "mandatory", "11", "raw")&.strip
       temp_hash[:pnr]       = data.dig("repeated")[0].dig("mandatory", "7", "raw")&.strip
       temp_hash[:from]      = find_airport(data.dig("repeated")[0].dig("mandatory", "26", "raw")&.strip)
@@ -24,7 +22,7 @@ module BoardingPass
       temp_hash[:airline]   = @airlines.dig(data.dig("repeated")[0].dig("mandatory", "42", "raw")&.strip)
       temp_hash[:flight]    = "#{data.dig("repeated")[0].dig("mandatory", "42", "raw")&.strip}#{data.dig("repeated")[0].dig("mandatory", "43", "raw")&.strip}"
       temp_hash[:date]      = data.dig("repeated")[0].dig("mandatory", "46", "raw")&.strip
-      temp_hash[:seat]      = data.dig("repeated")[0].dig("mandatory", "104", "raw")&.strip
+      temp_hash[:hour]      = ""
 
       temp_hash
     end
