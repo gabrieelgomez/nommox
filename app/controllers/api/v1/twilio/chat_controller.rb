@@ -36,10 +36,12 @@ module Api::V1::Twilio
       @message  = params.dig(:Body)
       @identity = params.dig(:ClientIdentity)
 
-      if @channel.present?
-        @channel.update(messages_count: @channel.messages_count.to_i + 1)
-      else
-        @channel = UnreadMessage.create(channel: params.dig('ChannelSid'), messages_count: 1)
+      unless @identity.eql?(current_user.email)
+        if @channel.present?
+          @channel.update(messages_count: @channel.messages_count.to_i + 1)
+        else
+          @channel = UnreadMessage.create(channel: params.dig('ChannelSid'), messages_count: 1)
+        end
       end
 
       send_notification(@activity, @message, @identity)

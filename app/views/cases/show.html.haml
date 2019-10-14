@@ -25,8 +25,6 @@
           %li
             %a{"data-toggle" => "tab", :href => "#tab_3"} Vuelos
           %li
-            %a{"data-toggle" => "tab", :href => "#tab_4"} Pasabordos
-          %li
             %a{"data-toggle" => "tab", :href => "#tab_5"} Inconvenientes
           %li
             %a{"data-toggle" => "tab", :href => "#tab_6"} Datos de reservación
@@ -131,15 +129,6 @@
                             %td= flight&.date&.strftime('%H:%M')
                             %td= flight.airline
                             %td= flight.flight_number
-
-          #tab_4.tab-pane
-            .row
-              .col-lg-12
-                .box.slice-box
-                  .box-body.no-padding
-                    - @case&.tickets&.first&.tickets&.each do |ticket|
-                      .col-md-12{ style: 'margin-bottom: 20px'}
-                        %td= image_tag(ticket.url, style: 'width: 100%; heigth: 100%; object-fit: cover;  ')
 
           #tab_5.tab-pane
             .row

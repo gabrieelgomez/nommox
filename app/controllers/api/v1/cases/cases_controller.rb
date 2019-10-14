@@ -18,10 +18,6 @@ module Api::V1
       )
     end
 
-    def ticket_params
-      params.require(:ticket).permit({ tickets: [] })
-    end
-
     def test_params
       params.require(:test).permit(
         { videos: [] }, { images: [] }, { voices: [] }, { documents: [] }

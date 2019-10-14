@@ -33,7 +33,6 @@ module Api::V1::Cases
       edit_booking
       edit_inconvenience
       edit_tests
-      edit_tickets
     end
 
     private
@@ -85,11 +84,5 @@ module Api::V1::Cases
       @tests.update(test_params)
     end
 
-    def edit_tickets
-      return if params[:tickets].nil?
-
-      @tickets = @case.tickets
-      @tickets.update(tickets_params)
-    end
   end
 end
