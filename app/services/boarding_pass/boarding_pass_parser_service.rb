@@ -22,7 +22,7 @@ module BoardingPass
       temp_hash[:from]      = find_airport(data.dig("repeated")[0].dig("mandatory", "26", "raw")&.strip)
       temp_hash[:to]        = find_airport(data.dig("repeated")[0].dig("mandatory", "38", "raw")&.strip)
       temp_hash[:airline]   = @airlines.dig(data.dig("repeated")[0].dig("mandatory", "42", "raw")&.strip)
-      temp_hash[:flight]    = data.dig("repeated")[0].dig("mandatory", "43", "raw")&.strip
+      temp_hash[:flight]    = "#{data.dig("repeated")[0].dig("mandatory", "42", "raw")&.strip}#{data.dig("repeated")[0].dig("mandatory", "43", "raw")&.strip}"
       temp_hash[:date]      = data.dig("repeated")[0].dig("mandatory", "46", "raw")&.strip
       temp_hash[:seat]      = data.dig("repeated")[0].dig("mandatory", "104", "raw")&.strip
 
