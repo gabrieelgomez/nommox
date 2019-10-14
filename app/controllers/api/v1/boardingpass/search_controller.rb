@@ -26,5 +26,12 @@ module Api::V1::Boardingpass
       render json: @result[0], status: 200
     end
 
+    def parse
+      data = params.dig(:data)
+      parsed_data = BoardingPass::BoardingPassParserService.new(data).parse
+
+      render json: parsed_data
+    end
+
   end
 end
