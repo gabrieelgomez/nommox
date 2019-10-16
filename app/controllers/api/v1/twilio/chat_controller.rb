@@ -33,7 +33,7 @@ module Api::V1::Twilio
     def message_received
       @channel  = UnreadMessage.find_by_channel(params.dig('ChannelSid'))
       @activity = Activity.find_by_channel(params.dig('ChannelSid'))
-      @message  = params.dig(:Body)
+      @message  = "Chat: #{params.dig(:Body)}"
       @identity = params.dig(:ClientIdentity)
 
       unless @identity.eql?(current_user.email)
@@ -44,7 +44,9 @@ module Api::V1::Twilio
         end
       end
 
-      send_notification(@activity, @message, @identity)
+      unless @activity.present? || @activity.identity.eql?(current_user.email?) || @activity.token.nil?
+        NotificationsService.send(@activity&.token, @message)
+      end
     end
 
     def get_unread_messages
@@ -56,26 +58,6 @@ module Api::V1::Twilio
     def remove_unread_messages
       @channel = UnreadMessage.find_by_channel(params.dig('channel_sid'))
       @channel.update(messages_count: 0) if @channel.present?
-    end
-
-    private
-
-    def send_notification(activity, message, identity)
-      return if activity.token.nil? || activity.identity.eql?(identity)
-
-      pusher = Grocer.pusher(
-        certificate: "#{Rails.root}/pushcert.pem",      # required,
-        gateway: 'gateway.sandbox.push.apple.com',
-      )
-
-      notification = Grocer::Notification.new(
-        device_token: activity.token,
-        alert:        message,
-        badge:        1,
-        sound:        "siren.aiff",         # optional
-      )
-
-      pusher.push(notification) # return value is the number of bytes sent successfully
     end
 
   end

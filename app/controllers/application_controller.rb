@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user
   skip_before_action :verify_authenticity_token
+  helper_method :current_user
   include Pundit
   protect_from_forgery
 

@@ -31,9 +31,9 @@ Rails.application.configure do
   config.assets.compile = false
 
   # set https for all routes
-  # config.action_controller.default_url_options = {
-  #   protocol: 'https'
-  # }
+  config.action_controller.default_url_options = {
+    protocol: 'http'
+  }
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
@@ -52,7 +52,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = false
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
@@ -99,4 +99,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.action_controller.forgery_protection_origin_check = false
 end

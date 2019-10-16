@@ -116,3 +116,6 @@ gem 'dotenv-rails'
 
 #push notifications to iOS
 gem 'grocer'
+
+#API Requests
+gem 'httparty'

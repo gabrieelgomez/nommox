@@ -63,21 +63,8 @@ class CasesController < InternalController
       render json: true
     end
 
-    message = "Su caso a sido actualizado a: #{@status.name}"
-
-    pusher = Grocer.pusher(
-      certificate: "#{Rails.root}/pushcert.pem",      # required,
-      gateway: 'gateway.sandbox.push.apple.com',
-    )
-
-    notification = Grocer::Notification.new(
-      device_token:      @device.token,
-      alert:             message,
-      badge:             1,
-      sound:             "siren.aiff",         # optional
-    )
-
-    pusher.push(notification) # return value is the number of bytes sent successfully
+    @message = "Su caso a sido actualizado a: #{@status.name}"
+    Notifications::NotificationsService.send(@device.token, @message) unless @device&.token.nil?
   end
 
   def add_comment

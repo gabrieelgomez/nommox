@@ -18,7 +18,7 @@ module Api::V1::Twilio
         response.dial(caller_id: callerNumber,
                       record: 'record-from-ringing-dual',
                       recording_channels: 'dual',
-                      recording_status_callback: 'https://nommox.com/api/v1/twilio/record') do |dial|
+                      recording_status_callback: 'https://www.nommox.com/api/v1/twilio/record') do |dial|
           dial.number(to)
         end
       else
