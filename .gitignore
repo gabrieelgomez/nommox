@@ -32,3 +32,8 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 nommox.pem
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
