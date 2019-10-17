@@ -44,10 +44,20 @@ module Api::V1::Cases
 
     def create_case(user_id)
       @case = Case.new(
-        video_self:      params.dig(:case, :video),
-        hours_late:      params.dig(:case, :hours),
-        case_cause_ids:  params.dig(:case, :caseCauseIds),
-        user_id:         user_id
+        video_self:         params.dig(:case, :video),
+        hours_late:         params.dig(:case, :hours),
+        case_cause_ids:     params.dig(:case, :caseCauseIds),
+        delayReason:        params.dig(:case, :delayReason),
+        cancelTime:         params.dig(:case, :cancelTime),
+        overbookingBenefit: params.dig(:case, :overbookingBenefit),
+        baggageProblem:     params.dig(:case, :baggageProblem),
+        claimForm:          params.dig(:case, :claimForm),
+        bills:              params.dig(:case, :bills),
+        baggageBills:       params.dig(:case, :baggageBills),
+        baggageDate:        params.dig(:case, :baggageDate),
+        belongingsValue:    params.dig(:case, :belongingsValue),
+        valueStatement:     params.dig(:case, :valueStatement),
+        user_id:            user_id
       )
 
       if @case.save

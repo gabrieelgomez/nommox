@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_10_161430) do
+ActiveRecord::Schema.define(version: 2019_10_17_184208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,16 @@ ActiveRecord::Schema.define(version: 2019_10_10_161430) do
     t.datetime "updated_at", null: false
     t.boolean "done", default: false
     t.bigint "case_status_id"
+    t.string "delayReason"
+    t.string "cancelTime"
+    t.string "overbookingBenefit"
+    t.string "baggageProblem"
+    t.string "claimForm"
+    t.string "bills"
+    t.string "baggageBills"
+    t.string "baggageDate"
+    t.string "belongingsValue"
+    t.string "valueStatement"
     t.index ["case_status_id"], name: "index_cases_on_case_status_id"
     t.index ["user_id"], name: "index_cases_on_user_id"
   end
