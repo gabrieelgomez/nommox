@@ -75,6 +75,7 @@ class Chat {
   }
 
   renderChannel() {
+    console.log(this.channels)
     var that             = this;
     let channelContainer = document.querySelector('.inbox_chat');
     let img              = "<%= asset_url('profile.jpg') %>";
@@ -101,9 +102,11 @@ class Chat {
           url: `/api/v1/twilio/get_unread_messages/${channel[0].sid}`,
           type: "GET",
           success: function(data) {
-            let count = parseInt(data['messages_count'])
-            if (count != 0) {
-              $('#'+channel[0].sid).find('.notification-badge').removeClass('hidden').html(count)
+            if (data) {
+              let count = parseInt(data['messages_count'])
+              if (count != 0) {
+                $('#'+channel[0].sid).find('.notification-badge').removeClass('hidden').html(count)
+              }
             }
           }
         });
@@ -163,8 +166,14 @@ class Chat {
     this.addMessage({ body: `Joined ${channel.uniqueName} channel as ${this.identity}` });
     this.channel.on('messageAdded', function(message) {
       that.addMessage(message)
-      let messageContainer = document.querySelector(".chat .messages");
+      let messageContainer = document.querySelector(".chat .messages"),
+          element   = $('#'+channel.sid),
+          badge     = element.find('.notification-badge'),
+          messagesCount = parseInt(badge.html()) + 1
+
       messageContainer.scrollTop = messageContainer.scrollHeight - 10;
+      badge.removeClass('hidden')
+      badge.html(messagesCount);
     });
 
     this.getChannelMessages(channel)
@@ -176,7 +185,7 @@ class Chat {
       url: `/api/v1/twilio/remove_unread_messages/${channel.sid}`,
       type: "GET",
       success: function(data) {
-        $('#'+channel.sid).find('notification-badge').removeClass('hidden')
+        $('#'+channel.sid).find('.notification-badge').addClass('hidden')
       }
     });
   }

@@ -81,3 +81,119 @@ peru_districts.each do |location|
 end
 
 puts "Peru countries and provinces has been created"
+
+Country.create(name: 'Estados Unidos')
+
+#create airlines
+airlines = [
+  {
+    "name": "America Airlines",
+    "phone": "+18004337300",
+    "coutry_id": 6
+  },
+  {
+    "name": "Avianca",
+    "phone": "+18002842622",
+    "coutry_id": 6
+  },
+  {
+    "name": "BahamasAir",
+    "phone": "+18002224262",
+    "coutry_id": 6
+  },
+  {
+    "name": "British Airways",
+    "phone": "+18002479297",
+    "coutry_id": 6
+  },
+  {
+    "name": "Caribbean Airlines",
+    "phone": "+18005382942",
+    "coutry_id": 6
+  },
+  {
+    "name": "Cayman Airways",
+    "phone": "+18004229626",
+    "coutry_id": 6
+  },
+  {
+    "name": "Copa Airlines",
+    "phone": "+18003592672",
+    "coutry_id": 6
+  },
+  {
+    "name": "Delta Airlines",
+    "phone": "+18002211212",
+    "coutry_id": 6
+  },
+  {
+    "name": "Iberia",
+    "phone": "+18007724642",
+    "coutry_id": 6
+  },
+  {
+    "name": "Latam",
+    "phone": "+18664359526",
+    "coutry_id": 6
+  },
+  {
+    "name": "Lufthansa",
+    "phone": "+18006453880",
+    "coutry_id": 6
+  },
+  {
+    "name": "SbAirlines",
+    "phone": "+17864371800",
+    "coutry_id": 6
+  },
+  {
+    "name": "Tap Portugal",
+    "phone": "+18002217370",
+    "coutry_id": 6
+  },
+  {
+    "name": "United",
+    "phone": "+18002416522",
+    "coutry_id": 6
+  },
+  {
+    "name": "Westjet",
+    "phone": "+18889378538",
+    "coutry_id": 6
+  },
+  {
+    "name": "Aerolíneas Argentinas",
+    "phone": "+18003330276",
+    "coutry_id": 6
+  },
+  {
+    "name": "AeroMexico",
+    "phone": "+18002376639",
+    "coutry_id": 6
+  },
+  {
+    "name": "Air Canada",
+    "phone": "+18882472262",
+    "coutry_id": 6
+  },
+  {
+    "name": "Air France",
+    "phone": "+18002372747",
+    "coutry_id": 6
+  },
+  {
+    "name": "Alitalia",
+    "phone": "+18002235730",
+    "coutry_id": 6
+  }
+]
+
+airlines.each do |airline|
+  Airline.create(
+    name: airline[:name],
+    phone: airline[:phone],
+    country_id: airline[:coutry_id]
+  )
+
+  puts "Airline #{airline[:name]} has been created"
+end
