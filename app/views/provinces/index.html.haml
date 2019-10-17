@@ -1,6 +1,6 @@
 %section.content-header
   %h1
-    - if policy(:province).new?      
+    - if policy(:province).new?
       = link_to new_province_path do
         %button.btn.btn-primary
           Nuevo
@@ -8,7 +8,7 @@
     %li
       %a{:href => "#"}
         %i.fa.fa-dashboard
-        Provincia
+        Ciudad
     %li.active Listado
 
 .container-fluid.mt-10
@@ -21,7 +21,7 @@
               %tr
                 %th #
                 %th Nombre
-                %th Ciudad
+                %th Departamento o Provincia
                 %th País
                 %th
                 %th

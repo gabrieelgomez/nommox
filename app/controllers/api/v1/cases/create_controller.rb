@@ -13,17 +13,31 @@ module Api::V1::Cases
 
     def find_or_create_user
       password = params.dig(:user, :email).split('@').first + 'nommox'
-      user     = User.where(email: params.dig(:user, :email))
-                     .first_or_create(
-                        name:        params.dig(:user, :name),
-                        email:       params.dig(:user, :email),
-                        phone:       params.dig(:user, :phone),
-                        country_id:  params.dig(:user, :country),
-                        city_id:     params.dig(:user, :city),
-                        province_id: params.dig(:user, :province),
-                        password:    password,
-                        role_id:     4
-                      )
+      user     = User.find_by_email(params.dig(:user, :email))
+
+      if user.present?
+        user.update(
+          name:        params.dig(:user, :name) || user.name,
+          email:       params.dig(:user, :email) || user.email,
+          phone:       params.dig(:user, :phone) || user.phone,
+          country_id:  params.dig(:user, :country) || user.country_id,
+          city_id:     params.dig(:user, :city) || user.city_id,
+          province_id: params.dig(:user, :province) || user.province_id,
+          password:    password,
+          role_id:     4
+        )
+      else
+        user = User.create(
+          name:        params.dig(:user, :name),
+          email:       params.dig(:user, :email),
+          phone:       params.dig(:user, :phone),
+          country_id:  params.dig(:user, :country),
+          city_id:     params.dig(:user, :city),
+          province_id: params.dig(:user, :province),
+          password:    password,
+          role_id:     4
+        )
+      end
 
       user
     end

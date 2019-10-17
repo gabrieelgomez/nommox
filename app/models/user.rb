@@ -26,6 +26,7 @@ class User < ApplicationRecord
   private
 
   def reload_identification_document
+    return if self.identification_document_front.url.nil? && self.identification_document_back.url.nil?
     kit = IMGKit.new(build_image)
     img = kit.to_file("#{Rails.root}/public/#{self.id}.png")
     self.identification_document = img
@@ -36,5 +37,5 @@ class User < ApplicationRecord
     <br>
     <img src='http://18.224.54.238#{self.identification_document_back.url}' style='width: auto; height: auto;'></img>"
   end
-  
+
 end

@@ -2,7 +2,7 @@
   %tr
     %td= index + 1
     %td= c.user.name
-    %td= c.case_causes.first.name
+    %td= c&.case_causes&.first&.name
     -# %td= case.country.name
     - if policy(:case).show?
       %td
