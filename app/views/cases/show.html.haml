@@ -59,6 +59,126 @@
                           %td= @case.created_at.strftime('%d/%m/%y %H:%M %p')
                           %td= @case.updated_at.strftime('%d/%m/%y %H:%M %p')
 
+              .col-lg-12
+                .box.slice-box
+                  .box-body.no-padding
+                    %table.table
+                      %thead
+                        %tr
+                          %th
+                            ¿CUÁL FUE EL MOTIVO DEL RETRASO DEL VUELO INDICADO POR LA AEROLÍNEA?
+                      %tbody
+                        %tr
+                          %td= @case.delayReason
+
+              .col-lg-12
+                .box.slice-box
+                  .box-body.no-padding
+                    %table.table
+                      %thead
+                        %tr
+                          %th
+                            ¿CUÁNDO FUISTE INFORMADO POR PARTE DE LA AEROLÍNEA QUE EL VUELO SE HABÍA CANCELADO?
+                      %tbody
+                        %tr
+                          %td= @case.cancelTime
+
+              .col-lg-12
+                .box.slice-box
+                  .box-body.no-padding
+                    %table.table
+                      %thead
+                        %tr
+                          %th
+                            ¿ACORDASTE RENUNCIAR A TU RESERVA A CAMBIO DE UN VUELO POSTERIOR Y OTROS BENEFICIOS DE LA AEROLÍNEA?
+                      %tbody
+                        %tr
+                          %td= @case.overbookingBenefit
+
+              .col-lg-12
+                .box.slice-box
+                  .box-body.no-padding
+                    %table.table
+                      %thead
+                        %tr
+                          %th
+                            ¿QUÉ PROBLEMA HAS TENIDO CON TU EQUIPAJE?
+                      %tbody
+                        %tr
+                          %td= @case.baggageProblem
+
+              .col-lg-12
+                .box.slice-box
+                  .box-body.no-padding
+                    %table.table
+                      %thead
+                        %tr
+                          %th
+                            ¿DILIGENCIASTE EL FORMULARIO DE RECLAMACIÓN (PARTE DE IRREGULARIDAD DE EQUIPAJE -PIR) EN LA AEROLÍNEA QUE VIAJABAS Y EXTRAVIÓ TU MALETA?
+                      %tbody
+                        %tr
+                          %td= @case.claimForm
+
+              .col-lg-12
+                .box.slice-box
+                  .box-body.no-padding
+                    %table.table
+                      %thead
+                        %tr
+                          %th
+                            ¿TIENES FACTURAS QUE DEMUESTREN EL VALOR DEL ARREGLO O SUSTITUCIÓN DEL EQUIPO DAÑADO?
+                      %tbody
+                        %tr
+                          %td= @case.bills
+
+              .col-lg-12
+                .box.slice-box
+                  .box-body.no-padding
+                    %table.table
+                      %thead
+                        %tr
+                          %th
+                            ¿TIENES FACTURAS DE LOS GASTOS QUE TUVISTE POR NO TENER TU EQUIPAJE DURANTE ESTOS DÍAS?
+                      %tbody
+                        %tr
+                          %td= @case.baggageBills
+
+              .col-lg-12
+                .box.slice-box
+                  .box-body.no-padding
+                    %table.table
+                      %thead
+                        %tr
+                          %th
+                            ¿EN QUÉ FECHA TE DEVOLVIERON EL EQUIPAJE?
+                      %tbody
+                        %tr
+                          %td= @case.baggageDate
+
+              .col-lg-12
+                .box.slice-box
+                  .box-body.no-padding
+                    %table.table
+                      %thead
+                        %tr
+                          %th
+                            ¿CONSIDERAS QUE EL VALOR DE TUS PERTENENCIAS ES SUPERIOR A LOS $1.552 USD?
+                      %tbody
+                        %tr
+                          %td= @case.belongingsValue
+
+              .col-lg-12
+                .box.slice-box
+                  .box-body.no-padding
+                    %table.table
+                      %thead
+                        %tr
+                          %th
+                            ¿HICISTE UNA DECLARACIÓN ESPECIAL DE VALOR (UN INVENTARIO DEL CONTENIDO DE NUESTRA MALETA)?
+                      %tbody
+                        %tr
+                          %td= @case.valueStatement
+
           #tab_1.tab-pane
             .row
               .col-lg-12
