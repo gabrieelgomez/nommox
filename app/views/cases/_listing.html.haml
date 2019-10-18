@@ -3,7 +3,7 @@
     %td= index + 1
     %td= c.user.name
     %td= c.created_at.strftime('%d/%m/%y')
-    %td= c&.case_causes&.first&.name
+    %td= c.asesor.nil? ? 'Sin Asignar' : c.asesor.id.eql?(current_user.id) ? "#{c.asesor.name} (Tú)" : c.asesor.name
     -# %td= case.country.name
     - if policy(:case).show?
       %td

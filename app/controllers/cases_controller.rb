@@ -78,7 +78,14 @@ class CasesController < InternalController
     if @comment.save
       render json: true
     end
+  end
 
+  def add_asesor
+    @case = Case.find_by_id(params.dig(:case_id))
+    asesor = params.dig(:case).nil? ? params.dig(:asesor_id) : params.dig(:case, :asesor_id)
+    @case.update(asesor_id: asesor)
+
+    redirect_to case_path(@case, notice: 'Has sido asignado a éste caso.')
   end
 
   private

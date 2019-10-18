@@ -3,6 +3,10 @@
     = link_to :back do
       %button.btn.btn-primary
         Atrás
+    - if @case.asesor.nil? && current_user.has_role?(:asesor)
+      = link_to case_add_asesor_path(@case, asesor_id: current_user.id), method: :post do
+        %button.btn.btn-primary
+          Tomar Caso
   %ol.breadcrumb
     %li
       %a{:href => "#"}
@@ -34,6 +38,9 @@
             %a{"data-toggle" => "tab", :href => "#tab_8"} Cambiar estado
           %li.comments-tab
             %a{"data-toggle" => "tab", :href => "#tab_9"} Comentarios
+          - if current_user.has_role?(:super_admin) || current_user.has_role?(:admin)
+            %li.comments-tab
+              %a{"data-toggle" => "tab", :href => "#tab_10"} Añadir Asesor
 
         .tab-content
           #tab_0.tab-pane.active
@@ -45,6 +52,8 @@
                       %thead
                         %tr
                           %th
+                            Asesor
+                          %th
                             Horas de retraso
                           %th
                             Estado
@@ -54,6 +63,7 @@
                             Última actualización
                       %tbody
                         %tr
+                          %td= @case.asesor.nil? ? 'Sin Asignar' : @case.asesor.id.eql?(current_user.id) ? "#{@case.asesor.name} (Tú)" : @case.asesor.name
                           %td= @case.hours_late
                           %td.status_name= @case.status_name
                           %td= @case.created_at.strftime('%d/%m/%y %H:%M %p')
@@ -381,6 +391,17 @@
                   %input.form-control#comment{:name => "message", :placeholder => "Escribe un mensaje ...", :type => "text"}/
                   %span.input-group-btn
                     %button.btn.btn-primary.btn-flat.btn-send{ type: "button" } Enviar
+
+          #tab_10.tab-pane
+            .box.box-primary
+              .box-header
+              .box-body
+                = simple_form_for @case, url: case_add_asesor_path(@case), method: :post do |f|
+                  .form-group
+                    = f.input :asesor_id, collection: User.asesors, label: 'Asesor', include_blank: 'Selecciona un asesor', input_html: { class: 'form-control' }
+                  .form-group.pull-right
+                    = f.submit 'GUARDAR', class: 'btn btn-primary'
+
 
 :javascript
   $('.toggle').click(function() {

@@ -4,6 +4,8 @@ class User < ApplicationRecord
   validates_presence_of :name, :role_id
   after_commit :reload_identification_document, on: [:create, :update]
 
+  scope :asesors, -> { where(role_id: 3) }
+
   #uploader
   mount_uploader :identification_document,       AttachmentUploader
   mount_uploader :identification_document_back,  AttachmentUploader
