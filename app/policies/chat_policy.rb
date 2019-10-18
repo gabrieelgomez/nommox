@@ -6,6 +6,6 @@ class ChatPolicy < Struct.new(:user, :chat)
   end
 
   def index?
-    @user.has_role?(:asesor) || @user.has_role?(:super_admin) 
+    @user.has_role?(:asesor) || @user.has_role?(:super_admin)  || @user.has_role?(:admin) 
   end
 end
