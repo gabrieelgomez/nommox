@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_17_184208) do
+ActiveRecord::Schema.define(version: 2019_10_18_190701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 2019_10_17_184208) do
     t.string "baggageDate"
     t.string "belongingsValue"
     t.string "valueStatement"
+    t.string "asesor_id"
     t.index ["case_status_id"], name: "index_cases_on_case_status_id"
     t.index ["user_id"], name: "index_cases_on_user_id"
   end
