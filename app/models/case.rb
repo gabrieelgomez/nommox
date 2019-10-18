@@ -1,5 +1,6 @@
 class Case < ApplicationRecord
   belongs_to :user
+  belongs_to :asesor, class_name: 'User', foreign_key: :asesor_id, optional: true
   has_many   :flights,       dependent: :destroy
   has_one    :inconvenience, dependent: :destroy
   has_one    :booking,       dependent: :destroy
