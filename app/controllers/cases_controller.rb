@@ -58,13 +58,13 @@ class CasesController < InternalController
     @case   = Case.find_by_id(params.dig(:case_id))
     @status = CaseStatus.find_by_id(params.dig(:case_status_id))
     @device = Device.find_by_identity(@case.user.email)
+    @message = "Su caso a sido actualizado a: #{@status.name}"
 
     if @case.update(case_status_id: params.dig(:case_status_id))
       render json: true
     end
 
-    @message = "Su caso a sido actualizado a: #{@status.name}"
-    Notifications::NotificationsService.send(@device.token, @message) unless @device&.token.nil?
+    Notifications::NotificationsService.new(@device.token, @message).send unless @device&.token.nil?
   end
 
   def add_comment
