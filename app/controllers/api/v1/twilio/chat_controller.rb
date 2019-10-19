@@ -42,7 +42,7 @@ module Api::V1::Twilio
         @channel = UnreadMessage.create(channel: params.dig('ChannelSid'), messages_count: 1)
       end
 
-      unless @activity.present? || @activity.identity.eql?(current_user.email?) || @activity.token.nil?
+      unless @activity.present? || @activity.token.nil?
         NotificationsService.send(@activity&.token, @message)
       end
     end
