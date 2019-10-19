@@ -43,7 +43,7 @@ module Api::V1::Twilio
       end
 
       if @activity.present? || !@activity.token.nil?
-        NotificationsService.send(@activity&.token, @message)
+        Notifications::NotificationsService.send(@activity&.token, @message)
       end
     end
 
