@@ -3,7 +3,8 @@ class CitiesController < ApplicationController
   before_action :set_countries, only: %i[new create edit update]
 
   def index
-    @cities = City.includes(:provinces)
+
+    @cities = City.page(params.dig(:page) || 1).includes(:provinces)
     respond_to_formats(:index, @cities)
   end
 

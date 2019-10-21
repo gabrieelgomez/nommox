@@ -26,3 +26,6 @@
                 %th
             %tbody
               = render 'listing'
+        .box-footer.text-center
+
+          = paginate @cities, theme: 'bootstrap', window: 3

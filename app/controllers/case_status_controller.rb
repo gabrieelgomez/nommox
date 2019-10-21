@@ -3,7 +3,7 @@ class CaseStatusController < InternalController
   before_action :set_case_status, only: %i[edit update show destroy]
 
   def index
-    @case_statuses = CaseStatus.all
+    @case_statuses = CaseStatus.page(params.dig(:page) || 1)
     respond_to_formats(:index, @case_statuses)
   end
 

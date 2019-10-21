@@ -3,7 +3,7 @@ class LettersController < ApplicationController
   before_action :set_countries, only: %i[new create edit update]
 
   def index
-    @letters = Letter.all.includes(:country)
+    @letters = Letter.page(params.dig(:page) || 1).includes(:country)
     respond_to_formats(:index, @letters)
   end
 

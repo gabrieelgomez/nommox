@@ -3,7 +3,7 @@ class FlightsController < ApplicationController
   before_action :set_airlines, only: %i[new create edit update]
 
   def index
-    @flights = Flight.all
+    @flights = Flight.page(params.dig(:page) || 1)
     respond_to_formats(:index, @flights)
   end
 

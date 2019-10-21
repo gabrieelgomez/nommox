@@ -3,7 +3,7 @@ class CaseCausesController < InternalController
   before_action :set_case_cause, only: %i[edit update show destroy]
 
   def index
-    @case_causes = CaseCause.all
+    @case_causes = CaseCause.page(params.dig(:page) || 1)
     respond_to_formats(:index, @case_causes)
   end
 

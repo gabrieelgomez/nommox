@@ -121,3 +121,6 @@ gem 'grocer'
 gem 'httparty'
 
 gem 'delayed_job_active_record'
+
+#pagination
+gem 'kaminari-bootstrap3'

@@ -3,7 +3,9 @@ class CasesController < InternalController
   before_action :set_case, only: %i[edit update show destroy]
 
   def index
-    @cases = Case.all
+    @cases = Case.page(params.dig(:page) || 1).includes(:user, :flights,
+                        :inconvenience, :booking, :tests, :status, :comments
+                      )
     respond_to_formats(:index, @cases)
   end
 

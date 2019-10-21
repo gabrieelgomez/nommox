@@ -3,7 +3,7 @@ class AirlinesController < ApplicationController
   before_action :set_countries, only: %i[new create edit update]
 
   def index
-    @airlines = Airline.all.includes(:country)
+    @airlines = Airline.page(params.dig(:page) || 1).includes(:country)
     respond_to_formats(:index, @airlines)
   end
 

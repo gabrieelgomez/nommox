@@ -1,6 +1,6 @@
 %section.content-header
   %h1
-    - if policy(:country).new?      
+    - if policy(:country).new?
       = link_to new_country_path do
         %button.btn.btn-primary
           Nuevo
@@ -25,3 +25,5 @@
                 %th
             %tbody
               = render 'listing'
+        .box-footer.text-center
+          = paginate @countries, theme: 'bootstrap', window: 3

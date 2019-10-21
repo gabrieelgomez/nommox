@@ -176,6 +176,10 @@ class Chat {
       badge.html(messagesCount);
     });
 
+    this.channel.on('typingStarted', function(member) {
+      console.log(this.member + 'está escribiendo...')
+    });
+
     this.getChannelMessages(channel)
     $('.channel-detail').removeClass('hidden');
     $('#channel-name').html(channel.uniqueName);
