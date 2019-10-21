@@ -6,7 +6,7 @@ module Notifications
      @message  = message
     end
 
-    def self.send
+    def send
       return if @token.nil?
 
       pusher = Grocer.pusher(

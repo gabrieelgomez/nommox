@@ -76,6 +76,11 @@
             = link_to chat_index_path, target: '_blank' do
               %i.fa.fa-comments
               %span Chat
+        - if policy(:smtp_setting).index?
+          %li.treeview
+            = link_to smtp_settings_path do
+              %i.fa.fa-comments
+              %span Configuración del Email
         %li.treeview
           = link_to logout_path do
             %i.fa.fa-sign-out-alt

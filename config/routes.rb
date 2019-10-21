@@ -36,6 +36,9 @@ Rails.application.routes.draw do
   #cases_status routes
   draw :case_status
 
+  #smtp_settings routes
+  draw :smtp_settings
+
   #routes for api
   namespace :api do
     namespace :v1 do

@@ -36,16 +36,14 @@ module Api::V1::Twilio
       @message  = "Chat: #{params.dig(:Body)}"
       @identity = params.dig(:ClientIdentity)
 
-      unless @identity.eql?(current_user.email)
-        if @channel.present?
-          @channel.update(messages_count: @channel.messages_count.to_i + 1)
-        else
-          @channel = UnreadMessage.create(channel: params.dig('ChannelSid'), messages_count: 1)
-        end
+      if @channel.present?
+        @channel.update(messages_count: @channel.messages_count.to_i + 1)
+      else
+        @channel = UnreadMessage.create(channel: params.dig('ChannelSid'), messages_count: 1)
       end
 
-      unless @activity.present? || @activity.identity.eql?(current_user.email?) || @activity.token.nil?
-        NotificationsService.send(@activity&.token, @message)
+      if @activity.present? || !@activity.token.nil?
+        Notifications::NotificationsService.new(@activity&.token, @message).send
       end
     end
 

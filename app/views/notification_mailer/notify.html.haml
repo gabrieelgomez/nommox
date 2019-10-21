@@ -1,0 +1,71 @@
+%table.email-wrapper{:cellpadding => "0", :cellspacing => "0", :width => "100%"}
+  %tr
+  %tr.green{ style: "background-color: #1295EE; color: #fafafa !important; border: none !important" }
+    %td{:align => "center"}
+      %table.email-footer{:cellpadding => "0", :cellspacing => "0", :width => "100%"}
+        %tr
+          %td.content-cell{:align => "center"}
+            %h1{ style: "color: #fafafa"}
+              Nommox
+              %img{ src: @img, style: 'border-radius: 50%' }
+  %table.email-content{:cellpadding => "0", :cellspacing => "0", :width => "100%"}
+    %tr
+      %td.email-body{:cellpadding => "0", :cellspacing => "0", :width => "100%"}
+        %table.email-body_inner{:align => "center", :cellpadding => "0", :cellspacing => "0"}
+          %tr{ style: 'margin-top: 20px'}
+            %td.content-cell
+              %p
+                Has sido añadidor cómo asesor al siguiente
+                %a{ href: @url } caso
+                %center
+                  %table.attributes
+                    %tr
+                      %td.attributes_content
+                        %table
+                          %tr
+                            %td.attributes_item
+                              %strong
+                                Usuario:
+                                = @case.user.name
+                          %tr
+                            %td.attributes_item
+                              %strong
+                                Correo Electrónico:
+                                = @case.user.email
+                          %tr
+                            %td.attributes_item
+                              %strong
+                                Teléfono:
+                                = @case.user.phone
+                          %tr
+                            %td.attributes_item
+                              %strong
+                                País:
+                                = @case.user&.country&.name
+                          %tr
+                            %td.attributes_item
+                              %strong
+                                Provincia o Departamento:
+                                = @case.user&.city&.name
+                          %tr
+                            %td.attributes_item
+                              %strong
+                                Ciudad:
+                                = @case.user&.province&.name
+                          %tr
+                            %td.attributes_item
+                              %strong
+                                Causas del caso:
+                                %ul
+                                  - @case.case_causes&.each do |cc|
+                                    %li= cc.name
+
+    %tr
+      %td
+        %table.email-footer{:align => "center", :cellpadding => "0", :cellspacing => "0", :width => "570"}
+          %tr{ style: "background-color: #1295EE; color: #fafafa !important; border: none !important" }
+            %td.content-cell.footer{:align => "center"}
+              %p.sub.align-center{ style: 'color: #fafafa'} Nommox © - 2019 | Todos los derechos reservados
+              %p.sub.align-center
+                %a{:href => "https://www.nommox.com"}
+                  %strong{ style: 'color: #fafafa'} Nommox
