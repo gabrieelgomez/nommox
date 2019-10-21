@@ -1,0 +1,2 @@
+class SmtpSettingPolicy < ControllersPolicy
+end

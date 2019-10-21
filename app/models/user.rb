@@ -26,10 +26,23 @@ class User < ApplicationRecord
   end
 
   def notify(case_obj)
+    return unless SmtpSetting.first.valid?
+    init_action_mailer_configuration
     NotificationMailer.notify(self, case_obj).deliver_now
   end
 
   private
+
+  def init_action_mailer_configuration
+    ActionMailer::Base.smtp_settings = {
+      address: 'smtp.gmail.com',
+      authentication: :plain,
+      domain: 'gmail.com',
+      port: 587,
+      password: SmtpSetting.first&.password,
+      user_name: 'noreply@nommox.com'
+    }
+  end
 
   def reload_identification_document
     return if self.identification_document_front.url.nil? && self.identification_document_back.url.nil?

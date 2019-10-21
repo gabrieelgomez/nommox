@@ -1,0 +1,6 @@
+.box-body
+  = simple_form_for @smtp_setting do |f|
+    .form-group
+      = f.input :password, label: 'Contraseña', input_html: { class: 'form-control' }
+    .form-group.pull-right
+      = f.submit 'ACTUALIZAR', class: 'btn btn-primary'

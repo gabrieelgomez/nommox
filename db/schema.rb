@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_21_143914) do
+ActiveRecord::Schema.define(version: 2019_10_21_170303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -271,6 +271,13 @@ ActiveRecord::Schema.define(version: 2019_10_21_143914) do
     t.string "thread_id"
     t.boolean "dry_run", default: false, null: false
     t.index ["delivered", "failed", "processing", "deliver_after", "created_at"], name: "index_rpush_notifications_multi", where: "((NOT delivered) AND (NOT failed))"
+  end
+
+  create_table "smtp_settings", force: :cascade do |t|
+    t.string "username"
+    t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tests", force: :cascade do |t|

@@ -105,14 +105,5 @@ Rails.application.configure do
   #mailer
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
-    authentication: :plain,
-    domain: 'gmail.com',
-    port: 587,
-    password: ENV.fetch('SMTP_PASSWORD'),
-    user_name: ENV.fetch('SMTP_USERNAME')
-  }
-
   config.action_mailer.default_url_options = { host: 'https://www.nommox.com' }
 end
