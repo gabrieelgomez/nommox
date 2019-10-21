@@ -25,8 +25,8 @@ class User < ApplicationRecord
     role&.name&.to_sym&.eql?(role_name) || false
   end
 
-  def notify
-    SendAsesorNotificationJob.perform_later(id)
+  def notify(case_obj)
+    NotificationMailer.notify(self, case_obj).deliver_now
   end
 
   private

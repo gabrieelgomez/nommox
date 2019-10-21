@@ -52,7 +52,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = false
+  config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
@@ -108,11 +108,11 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
     authentication: :plain,
-    domain: 'www.nommox.com',
-    password: 'Qwertyuiop2019',
+    domain: 'gmail.com',
     port: 587,
-    user_name: 'noreply@nommox.com'
+    password: ENV.fetch('SMTP_PASSWORD'),
+    user_name: ENV.fetch('SMTP_USERNAME')
   }
 
-  config.action_mailer.default_url_options = { host: 'www.nommox.com' }
+  config.action_mailer.default_url_options = { host: 'https://www.nommox.com' }
 end

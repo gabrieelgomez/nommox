@@ -65,11 +65,11 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
     authentication: :plain,
-    domain: 'www.nommox.com',
-    password: 'Qwertyuiop2019',
+    domain: 'gmail.com',
     port: 587,
-    user_name: 'noreply@nommox.com'
+    password: ENV.fetch('SMTP_PASSWORD'),
+    user_name: ENV.fetch('SMTP_USERNAME')
   }
 
-  config.action_mailer.default_url_options = { host: 'www.nommox.com' }
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
 end
