@@ -119,3 +119,5 @@ gem 'grocer'
 
 #API Requests
 gem 'httparty'
+
+gem 'delayed_job_active_record'

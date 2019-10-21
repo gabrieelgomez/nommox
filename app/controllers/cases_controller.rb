@@ -81,11 +81,15 @@ class CasesController < InternalController
   end
 
   def add_asesor
-    @case = Case.find_by_id(params.dig(:case_id))
-    asesor = params.dig(:case).nil? ? params.dig(:asesor_id) : params.dig(:case, :asesor_id)
+    @case   = Case.find_by_id(params.dig(:case_id))
+    asesor  = params.dig(:case).nil? ? params.dig(:asesor_id) : params.dig(:case, :asesor_id)
+    @asesor = User.asesors.find_by_id(asesor)
     @case.update(asesor_id: asesor)
 
-    redirect_to case_path(@case, notice: 'Has sido asignado a éste caso.')
+    NotificationMailer.notify(@asesor).deliver_now
+    # @asesor.notify
+
+    redirect_to case_path(@case)
   end
 
   private

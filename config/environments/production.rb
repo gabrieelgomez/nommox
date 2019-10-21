@@ -101,4 +101,18 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_controller.forgery_protection_origin_check = false
+
+  #mailer
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    authentication: :plain,
+    domain: 'www.nommox.com',
+    password: 'Qwertyuiop2019',
+    port: 587,
+    user_name: 'noreply@nommox.com'
+  }
+
+  config.action_mailer.default_url_options = { host: 'www.nommox.com' }
 end

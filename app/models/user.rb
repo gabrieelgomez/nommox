@@ -25,6 +25,10 @@ class User < ApplicationRecord
     role&.name&.to_sym&.eql?(role_name) || false
   end
 
+  def notify
+    SendAsesorNotificationJob.perform_later(id)
+  end
+
   private
 
   def reload_identification_document
