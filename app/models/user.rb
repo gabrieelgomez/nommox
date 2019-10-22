@@ -31,6 +31,18 @@ class User < ApplicationRecord
     NotificationMailer.notify(self, case_obj).deliver_now
   end
 
+  def asesor_cases
+    return [] if self.has_role?(:admin) || self.has_role?(:super_admin)
+
+    channels = Case.where(asesor_id: self.id).map(&:user).map(&:email).uniq.compact
+
+    if channels.empty? || channels.blank? || channels.nil?
+      return 'not have channels availables'
+    else
+      return channels
+    end
+  end
+
   private
 
   def init_action_mailer_configuration

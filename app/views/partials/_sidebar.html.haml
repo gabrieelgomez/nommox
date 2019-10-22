@@ -5,6 +5,9 @@
         .pull-left
           = image_tag('Icon-App-20x20@3x.png', class: 'img')
           %b{ style: 'margin-left: 10px'} Nommox
+      %span.logo-mini
+        .pull-left
+          = image_tag('Icon-App-20x20@3x.png', class: 'img', style: 'width: 40px; height: 40px; margin-left: 5px')
     %nav.navbar.navbar-static-top
       %a.sidebar-toggle{"data-toggle" => "push-menu", :href => "#", :role => "button"}
         %span.sr-only Toggle navigation
@@ -39,7 +42,7 @@
         - if policy(:airline).index?
           %li.treeview
             = link_to airlines_path do
-              %i.fa.fa-plane-departure
+              %i.fa.fa-plane
               %span Aerolíneas
         - if policy(:carousel_configuration).index?
           %li.treeview
@@ -83,9 +86,14 @@
               %span Configuración del Email
         %li.treeview
           = link_to logout_path do
-            %i.fa.fa-sign-out-alt
-            %span Logout
+            %i.fa.fa-sign-out
+            %span Cerrar Sesión
   .content-wrapper
     %section.content
       = bootstrap_flash
       = yield
+
+:javascript
+  $('.sidebar-toggle').click(function() {
+    $('body').toggleClass('sidebar-collapse')
+  })
