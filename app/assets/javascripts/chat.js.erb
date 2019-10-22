@@ -44,20 +44,42 @@ class Chat {
             .create(data.token)
             .then(function(client) {
               client.getPublicChannelDescriptors().then(function(paginator) {
+
+
                 for (i = 0; i < paginator.items.length; i++) {
                   const channel = paginator.items[i];
-                  Rails.ajax({
-                    url: `/api/v1/activities/show/${channel.createdBy}`,
-                    type: "GET",
-                    success: function(data) {
-                      that.addChannel(channel, data['parsed_date'])
-                      $('.loader').addClass('hidden')
-                    }
+
+                  $.get('/current_user', function(user){
+                    Rails.ajax({
+                      url: `/api/v1/activities/show/${channel.createdBy}`,
+                      type: "GET",
+                      success: function(data) {
+
+                        var allowedChannels = user.asesor_cases
+
+                        if (allowedChannels.length && allowedChannels != 'not have channels availables') {
+                          allowedChannels.map(function(c) {
+                            if (c == channel.createdBy) {
+                              that.addChannel(channel, data['parsed_date'])
+                            }
+                          })
+                        } else {
+                          if (allowedChannels == 'not have channels availables') {
+                            document.querySelector(".chat .messages .not-channels").innerHTML = 'Aún no tienes canales disponibles'
+                          } else {
+                            that.addChannel(channel, data['parsed_date'])
+                          }
+
+                        }
+
+                        $('.loader').addClass('hidden')
+                      }
+                    });
                   });
                 }
               })
               .catch((error) => {
-                // window.location.reload();
+                window.location.reload();
                 console.log(error)
               });
             });
@@ -76,12 +98,16 @@ class Chat {
 
   renderChannel() {
     console.log(this.channels)
-    var that             = this;
-    let channelContainer = document.querySelector('.inbox_chat');
-    let img              = "<%= asset_url('profile.jpg') %>";
+    var that              = this;
+    let channelContainer  = document.querySelector('.inbox_chat');
+    let img               = "<%= asset_url('profile.jpg') %>";
+
+
     let ordered_channels = this.channels.sort(function(a, b) {
       return new Date(b[1][0]) - new Date(a[1][0]);
     });
+
+    console.log('ordered', ordered_channels)
 
     channelContainer.innerHTML = ordered_channels.map(channel =>
       `<div class="chat_list" id="${channel[0].sid}">

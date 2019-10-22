@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get '/search_airports/index'
   root 'front#index'
   get  '/main', to: 'pages#main'
+  get 'current_user', to: "users#get_current_user"
 
   #sessions routes
   draw :sessions

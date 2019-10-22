@@ -1,6 +1,6 @@
 class UserSerializer < ActiveModel::Serializer
   attributes  :id, :email, :name, :phone, :firm,
-              :passport, :video
+              :passport, :video, :asesor_cases
 
   attribute :identification_document, key: :identification
 

@@ -16,9 +16,12 @@
               %tr
                 %th #
                 %th Nombre
+                %th Email
                 %th Fecha
                 %th Asesor
                 %th
                 %th
             %tbody
               = render 'listing'
+        .box-footer.text-center
+          = paginate @cases, theme: 'bootstrap', window: 3

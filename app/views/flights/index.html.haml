@@ -20,8 +20,6 @@
             %thead
               %tr
                 %th #
-                %th Cod. Apto. de Salida
-                %th Cod. Apto. de Llegada
                 %th Nombre Apto. de Salida
                 %th Nombre Apto. de Llegada
                 %th Fecha
@@ -32,3 +30,5 @@
                 %th
             %tbody
               = render 'listing'
+        .box-footer.text-center
+          = paginate @flights, theme: 'bootstrap', window: 3

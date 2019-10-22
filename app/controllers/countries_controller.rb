@@ -2,7 +2,7 @@ class CountriesController < InternalController
   before_action :set_country, only: %i[edit update show destroy]
 
   def index
-    @countries = Country.includes(:cities)
+    @countries = Country.page(params.dig(:page) || 1).includes(:cities)
     respond_to_formats(:index, @countries)
   end
 

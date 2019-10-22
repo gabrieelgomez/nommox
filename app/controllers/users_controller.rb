@@ -6,7 +6,7 @@ class UsersController < InternalController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all.includes(:country, :city, :province)
+    @users = User.page(params.dig(:page) || 1).includes(:country, :city, :province)
     respond_to_formats(:index, @users)
   end
 
@@ -66,6 +66,10 @@ class UsersController < InternalController
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def get_current_user
+    render json: current_user
   end
 
   private

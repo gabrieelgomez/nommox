@@ -25,3 +25,5 @@
                 %th
             %tbody
               = render 'listing'
+        .box-footer.text-center
+          = paginate @case_statuses, theme: 'bootstrap', window: 3

@@ -3,7 +3,7 @@ class CarouselConfigurationsController < InternalController
   before_action :set_carousel_configuration, only: %i[edit update show destroy]
 
   def index
-    @carousel_configurations = CarouselConfiguration.all
+    @carousel_configurations = CarouselConfiguration.page(params.dig(:page) || 1)
     respond_to_formats(:index, @carousel_configurations)
   end
 
