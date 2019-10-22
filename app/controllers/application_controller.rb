@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token
   helper_method :current_user
-  before_action :set_user
 
   include Pundit
   protect_from_forgery
@@ -40,7 +39,4 @@ class ApplicationController < ActionController::Base
     redirect_to(root_path)
   end
 
-  def set_user
-    cookies[:user_id] = current_user.id || nil
-  end
 end
