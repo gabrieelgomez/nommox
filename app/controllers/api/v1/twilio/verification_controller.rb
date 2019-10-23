@@ -37,7 +37,7 @@ module Api::V1::Twilio
         to: "whatsapp:#{to}"
       )
 
-      render json: true
+      render json: { send: true }
     end
 
   end
