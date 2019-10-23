@@ -9,5 +9,5 @@ namespace :twilio do
   get  'get_unread_messages/:channel_sid',    to: 'chat#get_unread_messages'
   get  'remove_unread_messages/:channel_sid', to: 'chat#remove_unread_messages'
   post 'send_confirmation_code',              to: 'verification#send_confirmation_code'
-  get  '/:phone/validate_code/:code',         to: 'verification#validate_code'
+  post 'validate_code',                       to: 'verification#validate_code'
 end
