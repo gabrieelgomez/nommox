@@ -3,7 +3,6 @@ require 'twilio-ruby'
 module Api::V1::Twilio
   class ChatController < TwilioController
     before_action :load_credentials, only: [:call, :connect, :access_token]
-    # before_action :authenticate_twilio_request, only: [:connect]
 
     def access_token
       # Required for Chat
@@ -51,17 +50,6 @@ module Api::V1::Twilio
       @channel = UnreadMessage.find_by_channel(params.dig('channel_sid'))
 
       render json: @channel
-    end
-
-    def send_confirmation_code
-      @client = Twilio::REST::Client.new(@twilio_sid, @twilio_token)
-
-      message = @client.messages.create(
-                             from: 'whatsapp:+14155238886',
-                             body: 'Hello, there!',
-                             to: 'whatsapp:+584121281876'
-                           )
-
     end
 
     def remove_unread_messages
