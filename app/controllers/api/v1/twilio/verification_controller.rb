@@ -34,7 +34,7 @@ module Api::V1::Twilio
       client.messages.create(
         from: 'whatsapp:+14155238886',
         body: "Tú código de verificación de Nommox es: *#{code}*",
-        to: "whatsapp:#{to}"
+        to: "whatsapp:+#{to}"
       )
 
       render json: { send: true }
