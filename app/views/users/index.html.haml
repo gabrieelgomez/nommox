@@ -28,3 +28,6 @@
                 %th Ciudad
             %tbody
               = render 'listing'
+
+        .box-footer.text-center
+          = paginate @users, theme: 'bootstrap', window: 3      
