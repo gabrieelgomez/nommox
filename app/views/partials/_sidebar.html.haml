@@ -82,7 +82,7 @@
         - if policy(:smtp_setting).index?
           %li.treeview
             = link_to smtp_settings_path do
-              %i.fa.fa-comments
+              %i.fa.fa-cog
               %span Configuración del Email
         %li.treeview
           = link_to logout_path do
@@ -95,5 +95,5 @@
 
 :javascript
   $('.sidebar-toggle').click(function() {
-    $('body').toggleClass('sidebar-collapse')
+    $('body').toggleClass('sidebar-collapse sidebar-open')
   })

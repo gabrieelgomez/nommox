@@ -15,7 +15,7 @@
   .row
     .col-lg-12
       .box.slice-box
-        .box-body.no-padding
+        .box-body.no-padding.table-responsive
           %table.table
             %thead
               %tr
@@ -28,3 +28,6 @@
                 %th Ciudad
             %tbody
               = render 'listing'
+
+        .box-footer.text-center
+          = paginate @users, theme: 'bootstrap', window: 3      

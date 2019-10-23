@@ -2,7 +2,7 @@ require 'twilio-ruby'
 
 module Api::V1::Twilio
   class CallsController < TwilioController
-    before_action :load_credentials, only: [:call, :connect, :access_token]
+    before_action :load_credentials, only: [:call, :connect, :access_token, :send_confirmation_code]
     # before_action :authenticate_twilio_request, only: [:connect]
 
     # Handle a POST from our web form and connect a call via REST API

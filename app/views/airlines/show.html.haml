@@ -18,7 +18,7 @@
   .row
     .col-lg-12
       .box.slice-box
-        .box-body.no-padding
+        .box-body.no-padding.table-responsive
           %table.table
             %thead
               %tr
@@ -36,7 +36,7 @@
                   %td
                     = link_to edit_airline_path(@airline) do
                       %button.btn.btn-primary.btn-sm Editar
-                - if policy(:airline).destroy?      
+                - if policy(:airline).destroy?
                   %td
                     = link_to airline_path(@airline), method: :delete, data: { confirm: '¿Estás seguro?' } do
                       %button.btn.btn-danger.btn-sm Eliminar

@@ -1,5 +1,5 @@
 class UsersController < InternalController
-  before_action :authenticate , except: [:new, :create]
+  before_action :authenticate , except: [:new, :create, :send_confirmation_code]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_variables, only: [:new, :edit, :create]
 

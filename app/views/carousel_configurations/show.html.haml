@@ -18,7 +18,7 @@
   .row
     .col-lg-12
       .box.slice-box
-        .box-body.no-padding
+        .box-body.no-padding.table-responsive
           %table.table
             %thead
               %tr
@@ -34,7 +34,7 @@
                   %td
                     = link_to edit_carousel_configuration_path(@carousel_configuration) do
                       %button.btn.btn-primary.btn-sm Editar
-                - if policy(:carousel_configuration).destroy?      
+                - if policy(:carousel_configuration).destroy?
                   %td
                     = link_to carousel_configuration_path(@carousel_configuration), method: :delete, data: { confirm: '¿Estás seguro?' } do
                       %button.btn.btn-danger.btn-sm Eliminar

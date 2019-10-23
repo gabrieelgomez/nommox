@@ -3,7 +3,6 @@ require 'twilio-ruby'
 module Api::V1::Twilio
   class ChatController < TwilioController
     before_action :load_credentials, only: [:call, :connect, :access_token]
-    # before_action :authenticate_twilio_request, only: [:connect]
 
     def access_token
       # Required for Chat
