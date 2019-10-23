@@ -12,7 +12,7 @@ module Api::V1::Twilio
       if verification.valid?
         send_message(to, verification.code)
       else
-        render json: { error: true }
+        render json: { send: false }
       end
     end
 
