@@ -53,6 +53,17 @@ module Api::V1::Twilio
       render json: @channel
     end
 
+    def send_confirmation_code
+      @client = Twilio::REST::Client.new(@twilio_sid, @twilio_token)
+
+      message = @client.messages.create(
+                             from: 'whatsapp:+14155238886',
+                             body: 'Hello, there!',
+                             to: 'whatsapp:+584121281876'
+                           )
+
+    end
+
     def remove_unread_messages
       @channel = UnreadMessage.find_by_channel(params.dig('channel_sid'))
       @channel.update(messages_count: 0) if @channel.present?

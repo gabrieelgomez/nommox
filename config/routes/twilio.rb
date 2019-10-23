@@ -8,4 +8,5 @@ namespace :twilio do
   post 'message_received',                    to: 'chat#message_received'
   get  'get_unread_messages/:channel_sid',    to: 'chat#get_unread_messages'
   get  'remove_unread_messages/:channel_sid', to: 'chat#remove_unread_messages'
+  post 'send_confirmation_code',              to: 'chat#send_confirmation_code'
 end

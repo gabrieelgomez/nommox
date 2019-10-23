@@ -18,7 +18,7 @@
   .row
     .col-lg-12
       .box.slice-box
-        .box-body.no-padding
+        .box-body.no-padding.table-responsive
           %table.table
             %thead
               %tr
@@ -34,7 +34,7 @@
                   %td
                     = link_to edit_case_cause_path(@case_cause) do
                       %button.btn.btn-primary.btn-sm Editar
-                - if policy(:case_cause).destroy?      
+                - if policy(:case_cause).destroy?
                   %td
                     = link_to case_cause_path(@case_cause), method: :delete, data: { confirm: '¿Estás seguro?' } do
                       %button.btn.btn-danger.btn-sm Eliminar

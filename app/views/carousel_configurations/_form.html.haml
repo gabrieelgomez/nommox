@@ -1,6 +1,6 @@
-.box-body
+.box-body.no-padding.table-responsive
   = simple_form_for [@carousel_configuration] do |f|
     .form-group
       = f.input :text, label: 'Texto', input_html: { class: 'form-control' }
-    .form-group.pull-right  
+    .form-group.pull-right
       = f.submit 'GUARDAR', class: 'btn btn-primary'
