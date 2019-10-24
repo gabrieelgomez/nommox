@@ -121,27 +121,8 @@ module Api::V1::Cases
     end
 
     def create_flights(case_id)
-      # flights = params.dig(:flights)
-      # return if flights.nil?
-
-      flights = [
-        {
-          from: "Eldorado International Airport - BOG",
-          date: "24-10-2018",
-          number: "AV1234",
-          hour: "12:50",
-          to: "Tocumen International Airport - PTY",
-          airline: "AV Avianca - Aerovías del Continente Americano S.A."
-        },
-        {
-          airline: "CM Copa Airlines",
-          from: "Tocumen International Airport - PTY",
-          to: "La Florida Airport - TCO",
-          hour: "15:20",
-          number: "CM5678",
-          date: "25-10-2018"
-        }
-      ]
+      flights = params.dig(:flights)
+      return if flights.nil?
 
       flights.each do |flight|
         Flight.create!(
@@ -159,22 +140,12 @@ module Api::V1::Cases
     end
 
     def associate_incident(case_id)
-      # incident = params.dig(:incident)
-      incident = {
-        number: "CM5678",
-        airline: "CM Copa Airlines",
-        from: "Tocumen International Airport - PTY",
-        date: "25-10-2018",
-        to: "La Florida Airport - TCO",
-        hour: "15:20"
-      }
-
+      incident = params.dig(:incident)
       @case = Case.find_by_id(case_id)
 
       return if @case.nil? || incident.nil?
 
       flight = @case&.flights&.find_by_flight_number(incident[:number])
-
       @case.update(incident_id: flight.id)
     end
 
