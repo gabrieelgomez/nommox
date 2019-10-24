@@ -1,10 +1,10 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes  :id, :email, :name, :phone, :firm,
+  attributes  :email, :name, :phone, :firm,
               :passport, :video, :asesor_cases
 
-  attribute :identification_document, key: :identification
+  attribute  :country_name, key: :country
+  attribute  :city_name,    key: :department
+  attribute  :province_name, key: :city
 
-  belongs_to :country
-  belongs_to :city
-  belongs_to :province
+  attribute :identification_document, key: :identification
 end

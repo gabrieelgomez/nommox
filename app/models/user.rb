@@ -43,6 +43,18 @@ class User < ApplicationRecord
     end
   end
 
+  def country_name
+    country&.name
+  end
+
+  def city_name
+    city&.name
+  end
+
+  def province_name
+    province&.name
+  end
+
   private
 
   def init_action_mailer_configuration

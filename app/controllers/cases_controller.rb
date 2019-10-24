@@ -4,7 +4,7 @@ class CasesController < InternalController
 
   def index
     @cases = Case.page(params.dig(:page) || 1).includes(:user, :flights,
-                        :inconvenience, :booking, :tests, :status, :comments
+                        :inconvenience, :companions, :tests, :status, :comments
                       )
     respond_to_formats(:index, @cases)
   end

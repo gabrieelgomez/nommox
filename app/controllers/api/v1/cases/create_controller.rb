@@ -23,8 +23,6 @@ module Api::V1::Cases
           country_id:  params.dig(:user, :country) || user.country_id,
           city_id:     params.dig(:user, :city) || user.city_id,
           province_id: params.dig(:user, :province) || user.province_id,
-          password:    password,
-          role_id:     4
         )
       else
         user = User.create(
@@ -64,9 +62,9 @@ module Api::V1::Cases
         create_flights(@case.id)
         create_tests(@case.id)
         create_inconvenience(@case.id)
-        create_booking(@case.id)
+        create_companions(@case.id)
 
-        render json: @case, status: 200
+        render json: { id: @case.id }, status: 200
       else
 
         render json: @case.errors, status: 500
@@ -107,34 +105,43 @@ module Api::V1::Cases
       end
     end
 
-    def create_booking(case_id)
-      return if params.dig(:booking).nil?
-      @booking = Booking.new(code: params.dig(:booking, :code), case_id: case_id)
-
-      if @booking.save
-        create_companions(@booking)
-      else
-        render json: @booking.errors, status: 500
-      end
-    end
-
-    def create_companions(booking)
+    def create_companions(case_id)
       companions = params.dig(:companions)
       return if companions.nil?
 
       companions.each do |companion|
-        booking.companions.create!(
+        Companion.create(
           names:                   companion[:names],
           surnames:                companion[:surnames],
           identification_document: companion[:identification],
           passport:                companion[:passport],
+          case_id:                 case_id
         )
       end
     end
 
     def create_flights(case_id)
-      flights = params.dig(:flights)
-      return if flights.nil?
+      # flights = params.dig(:flights)
+      # return if flights.nil?
+
+      flights = [
+        {
+          from: "Eldorado International Airport - BOG",
+          date: "24-10-2018",
+          number: "AV1234",
+          hour: "12:50",
+          to: "Tocumen International Airport - PTY",
+          airline: "AV Avianca - Aerovías del Continente Americano S.A."
+        },
+        {
+          airline: "CM Copa Airlines",
+          from: "Tocumen International Airport - PTY",
+          to: "La Florida Airport - TCO",
+          hour: "15:20",
+          number: "CM5678",
+          date: "25-10-2018"
+        }
+      ]
 
       flights.each do |flight|
         Flight.create!(
@@ -147,6 +154,29 @@ module Api::V1::Cases
           case_id:                case_id
         )
       end
+
+      associate_incident(case_id)
     end
+
+    def associate_incident(case_id)
+      # incident = params.dig(:incident)
+      incident = {
+        number: "CM5678",
+        airline: "CM Copa Airlines",
+        from: "Tocumen International Airport - PTY",
+        date: "25-10-2018",
+        to: "La Florida Airport - TCO",
+        hour: "15:20"
+      }
+
+      @case = Case.find_by_id(case_id)
+
+      return if @case.nil? || incident.nil?
+
+      flight = @case&.flights&.find_by_flight_number(incident[:number])
+
+      @case.update(incident_id: flight.id)
+    end
+
   end
 end
