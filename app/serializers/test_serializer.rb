@@ -1,3 +1,3 @@
 class TestSerializer < ActiveModel::Serializer
-  attributes :id, :images, :videos, :documents, :voices
+  attribute :names
 end

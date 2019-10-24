@@ -11,5 +11,12 @@ module Api::V1::Users
     def show
       render json: @user, status: 200
     end
+
+    def cases
+      @cases = User.find_by_email(params.dig(:email)).cases
+
+      render json: @cases
+    end
+
   end
 end

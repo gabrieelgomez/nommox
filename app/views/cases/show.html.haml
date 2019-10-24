@@ -31,7 +31,7 @@
           %li
             %a{"data-toggle" => "tab", :href => "#tab_5"} Inconvenientes
           %li
-            %a{"data-toggle" => "tab", :href => "#tab_6"} Datos de reservación
+            %a{"data-toggle" => "tab", :href => "#tab_6"} Acompañantes
           %li
             %a{"data-toggle" => "tab", :href => "#tab_7"} Pruebas
           %li
@@ -255,7 +255,7 @@
                           %tr
                             %td= flight.departure_airport_name
                             %td= flight.arrival_airport_name
-                            %td= flight&.date&.strftime('%d/%Y/%m')
+                            %td= flight&.date&.strftime('%d-%m-%Y')
                             %td= flight&.hour
                             %td= flight.airline
                             %td= flight.flight_number
@@ -287,26 +287,12 @@
                     %table.table
                       %thead
                         %tr
-                          %th Código
-                      %tbody
-                        %tr
-                          %td= @case.booking.code
-
-            .row
-              .col-lg-12
-                .box.slice-box
-                  .box-header
-                    %h3.box-title Acompañantes
-                  .box-body.no-padding.table-responsive
-                    %table.table
-                      %thead
-                        %tr
                           %th Nombres
                           %th Apellidos
                           %th Documento de Identificación
                           %th Pasaporte
                       %tbody
-                        - @case&.booking&.companions&.each do |companion|
+                        - @case&.companions&.each do |companion|
                           %tr
                             %td= companion.names
                             %td= companion.surnames

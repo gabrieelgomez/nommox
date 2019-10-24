@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_23_144824) do
+ActiveRecord::Schema.define(version: 2019_10_24_193940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2019_10_23_144824) do
     t.string "belongingsValue"
     t.string "valueStatement"
     t.string "asesor_id"
+    t.string "incident_id"
     t.index ["case_status_id"], name: "index_cases_on_case_status_id"
     t.index ["user_id"], name: "index_cases_on_user_id"
   end
@@ -111,6 +112,7 @@ ActiveRecord::Schema.define(version: 2019_10_23_144824) do
     t.bigint "booking_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "case_id"
     t.index ["booking_id"], name: "index_companions_on_booking_id"
   end
 

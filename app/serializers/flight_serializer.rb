@@ -1,7 +1,9 @@
 class FlightSerializer < ActiveModel::Serializer
-  attributes  :id, :departure_airport_code, :arrival_airport_code,
-              :departure_airport_name,  :arrival_airport_name, :date, :hour,
-              :airline_id, :flight_number
+  attributes :id, :hour, :airline
+  attribute  :departure_airport_name, key: :from
+  attribute  :arrival_airport_name,   key: :to
+  attribute  :flight_number,          key: :number
+  attribute  :date_parsed,            key: :date
 
-  belongs_to :airline
+  has_many :companions
 end
