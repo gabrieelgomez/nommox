@@ -9,10 +9,10 @@ module Api::V1::Twilio
 
       verification = VerificationCode.build_verification_code(to)
 
-      if verification.valid?
-        send_message(to, verification.code)
-      else
+      if verification.nil?
         render json: { send: false }
+      else
+        send_message(to, verification.code)
       end
     end
 
@@ -21,7 +21,7 @@ module Api::V1::Twilio
       code  = params.dig(:code)
 
       verification = VerificationCode.find_by_phone(phone)
-      valid = verification.valid? ? verification.code.eql?(code) : false
+      valid = verification.nil? ? false : verification.code.eql?(code)
 
       render json: { valid: valid }
     end
