@@ -2,6 +2,8 @@ branch-defaults:
   elastic-beanstalk-integration:
     environment: nommox
     group_suffix: null
+  nommox/pedro-guerra/users-cases:
+    environment: nommox
 global:
   application_name: nommox
   branch: null

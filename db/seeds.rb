@@ -6,83 +6,83 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# #create roles
-# [:super_admin, :admin, :asesor, :default].each do |role_name|
-#   Role.create(name: role_name)
-#
-#   puts "Role #{role_name} has been created"
-# end
-#
-# col_country  = Country.create(name: 'Colombia')
-# colombia     = YAML.load_file("#{Rails.root}/config/countries/colombia.yml")
-#
-# colombia.each do |location|
-#   city = col_country.cities.create(name: location['departamento'])
-#
-#   location['ciudades'].each do |c|
-#     city.provinces.create(name: c)
-#   end
-# end
-#
-# puts "Colombia countries and provinces has been created"
-#
-# mex_country  = Country.create(name: 'México')
-# mexico       = YAML.load_file("#{Rails.root}/config/countries/mexico.yml")
-#
-# mexico.each do |ciudad, provincias|
-#   city = mex_country.cities.create(name: ciudad)
-#
-#   provincias.each do |p|
-#     city.provinces.create(name: p)
-#   end
-# end
-#
-# puts "México countries and provinces has been created"
-#
-# bra_country  = Country.create(name: 'Brasil')
-# brasil       = YAML.load_file("#{Rails.root}/config/countries/brasil.yml")
-#
-# brasil['estados'].each do |location|
-#   city = bra_country.cities.create(name: location['nome'])
-#
-#   location['cidades'].each do |p|
-#     city.provinces.create(name: p)
-#   end
-# end
-#
-# puts "Brasil countries and provinces has been created"
-#
-# chile_country  = Country.create(name: 'Chile')
-# chile          = YAML.load_file("#{Rails.root}/config/countries/chile.yml")
-#
-# chile.each do |location|
-#   location['provincias'].each do |province|
-#     city = chile_country.cities.create(name: province['name'])
-#
-#     province['comunas'].each do |c|
-#       city.provinces.create(name: c['name'])
-#     end
-#   end
-# end
-#
-# puts "Chile countries and provinces has been created"
-#
-# peru_country   = Country.create(name: 'Peru')
-# peru_districts = YAML.load_file("#{Rails.root}/config/countries/peru_districts.yml")
-# peru_provinces = YAML.load_file("#{Rails.root}/config/countries/peru_provinces.yml")
-#
-# peru_districts.each do |location|
-#   city      = peru_country.cities.create(name: location['name'])
-#   provinces = peru_provinces.select { |p| p['region_id'].eql?(location['id']) }
-#
-#   provinces.each do |province|
-#     city.provinces.create(name: province['name'])
-#   end
-# end
-#
-# puts "Peru countries and provinces has been created"
-#
-# Country.create(name: 'Estados Unidos')
+#create roles
+[:super_admin, :admin, :asesor, :default].each do |role_name|
+  Role.create(name: role_name)
+
+  puts "Role #{role_name} has been created"
+end
+
+col_country  = Country.create(name: 'Colombia')
+colombia     = YAML.load_file("#{Rails.root}/config/countries/colombia.yml")
+
+colombia.each do |location|
+  city = col_country.cities.create(name: location['departamento'])
+
+  location['ciudades'].each do |c|
+    city.provinces.create(name: c)
+  end
+end
+
+puts "Colombia countries and provinces has been created"
+
+mex_country  = Country.create(name: 'México')
+mexico       = YAML.load_file("#{Rails.root}/config/countries/mexico.yml")
+
+mexico.each do |ciudad, provincias|
+  city = mex_country.cities.create(name: ciudad)
+
+  provincias.each do |p|
+    city.provinces.create(name: p)
+  end
+end
+
+puts "México countries and provinces has been created"
+
+bra_country  = Country.create(name: 'Brasil')
+brasil       = YAML.load_file("#{Rails.root}/config/countries/brasil.yml")
+
+brasil['estados'].each do |location|
+  city = bra_country.cities.create(name: location['nome'])
+
+  location['cidades'].each do |p|
+    city.provinces.create(name: p)
+  end
+end
+
+puts "Brasil countries and provinces has been created"
+
+chile_country  = Country.create(name: 'Chile')
+chile          = YAML.load_file("#{Rails.root}/config/countries/chile.yml")
+
+chile.each do |location|
+  location['provincias'].each do |province|
+    city = chile_country.cities.create(name: province['name'])
+
+    province['comunas'].each do |c|
+      city.provinces.create(name: c['name'])
+    end
+  end
+end
+
+puts "Chile countries and provinces has been created"
+
+peru_country   = Country.create(name: 'Peru')
+peru_districts = YAML.load_file("#{Rails.root}/config/countries/peru_districts.yml")
+peru_provinces = YAML.load_file("#{Rails.root}/config/countries/peru_provinces.yml")
+
+peru_districts.each do |location|
+  city      = peru_country.cities.create(name: location['name'])
+  provinces = peru_provinces.select { |p| p['region_id'].eql?(location['id']) }
+
+  provinces.each do |province|
+    city.provinces.create(name: province['name'])
+  end
+end
+
+puts "Peru countries and provinces has been created"
+
+Country.create(name: 'Estados Unidos')
 
 #create airlines
 airlines = [
@@ -197,3 +197,28 @@ airlines.each do |airline|
 
   puts "Airline #{airline[:name]} has been created"
 end
+
+case_causes = [
+  {
+    name: "Vuelo cancelado"
+  },
+  {
+    name: "Vuelo overbooking"
+  },
+  {
+    name: "Maleta extraviada"
+  },
+  {
+    name: "Vuelo retrasado"
+  }
+]
+
+case_causes.each do |cause|
+  CaseCause.create(name: cause[:name])
+end
+
+puts "Case Causes has been created"
+
+User.create(name: 'Pedro Guerra', email: 'pdrowr@gmail.com', password: '12345678', role_id: 1)
+User.create(name: 'Jonathan Herrera', email: 'jonathan@nommox.com', password: '+nommox+', role_id: 1)
+User.create(name: 'Andres', email: 'andres@nommox.com', password: '+nommox+', role_id: 1)

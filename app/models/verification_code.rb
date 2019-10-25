@@ -4,13 +4,13 @@ class VerificationCode < ApplicationRecord
   def self.build_verification_code(phone)
     verification = VerificationCode.where(phone: phone).first
 
-    if verification.valid?
-      verification.update(code: generate_code)
-    else
+    if verification.nil?
       verification = VerificationCode.create(
         phone: phone,
         code: generate_code
       )
+    else
+      verification.update(code: generate_code)
     end
 
     verification

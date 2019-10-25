@@ -79,7 +79,7 @@
                             ¿CUÁL FUE EL MOTIVO DEL RETRASO DEL VUELO INDICADO POR LA AEROLÍNEA?
                       %tbody
                         %tr
-                          %td= @case.delayReason
+                          %td= @case.delayReason.blank? ? 'No Aplica' : @case.delayReason
 
               .col-lg-12
                 .box.slice-box
@@ -91,7 +91,7 @@
                             ¿CUÁNDO FUISTE INFORMADO POR PARTE DE LA AEROLÍNEA QUE EL VUELO SE HABÍA CANCELADO?
                       %tbody
                         %tr
-                          %td= @case.cancelTime
+                          %td= @case.cancelTime.blank? ? 'No Aplica' : @case.cancelTime
 
               .col-lg-12
                 .box.slice-box
@@ -103,7 +103,7 @@
                             ¿ACORDASTE RENUNCIAR A TU RESERVA A CAMBIO DE UN VUELO POSTERIOR Y OTROS BENEFICIOS DE LA AEROLÍNEA?
                       %tbody
                         %tr
-                          %td= @case.overbookingBenefit
+                          %td= @case.overbookingBenefit.blank? ? 'No Aplica' : @case.overbookingBenefit
 
               .col-lg-12
                 .box.slice-box
@@ -115,7 +115,7 @@
                             ¿QUÉ PROBLEMA HAS TENIDO CON TU EQUIPAJE?
                       %tbody
                         %tr
-                          %td= @case.baggageProblem
+                          %td= @case.baggageProblem.blank? ? 'No Aplica' : @case.baggageProblem
 
               .col-lg-12
                 .box.slice-box
@@ -127,7 +127,7 @@
                             ¿DILIGENCIASTE EL FORMULARIO DE RECLAMACIÓN (PARTE DE IRREGULARIDAD DE EQUIPAJE -PIR) EN LA AEROLÍNEA QUE VIAJABAS Y EXTRAVIÓ TU MALETA?
                       %tbody
                         %tr
-                          %td= @case.claimForm
+                          %td= @case.claimForm.blank? ? 'No Aplica' : @case.claimForm
 
               .col-lg-12
                 .box.slice-box
@@ -139,7 +139,7 @@
                             ¿TIENES FACTURAS QUE DEMUESTREN EL VALOR DEL ARREGLO O SUSTITUCIÓN DEL EQUIPO DAÑADO?
                       %tbody
                         %tr
-                          %td= @case.bills
+                          %td= @case.bills.blank? ? 'No Aplica' : @case.bills
 
               .col-lg-12
                 .box.slice-box
@@ -151,7 +151,7 @@
                             ¿TIENES FACTURAS DE LOS GASTOS QUE TUVISTE POR NO TENER TU EQUIPAJE DURANTE ESTOS DÍAS?
                       %tbody
                         %tr
-                          %td= @case.baggageBills
+                          %td= @case.baggageBills.blank? ? 'No Aplica' : @case.baggageBills
 
               .col-lg-12
                 .box.slice-box
@@ -163,7 +163,7 @@
                             ¿EN QUÉ FECHA TE DEVOLVIERON EL EQUIPAJE?
                       %tbody
                         %tr
-                          %td= @case.baggageDate
+                          %td= @case.baggageDate.blank? ? 'No Aplica' : @case.baggageDate
 
               .col-lg-12
                 .box.slice-box
@@ -175,7 +175,7 @@
                             ¿CONSIDERAS QUE EL VALOR DE TUS PERTENENCIAS ES SUPERIOR A LOS $1.552 USD?
                       %tbody
                         %tr
-                          %td= @case.belongingsValue
+                          %td= @case.belongingsValue.blank? ? 'No Aplica' : @case.belongingsValue
 
               .col-lg-12
                 .box.slice-box
@@ -187,7 +187,7 @@
                             ¿HICISTE UNA DECLARACIÓN ESPECIAL DE VALOR (UN INVENTARIO DEL CONTENIDO DE NUESTRA MALETA)?
                       %tbody
                         %tr
-                          %td= @case.valueStatement
+                          %td= @case.valueStatement.blank? ? 'No Aplica' : @case.valueStatement
 
           #tab_1.tab-pane
             .row
@@ -314,13 +314,12 @@
               .tab-content
                 #images.tab-pane.active
                   - @case&.tests&.images&.each do |image|
-                    .col-md-12{ style: 'margin-bottom: 20px'}
-                      %td= image_tag(image.url, style: 'width: 100%; heigth: 100%; object-fit: cover;  ')
+                    %td= image_tag(image.url, style: 'width: 100%; heigth: 100%; object-fit: cover; margin-bottom: 20px; ')
 
 
                 #documents.tab-pane
                   - @case&.tests&.documents&.each do |document|
-                    %embed{:height => "700px", :src => document.url, :type => "application/pdf", :width => "500"}
+                    %td= image_tag(document.url, style: 'width: 100%; heigth: 100%; object-fit: cover; margin-bottom: 20px; ')
 
                 #voices.tab-pane
                   - @case&.tests&.voices&.each do |voice|
