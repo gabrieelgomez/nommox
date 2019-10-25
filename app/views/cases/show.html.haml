@@ -314,13 +314,12 @@
               .tab-content
                 #images.tab-pane.active
                   - @case&.tests&.images&.each do |image|
-                    .col-md-12{ style: 'margin-bottom: 20px'}
-                      %td= image_tag(image.url, style: 'width: 100%; heigth: 100%; object-fit: cover;  ')
+                    %td= image_tag(image.url, style: 'width: 100%; heigth: 100%; object-fit: cover; margin-bottom: 20px; ')
 
 
                 #documents.tab-pane
                   - @case&.tests&.documents&.each do |document|
-                    %td= image_tag(document.url, style: 'width: 100%; heigth: 100%; object-fit: cover;  ')
+                    %td= image_tag(document.url, style: 'width: 100%; heigth: 100%; object-fit: cover; margin-bottom: 20px; ')
 
                 #voices.tab-pane
                   - @case&.tests&.voices&.each do |voice|
