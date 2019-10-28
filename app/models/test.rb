@@ -10,11 +10,22 @@ class Test < ApplicationRecord
   def names
     file_names = Array.new
 
-    [images, documents, voices, videos].each do |file_type|
-      file_type.each do |file|
-        file_names.push(File.basename(file.path))
-      end
+    images&.each do |image|
+      file_names.push(File.basename(image.path))
     end
+
+    documents&.each do |document|
+      file_names.push(File.basename(document.path))
+    end
+
+    voices&.each do |voice|
+      file_names.push(File.basename(voice&.path))
+    end
+
+    videos&.each do |video|
+      file_names.push(File.basename(video&.path))
+    end
+
 
     file_names
   end

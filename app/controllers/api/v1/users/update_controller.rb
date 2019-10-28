@@ -12,10 +12,8 @@ module Api::V1::Users
 
     def add_documents
       user = User.find_by_email(params.dig(:email))
-
       return if user.nil?
-
-      # user.update()
+      #pending for implementation
     end
 
   end
