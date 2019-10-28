@@ -2,16 +2,32 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   include CarrierWave::RMagick
   # include CarrierWave::ImageOptimizer
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  storage :file
+  storage :aws
   # storage :fog
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  end
+
+  version :medium do
+    process resize_to_fit: [300,300]
+  end
+
+  version :small do
+    process resize_to_fit: [140,140]
+  end
+
+  version :thumbnail do
+    process resize_to_fit: [64,64]
+  end
+
+  def extension_whitelist
+    %w(jpg jpeg gif png)
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
