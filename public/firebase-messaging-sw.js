@@ -49,7 +49,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
 
 self.addEventListener('notificationclick', function(event) {
   let url = 'https://www.nommox.com/chat/';
-
+  
   event.notification.close(); // Android needs explicit close.
   event.waitUntil(
     clients.matchAll({ type: 'window' }).then( windowClients => {

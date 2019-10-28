@@ -1,6 +1,6 @@
 module Api::V1::Users
   class UpdateController < UsersController
-    before_action :set_user
+    before_action :set_user, only: %i[update]
 
     def update
       if @user.update(user_params)
@@ -9,5 +9,14 @@ module Api::V1::Users
         render json: @user.errors, status: 500
       end
     end
+
+    def add_documents
+      user = User.find_by_email(params.dig(:email))
+
+      return if user.nil?
+
+      # user.update()
+    end
+
   end
 end
