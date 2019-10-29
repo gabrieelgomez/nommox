@@ -474,3 +474,18 @@
       });
     }
   });
+
+  $(window).blur(function() {
+    var audios = $('audio')
+    var videos = $('video')
+
+    audios.each(function(audio) {
+      audios[audio].pause()
+    })
+
+    videos.each(function(video) {
+      videos[video].pause()
+    })
+
+    return true;
+  });

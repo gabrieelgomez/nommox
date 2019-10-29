@@ -3,7 +3,7 @@ module Api::V1::Cases
     before_action :set_case, only: %i[show]
 
     def index
-      @cases = Case.includes(:user, :tests, :inconvenience, :booking)
+      @cases = Case.includes(:user, :tests, :inconvenience, :companions)
       render json: @cases, status: 200
     end
 

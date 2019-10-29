@@ -1,3 +1,11 @@
+.toggle-menu {
+  display: none;
+}
+
+.hide-sidebar {
+  transition: all ease .3s;
+}
+
 .img {
   width: 40px;
   height: 40px;
@@ -12,6 +20,7 @@
   width: 30%;
   border-right:1px solid #c4c4c4;
   height: 100%;
+  transition: all ease .3s !important;
 }
 
 .inbox_msg {
@@ -262,4 +271,39 @@
 ::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   outline: 1px solid slategrey;
+}
+
+@media only screen and (max-width: 600px) {
+  .hide-sidebar {
+    position: relative;
+    left: -100%;
+    transition: all ease .3s !important;
+  }
+
+  .inbox_people {
+    width: 100% !important;
+    transition: all ease .3s !important;
+  }
+
+  .recent_heading {
+    width: 100% !important;
+  }
+
+  .toggle-menu {
+    display: block;
+    color: #fafafa;
+    font-size: 20px;
+  }
+
+  .mesgs {
+    width: 100% !important;
+  }
+
+  .channel-detail .pull-right {
+    float: left !important;
+  }
+
+  .channel-detail img {
+    float: left !important; 
+  }
 }

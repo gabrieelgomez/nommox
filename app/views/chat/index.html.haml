@@ -5,17 +5,20 @@
       .inbox_msg
         .headind_srch
           .recent_heading{ style: 'display: inline-block'}
-            = link_to root_path do
-              %h5{ style: 'margin-top: 5px; font-weight: bold;'}
-                = image_tag('Icon-App-20x20@3x.png', style: 'width: 30px; height: 30px; margin-right: 10px', class: 'img')
-                Nommox Chat
+            .pull-left
+              = link_to root_path do
+                %h5{ style: 'margin-top: 5px; font-weight: bold;'}
+                  = image_tag('Icon-App-20x20@3x.png', style: 'width: 30px; height: 30px; margin-right: 10px', class: 'img')
+                  Nommox Chat
+            .pull-right.toggle-menu
+              %i.fa.fa-bars
           .channel-detail.hidden
             .pull-right
               %h5
                 %span#channel-name{ style: 'font-weight: bold'}
                 = image_tag('profile.jpg', style: 'width: 30px; height: 30px; margin-right: 10px', class: 'img')
 
-        .inbox_people
+        .inbox_people.hide-sidebar
           .inbox_chat
 
         .mesgs
@@ -36,6 +39,10 @@
                 %i.fa.fa-paper-plane-o{ 'aria-hidden': 'true' }
 
 :javascript
+  $('.toggle-menu').click(function() {
+    $('.inbox_people').toggleClass('hide-sidebar')
+  })
+
   var firebaseConfig = {
     apiKey: "AIzaSyA--lKRilsCUOYiTRF3Vg4foRzUXYYonjE",
     authDomain: "nommox-app.firebaseapp.com",

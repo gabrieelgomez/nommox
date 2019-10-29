@@ -23,7 +23,7 @@ module Api::V1::Cases
       add_voices(@test, params.dig(:test, :voices))
       add_documents(@test, params.dig(:test, :documents))
 
-      render json: @case, status: 200
+      render json: { uploaded: true }, status: 200
     end
 
     private
