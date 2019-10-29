@@ -23,29 +23,6 @@
   transition: all ease .3s !important;
 }
 
-@media only screen and (max-width: 600px) {
-  .hide-sidebar {
-    position: relative;
-    left: -100%;
-    transition: all ease .3s !important;
-  }
-
-  .inbox_people {
-    width: 100% !important;
-    transition: all ease .3s !important;
-  }
-
-  .recent_heading {
-    width: 100% !important;
-  }
-
-  .toggle-menu {
-    display: block;
-    color: #fafafa;
-    font-size: 20px;
-  }
-}
-
 .inbox_msg {
   border: 1px solid #c4c4c4;
   clear: both;
@@ -294,4 +271,39 @@
 ::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   outline: 1px solid slategrey;
+}
+
+@media only screen and (max-width: 600px) {
+  .hide-sidebar {
+    position: relative;
+    left: -100%;
+    transition: all ease .3s !important;
+  }
+
+  .inbox_people {
+    width: 100% !important;
+    transition: all ease .3s !important;
+  }
+
+  .recent_heading {
+    width: 100% !important;
+  }
+
+  .toggle-menu {
+    display: block;
+    color: #fafafa;
+    font-size: 20px;
+  }
+
+  .mesgs {
+    width: 100% !important;
+  }
+
+  .channel-detail .pull-right {
+    float: left !important;
+  }
+
+  .channel-detail img {
+    float: left !important; 
+  }
 }
