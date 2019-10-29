@@ -5,6 +5,8 @@
     %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
     %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no", :name => "viewport"}/
     %title= content_for?(:title) ? yield(:title) : "Nommox"
+    %link{:href => "/assets/favicon.ico", :rel => "icon", :sizes => "32x32", :type => "image/png"}/
+    %meta{:content => "#0E6AB3", :name => "theme-color"}/
     = csrf_meta_tags
 
     = javascript_include_tag 'https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js'
