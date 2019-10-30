@@ -27,6 +27,10 @@ class Case < ApplicationRecord
     }
   end
 
+  def date
+    created_at.strftime('%d/%m/%y')
+  end
+
   def tests_names
     tests.names
   end
