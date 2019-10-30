@@ -3,7 +3,7 @@
 }
 
 .hide-sidebar {
-  transition: all ease .3s;
+  transition: all ease .3s !important;
 }
 
 .img {
@@ -14,17 +14,16 @@
 }
 
 .inbox_people {
-  background: #0E6AB3 none repeat scroll 0 0;
-  float: left;
+  background: #0E6AB3;
+  left: 0%;
   overflow: hidden;
   width: 30%;
-  border-right:1px solid #c4c4c4;
   height: 100%;
   transition: all ease .3s !important;
 }
 
 .inbox_msg {
-  border: 1px solid #c4c4c4;
+  // border: 1px solid #c4c4c4;
   clear: both;
   overflow: hidden;
   height: 100%;
@@ -70,7 +69,7 @@
 }
 
 .srch_bar .input-group-addon button {
-  border: medium none;
+  // border: medium none;
   padding: 0;
   color: #707070;
   font-size: 18px;
@@ -194,7 +193,7 @@
 }
 
 .input_msg_write input {
-  border: medium none;
+  // border: medium none;
   color: #4c4c4c;
   font-size: 15px;
   min-height: 48px;
@@ -203,14 +202,14 @@
 }
 
 .type_msg {
-  border-top: 1px solid #c4c4c4;
+  // border-top: 1px solid #c4c4c4;
   position: relative;
   bottom: 20px;
 }
 
 .msg_send_btn {
   background: #1295EE none repeat scroll 0 0;
-  border: medium none;
+  // border: medium none;
   border-radius: 50%;
   color: #fff;
   cursor: pointer;
@@ -274,14 +273,18 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .hide-sidebar {
-    position: relative;
-    left: -100%;
-    transition: all ease .3s !important;
-  }
 
   .inbox_people {
     width: 100% !important;
+    transition: all ease .3s !important;
+    position: relative !important;
+    z-index: 2 !important;
+    padding-bottom: 15px !important;
+  }
+
+  .inbox_people.hide-sidebar{
+    position: relative;
+    left: -100%;
     transition: all ease .3s !important;
   }
 
@@ -297,6 +300,7 @@
 
   .mesgs {
     width: 100% !important;
+    float: initial !important;
   }
 
   .channel-detail .pull-right {
@@ -304,6 +308,24 @@
   }
 
   .channel-detail img {
-    float: left !important; 
+    float: left !important;
+  }
+
+  .input_msg_write {
+    position: fixed !important;
+    bottom: 0 !important;
+    width: 100% !important;
+  }
+
+  .msg_history.messages {
+    position: absolute !important;
+    overflow-y: auto !important;
+    padding-bottom: 50px !important;
+  }
+
+  .loader {
+    position: absolute !important;
+    top: 45% !important;
+    left: 40% !important;
   }
 }
