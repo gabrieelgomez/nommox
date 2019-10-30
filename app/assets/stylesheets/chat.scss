@@ -1,5 +1,6 @@
 .toggle-menu {
   display: none;
+  z-index: 100 !important;
 }
 
 .hide-sidebar {
@@ -280,6 +281,7 @@
     position: relative !important;
     z-index: 2 !important;
     padding-bottom: 15px !important;
+    margin-top: 45px !important;
   }
 
   .inbox_people.hide-sidebar{
@@ -321,11 +323,19 @@
     position: absolute !important;
     overflow-y: auto !important;
     padding-bottom: 50px !important;
+    top: 100px !important;
+    width: 100% !important;
   }
 
   .loader {
     position: absolute !important;
     top: 45% !important;
     left: 40% !important;
+  }
+
+  .headind_srch {
+    position: fixed !important;
+    width: 100% !important;
+    z-index: 5 !important;
   }
 }

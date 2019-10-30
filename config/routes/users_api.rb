@@ -6,4 +6,4 @@ namespace :users do
   post '/add_documents',    to: 'update#add_documents'
 end
 
-get '/user/get_cases', to: 'users/show#cases'
+post '/user/get_cases', to: 'users/show#cases'

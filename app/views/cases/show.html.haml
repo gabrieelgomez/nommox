@@ -63,9 +63,9 @@
                             Última actualización
                       %tbody
                         %tr
-                          %td= @case.asesor.nil? ? 'Sin Asignar' : @case.asesor.id.eql?(current_user.id) ? "#{@case.asesor.name} (Tú)" : @case.asesor.name
+                          %td= @case.asesor.nil? ? 'Sin Asignar' : @case.asesor.id.eql?(current_user.id) ? "#{@case&.asesor.name} (Tú)" : @case&.asesor.name
                           %td= @case.hours_late
-                          %td.status_name= @case.status_name
+                          %td.status_name= @case.status&.name || 'Sin Asignar'
                           %td= @case.created_at.strftime('%d/%m/%y %H:%M %p')
                           %td= @case.updated_at.strftime('%d/%m/%y %H:%M %p')
 
@@ -344,7 +344,7 @@
             .form-group
               - @case_statuses.each do |case_status|
                 .toggle
-                  %input{ type: "checkbox", id: case_status.id, name: 'case[case_status_id]', value: case_status.id, 'data-status-name': case_status.name, checked: @case.status_name.eql?(case_status.name) }
+                  %input{ type: "checkbox", id: case_status.id, name: 'case[case_status_id]', value: case_status.id, 'data-status-name': case_status.name, checked: @case&.status&.name.eql?(case_status.name) }
                   %label{ for: case_status.id }= case_status.name
 
           #tab_9.tab-pane

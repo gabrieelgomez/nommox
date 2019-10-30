@@ -27,6 +27,10 @@ class Case < ApplicationRecord
     }
   end
 
+  def date
+    created_at.strftime('%d/%m/%y')
+  end
+
   def tests_names
     tests.names
   end
@@ -44,14 +48,13 @@ class Case < ApplicationRecord
   end
 
   def parsed_status
-    return {} if status.nil?
-    status_names = CaseStatus.order(created_at: :asc).pluck(:name)
-    index        = status_names.index(status.name)
+    status_names = CaseStatus&.order(created_at: :asc)&.pluck(:name)
+    index        = status_names&.index(status&.name) || 0
 
     {
-      name: status.name,
-      total: CaseStatus.count,
-      index: index + 1
+      name:  status&.name || '',
+      total: status&.name.nil? ? 0 : CaseStatus.count,
+      index: status&.name.nil? ? index : index + 1
     }
   end
 
