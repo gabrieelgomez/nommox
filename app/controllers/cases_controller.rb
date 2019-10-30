@@ -60,7 +60,7 @@ class CasesController < InternalController
     @case   = Case.find_by_id(params.dig(:case_id))
     @status = CaseStatus.find_by_id(params.dig(:case_status_id))
     @device = Device.find_by_identity(@case.user.email)
-    @message = "Su caso a sido actualizado a: #{@status.name}"
+    @message = "Su caso número #{@case.id} ha sido actualizado a: #{@status.name}"
 
     if @case.update(case_status_id: params.dig(:case_status_id))
       render json: true
