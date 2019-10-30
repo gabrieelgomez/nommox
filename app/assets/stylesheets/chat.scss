@@ -1,5 +1,6 @@
 .toggle-menu {
   display: none;
+  z-index: 100 !important;
 }
 
 .hide-sidebar {
@@ -334,6 +335,6 @@
   .headind_srch {
     position: fixed !important;
     width: 100% !important;
-    z-index: 1 !important;
+    z-index: 5 !important;
   }
 }

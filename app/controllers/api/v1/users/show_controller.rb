@@ -13,7 +13,7 @@ module Api::V1::Users
     end
 
     def cases
-      @cases = User.find_by_email(params.dig(:email)).cases
+      @cases = User.find_by_email(params.dig(:email))&.cases || {}
 
       render json: @cases
     end
