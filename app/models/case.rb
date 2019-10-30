@@ -43,8 +43,16 @@ class Case < ApplicationRecord
     CaseCause.where(id: case_cause_ids_parsed)
   end
 
-  def status_name
-    status&.name || ''
+  def parsed_status
+    return {} if status.nil?
+    status_names = CaseStatus.order(created_at: :asc).pluck(:name)
+    index        = status_names.index(status.name)
+
+    {
+      name: status.name,
+      total: CaseStatus.count,
+      index: index + 1
+    }
   end
 
   def parsed_companions
