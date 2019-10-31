@@ -12,6 +12,7 @@ module Api::V1::Users
 
     def add_documents
       user = User.find_by_email(params.dig(:email))
+      byebug
       return if user.nil?
       #pending for implementation
     end

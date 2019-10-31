@@ -49,12 +49,12 @@ class Case < ApplicationRecord
 
   def parsed_status
     status_names = CaseStatus&.order(created_at: :asc)&.pluck(:name)
-    index        = status_names&.index(status&.name) || 0
+    index        = status_names&.index(status&.name)
 
     {
       name:  status&.name || 'Sin Asignar',
-      total: status&.name.nil? ? 0 : CaseStatus.count,
-      index: status&.name.nil? ? index : index + 1
+      total: CaseStatus.count,
+      index: status&.name.nil? ? 0 : index + 1
     }
   end
 
