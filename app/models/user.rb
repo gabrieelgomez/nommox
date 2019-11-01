@@ -2,7 +2,6 @@ class User < ApplicationRecord
   has_secure_password
   validates :email, presence: true, uniqueness: true
   validates_presence_of :name, :role_id
-  after_commit :reload_identification_document, on: [:create]
 
   scope :asesors, -> { where(role_id: 3) }
 

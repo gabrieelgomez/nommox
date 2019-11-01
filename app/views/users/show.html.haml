@@ -59,8 +59,11 @@
         .box-body.no-padding.table-responsive
           %table.table
             .col-xs-6
-              Documento de identificación
-              = image_tag @user&.identification_document&.url || '', width: '100%'
+              Documento de identificación (frontal)
+              = image_tag @user&.identification_document_front&.url || '', width: '100%'
+            .col-xs-6
+              Documento de identificación (reverso)
+              = image_tag @user&.identification_document_back&.url || '', width: '100%'
             .col-xs-6
               Pasaporte
               = image_tag @user&.passport&.url || '', width: '100%'
