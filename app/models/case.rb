@@ -6,7 +6,7 @@ class Case < ApplicationRecord
   has_one    :tests,         dependent: :destroy, class_name: 'Test'
   belongs_to :status,        dependent: :destroy, class_name: 'CaseStatus', foreign_key: 'case_status_id', optional: true
   has_many   :comments,      dependent: :destroy
-  has_many   :companions,      dependent: :destroy
+  has_many   :companions,    dependent: :destroy
 
   #uploader
   mount_uploader :video_self, AttachmentUploader
@@ -62,6 +62,7 @@ class Case < ApplicationRecord
     temp_hash = Array.new
     companions.each do |companion|
       cp = {
+        id: companion.id,
         names: companion.names,
         surnames: companion.surnames,
         identification: companion.identification_document,
