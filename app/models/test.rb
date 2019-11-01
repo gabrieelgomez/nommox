@@ -11,19 +11,19 @@ class Test < ApplicationRecord
     file_names = Array.new
 
     images&.each do |image|
-      file_names.push(File.basename(image.path))
+      file_names.push({ name: File.basename(image.path), type: 'image' })
     end
 
     documents&.each do |document|
-      file_names.push(File.basename(document.path))
+      file_names.push({ name: File.basename(document.path), type: 'document' })
     end
 
     voices&.each do |voice|
-      file_names.push(File.basename(voice&.path))
+      file_names.push({ name:File.basename(voice&.path), type: 'voice' })
     end
 
     videos&.each do |video|
-      file_names.push(File.basename(video&.path))
+      file_names.push({name: File.basename(video&.path), type: 'video' })
     end
 
 
