@@ -35,8 +35,6 @@ module Api::V1::Cases
       edit_tests
     end
 
-    private
-
     def add_images(test, images)
       return if images.blank?
       test.update(images: test.images.push(images).flatten)
