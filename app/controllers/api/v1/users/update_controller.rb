@@ -22,8 +22,6 @@ module Api::V1::Users
         video: params.dig(:user, :video).nil? ? user.video : params.dig(:user, :video)
       )
 
-      user.reload_identification_document
-
       render json: { status: 'User was succesfully updated' }
     end
 

@@ -55,23 +55,6 @@ class User < ApplicationRecord
     province&.name
   end
 
-  def reload_identification_document
-    return if self.identification_document_front.url.nil? && self.identification_document_back.url.nil?
-    kit  = IMGKit.new(build_image)
-    file = "#{Rails.root}/app/assets/images/#{self.id}.png"
-    img  = kit.to_file(file)
-
-    filepath = File.open(file)
-    self.update(identification_document: img)
-    File.delete(filepath) if File.exist?(filepath)
-  end
-
-  def build_image
-    "<img src='#{self.identification_document_front.url}' style='width: auto; height: auto;'></img>
-    <br>
-    <img src='#{self.identification_document_back.url}' style='width: auto; height: auto;'></img>"
-  end
-
   private
 
   def init_action_mailer_configuration
