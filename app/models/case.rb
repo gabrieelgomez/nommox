@@ -66,6 +66,7 @@ class Case < ApplicationRecord
         names: companion.names,
         surnames: companion.surnames,
         identification: companion.identification_document,
+        back: companion.back,
         passport: companion.passport
       }
 
