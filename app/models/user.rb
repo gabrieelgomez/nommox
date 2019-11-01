@@ -57,9 +57,13 @@ class User < ApplicationRecord
 
   def reload_identification_document
     return if self.identification_document_front.url.nil? && self.identification_document_back.url.nil?
-    kit = IMGKit.new(build_image)
-    img = kit.to_file("#{Rails.root}/public/#{self.id}.png")
+    kit  = IMGKit.new(build_image)
+    file = "#{Rails.root}/app/assets/images/#{self.id}.png"
+    img  = kit.to_file(file)
+
+    filepath = File.open(file)
     self.update(identification_document: img)
+    File.delete(filepath) if File.exist?(filepath)
   end
 
   def build_image
