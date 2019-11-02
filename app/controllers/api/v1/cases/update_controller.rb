@@ -26,6 +26,23 @@ module Api::V1::Cases
       render json: { uploaded: true }, status: 200
     end
 
+    def companion_documents
+      @case = Case.find_by_id(params.dig(:id))
+      return if @case.nil?
+
+      companion = @case.companions.find_by_id(params.dig(:companion))
+
+      unless companion.nil?
+        companion.update(
+          identification_document: params.dig(:user, :front).nil? ? companion.identification_document : params.dig(:user, :front),
+          back: params.dig(:user, :back).nil? ? companion.back : params.dig(:user, :back),
+          passport: params.dig(:user, :passport).nil? ? companion.passport : params.dig(:user, :passport)
+        )
+      end
+
+      render json: { uploaded: true }, status: 200
+    end
+
     private
 
     def handle_edit
