@@ -2,7 +2,6 @@ class User < ApplicationRecord
   has_secure_password
   validates :email, presence: true, uniqueness: true
   validates_presence_of :name, :role_id
-  after_commit :reload_identification_document, on: [:create, :update]
 
   scope :asesors, -> { where(role_id: 3) }
 
@@ -66,19 +65,6 @@ class User < ApplicationRecord
       password: SmtpSetting.first&.password,
       user_name: 'noreply@nommox.com'
     }
-  end
-
-  def reload_identification_document
-    return if self.identification_document_front.url.nil? && self.identification_document_back.url.nil?
-    kit = IMGKit.new(build_image)
-    img = kit.to_file("#{Rails.root}/public/#{self.id}.png")
-    self.identification_document = img
-  end
-
-  def build_image
-    "<img src='http://18.224.54.238#{self.identification_document_front.url}' style='width: auto; height: auto;'></img>
-    <br>
-    <img src='http://18.224.54.238#{self.identification_document_back.url}' style='width: auto; height: auto;'></img>"
   end
 
 end

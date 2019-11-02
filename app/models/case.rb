@@ -6,7 +6,7 @@ class Case < ApplicationRecord
   has_one    :tests,         dependent: :destroy, class_name: 'Test'
   belongs_to :status,        dependent: :destroy, class_name: 'CaseStatus', foreign_key: 'case_status_id', optional: true
   has_many   :comments,      dependent: :destroy
-  has_many   :companions,      dependent: :destroy
+  has_many   :companions,    dependent: :destroy
 
   #uploader
   mount_uploader :video_self, AttachmentUploader
@@ -49,12 +49,12 @@ class Case < ApplicationRecord
 
   def parsed_status
     status_names = CaseStatus&.order(created_at: :asc)&.pluck(:name)
-    index        = status_names&.index(status&.name) || 0
+    index        = status_names&.index(status&.name)
 
     {
-      name:  status&.name || '',
-      total: status&.name.nil? ? 0 : CaseStatus.count,
-      index: status&.name.nil? ? index : index + 1
+      name:  status&.name || 'Sin Asignar',
+      total: CaseStatus.count,
+      index: status&.name.nil? ? 0 : index + 1
     }
   end
 
@@ -62,9 +62,11 @@ class Case < ApplicationRecord
     temp_hash = Array.new
     companions.each do |companion|
       cp = {
+        id: companion.id,
         names: companion.names,
         surnames: companion.surnames,
         identification: companion.identification_document,
+        back: companion.back,
         passport: companion.passport
       }
 

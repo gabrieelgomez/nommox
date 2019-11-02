@@ -11,7 +11,11 @@
                   = image_tag('Icon-App-20x20@3x.png', style: 'width: 30px; height: 30px; margin-right: 10px', class: 'img')
                   Nommox Chat
             .pull-right.toggle-menu
-              %i.fa.fa-bars
+              #nav-icon1
+                %span
+                %span
+                %span
+
           .channel-detail.hidden
             .pull-right
               %h5
@@ -39,9 +43,16 @@
                 %i.fa.fa-paper-plane-o{ 'aria-hidden': 'true' }
 
 :javascript
-  $('.toggle-menu').click(function() {
-    $('.inbox_people').toggleClass('hide-sidebar')
-  })
+  $(document).ready(function(){
+  	$('#nav-icon1').click(function(){
+  		$(this).toggleClass('open');
+  	});
+
+    $('.toggle-menu').click(function() {
+      $('.inbox_people').toggleClass('hide-sidebar')
+    })
+
+  });
 
   var firebaseConfig = {
     apiKey: "AIzaSyA--lKRilsCUOYiTRF3Vg4foRzUXYYonjE",
