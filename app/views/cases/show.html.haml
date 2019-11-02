@@ -297,6 +297,7 @@
                             %td= companion.names
                             %td= companion.surnames
                             %td= image_tag(companion&.identification_document&.url || '')
+                            %td= image_tag(companion&.back&.url || '')
                             %td= image_tag(companion&.passport&.url || '')
 
           #tab_7.tab-pane
