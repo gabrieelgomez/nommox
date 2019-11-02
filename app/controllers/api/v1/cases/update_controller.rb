@@ -40,7 +40,14 @@ module Api::V1::Cases
         )
       end
 
-      render json: { uploaded: true }, status: 200
+      render json: {
+        id: companion.id,
+        names: companion.names,
+        surnames: companion.surnames,
+        identification: companion.identification_document,
+        back: companion.back,
+        passport: companion.passport
+      }, status: 200
     end
 
     private

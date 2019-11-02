@@ -114,6 +114,7 @@ module Api::V1::Cases
           names:                   companion[:names],
           surnames:                companion[:surnames],
           identification_document: companion[:identification],
+          back:                    companion[:back],
           passport:                companion[:passport],
           case_id:                 case_id
         )
