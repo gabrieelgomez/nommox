@@ -271,13 +271,11 @@
                           %th Conexión Perdida
                           %th Evento Perdido
                           %th Descripción del evento perdido
-                          %th Prueba
                       %tbody
                         %tr
                           %td= @case&.inconvenience&.lost_connection? ? 'Sí' : 'No'
                           %td= @case&.inconvenience&.lost_event? ? 'Sí' : 'No'
                           %td= @case&.inconvenience&.description || 'No ha perdido ningún evento'
-                          %td= image_tag(@case&.inconvenience&.image&.url || '' )
 
           #tab_6.tab-pane
             .row
