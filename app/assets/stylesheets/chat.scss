@@ -169,9 +169,11 @@
 }
 
 .mesgs {
-  float: left;
+  position: fixed;
+  top: 50px;
+  right: 0;
   width: 70%;
-  height: 90%;
+  height: 93%;
   background: #E6EAEA
 }
 
@@ -302,6 +304,7 @@
 
   .mesgs {
     width: 100% !important;
+    top: 0px !important;
     float: initial !important;
   }
 
