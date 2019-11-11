@@ -16,7 +16,6 @@ class SmtpSettingsController < ApplicationController
 
   def set_smtp_setting
     @smtp_setting = SmtpSetting.first
-
   end
 
   def smtp_setting_params

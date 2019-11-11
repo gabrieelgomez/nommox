@@ -10,11 +10,8 @@
                 %h5{ style: 'margin-top: 5px; font-weight: bold;'}
                   = image_tag('Icon-App-20x20@3x.png', style: 'width: 30px; height: 30px; margin-right: 10px', class: 'img')
                   Nommox Chat
-            .pull-right.toggle-menu
-              #nav-icon1
-                %span
-                %span
-                %span
+            .pull-right.toggle-menu{ style: 'z-index: 100000 !important'}
+              %i.fa.fa-bars
 
           .channel-detail.hidden
             .pull-right
@@ -43,11 +40,7 @@
                 %i.fa.fa-paper-plane-o{ 'aria-hidden': 'true' }
 
 :javascript
-  $(document).ready(function(){
-  	$('#nav-icon1').click(function(){
-  		$(this).toggleClass('open');
-  	});
-
+  $(document).ready(function() {
     $('.toggle-menu').click(function() {
       $('.inbox_people').toggleClass('hide-sidebar')
     })
