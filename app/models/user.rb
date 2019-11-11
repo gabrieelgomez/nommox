@@ -25,7 +25,7 @@ class User < ApplicationRecord
   end
 
   def notify(case_obj)
-    return unless SmtpSetting.first.valid?
+    return unless SmtpSetting.first
     init_action_mailer_configuration
     NotificationMailer.notify(self, case_obj).deliver_now
   end
