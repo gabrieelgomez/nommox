@@ -4,7 +4,7 @@ class Case < ApplicationRecord
   has_many   :flights,       dependent: :destroy
   has_one    :inconvenience, dependent: :destroy
   has_one    :tests,         dependent: :destroy, class_name: 'Test'
-  belongs_to :status,        dependent: :destroy, class_name: 'CaseStatus', foreign_key: 'case_status_id', optional: true
+  belongs_to :status,        class_name: 'CaseStatus', foreign_key: 'case_status_id', optional: true
   has_many   :comments,      dependent: :destroy
   has_many   :companions,    dependent: :destroy
 
