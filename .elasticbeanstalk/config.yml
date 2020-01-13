@@ -1,20 +1,20 @@
 branch-defaults:
-  elastic-beanstalk-integration:
-    environment: nommox
-    group_suffix: null
-  nommox/pedro-guerra/users-cases:
-    environment: nommox
+  master:
+    environment: NommoxApp
+environment-defaults:
+  NommoxApp:
+    branch: null
+    repository: null
 global:
-  application_name: nommox
-  branch: null
-  default_ec2_keyname: aws-eb
-  default_platform: Ruby 2.5 (Passenger Standalone)
-  default_region: us-east-1
+  application_name: nommox-app
+  default_ec2_keyname: null
+  default_platform: arn:aws:elasticbeanstalk:us-east-2::platform/Puma with Ruby 2.6
+    running on 64bit Amazon Linux/2.10.2
+  default_region: us-east-2
   include_git_submodules: true
   instance_profile: null
   platform_name: null
   platform_version: null
   profile: eb-cli
-  repository: null
   sc: git
   workspace_type: Application
