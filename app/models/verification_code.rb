@@ -1,16 +1,17 @@
 class VerificationCode < ApplicationRecord
   validates_presence_of :phone
 
-  def self.build_verification_code(phone)
-    verification = VerificationCode.where(phone: phone).first
+  def self.build_verification_code(phone, token_fcm)
+    verification = VerificationCode.find_by(phone: phone)
 
     if verification.nil?
       verification = VerificationCode.create(
         phone: phone,
-        code: generate_code
+        code: generate_code,
+        token_fcm: token_fcm
       )
     else
-      verification.update(code: generate_code)
+      verification.update(code: generate_code, token_fcm: token_fcm)
     end
 
     verification
