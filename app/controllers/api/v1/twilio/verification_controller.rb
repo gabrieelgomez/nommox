@@ -6,13 +6,14 @@ module Api::V1::Twilio
 
     def send_confirmation_code
       to = params.dig(:to)
+      token_fcm = params.dig(:token_fcm)
 
-      verification = VerificationCode.build_verification_code(to)
+      verification = VerificationCode.build_verification_code(to, token_fcm)
 
       if verification.nil?
         render json: { send: false }
       else
-        send_message(to, verification.code)
+        send_message(token_fcm, verification.code)
       end
     end
 
@@ -28,14 +29,12 @@ module Api::V1::Twilio
 
     private
 
-    def send_message(to, code)
-      client = Twilio::REST::Client.new(@twilio_sid, @twilio_token)
+    def send_message(token_fcm, code)
+      require 'firebase/fcm'
 
-      client.messages.create(
-        from: 'whatsapp:+14155238886',
-        body: "Tú código de verificación de Nommox es: *#{code}*",
-        to: "whatsapp:+#{to}"
-      )
+      message = "Tú código de verificación de Nommox es: #{code}"
+
+      response = Fcm.send_message([token_fcm], Fcm.data_payload(message, '', {}))
 
       render json: { send: true }
     end

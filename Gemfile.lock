@@ -151,6 +151,8 @@ GEM
     execjs (2.7.0)
     faraday (0.17.0)
       multipart-post (>= 1.2, < 3)
+    fcm (0.0.6)
+      httparty (~> 0.10, >= 0.10.0)
     ffi (1.11.1)
     font-awesome-sass (5.11.2)
       sassc (>= 1.11)
@@ -379,6 +381,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   delayed_job_active_record
   dotenv-rails
+  fcm
   font-awesome-sass
   grocer
   haml-rails (~> 2.0)

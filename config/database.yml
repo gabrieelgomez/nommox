@@ -10,7 +10,7 @@ default: &default
   timeout: 5000
   encoding: unicode
   user: root #deploy
-  password: root #pass
+  password: 123456 #pass
   host: localhost
 
 development:
