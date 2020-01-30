@@ -5,13 +5,13 @@ module Api::V1::Twilio
     before_action :load_credentials, only: [:send_confirmation_code]
 
     def send_confirmation_code
-      to = params.dig(:to)
+      to        = params.dig(:to)
       token_fcm = params.dig(:token_fcm)
 
       verification = VerificationCode.build_verification_code(to, token_fcm)
 
       if verification.nil?
-        render json: { send: false }
+        render json: { message: 'Your verification code has already been taken.'}
       else
         send_message(token_fcm, verification.code)
       end
@@ -22,7 +22,21 @@ module Api::V1::Twilio
       code  = params.dig(:code)
 
       verification = VerificationCode.find_by_phone(phone)
-      valid = verification.nil? ? false : verification.code.eql?(code)
+
+      if verification.nil?
+        valid = false
+
+      elsif verification&.sended_code
+        valid = 'Your verification code has already been taken.'
+
+      elsif !verification&.sended_code && verification&.code&.eql?(code)
+        verification.update(sended_code: true)
+        valid = true
+
+      else
+        valid = false
+        
+      end
 
       render json: { valid: valid }
     end
