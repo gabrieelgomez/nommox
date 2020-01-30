@@ -8,10 +8,11 @@ class VerificationCode < ApplicationRecord
       verification = VerificationCode.create(
         phone: phone,
         code: generate_code,
-        token_fcm: token_fcm
+        token_fcm: token_fcm,
+        sended_code: false
       )
-    else
-      verification.update(code: generate_code, token_fcm: token_fcm)
+    elsif verification.sended_code
+      return nil
     end
 
     verification
