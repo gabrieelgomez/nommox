@@ -9,7 +9,7 @@ class VerificationCode < ApplicationRecord
         phone: phone,
         code: generate_code,
         token_fcm: token_fcm,
-        sended_code: false
+        sended_code: true
       )
     elsif verification.sended_code
       return nil
