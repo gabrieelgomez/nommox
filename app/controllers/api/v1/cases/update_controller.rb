@@ -19,7 +19,7 @@ module Api::V1::Cases
       @test = @case.tests
 
       add_images(@test, params.dig(:test, :images))
-      add_videos(@test, params.dig(:test, :videos))
+      add_videos(@test, params.dig(:videos))
       add_voices(@test, params.dig(:test, :voices))
       add_documents(@test, params.dig(:test, :documents))
 
