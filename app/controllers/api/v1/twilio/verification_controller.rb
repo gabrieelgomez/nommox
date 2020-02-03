@@ -25,16 +25,20 @@ module Api::V1::Twilio
 
       if verification.nil?
         valid   = false
-        message = 'Su código de verificación ya ha sido tomado.'
+        message = 'Su número no existe.'
 
-      elsif verification&.sended_code
+      elsif verification && !verification&.code&.eql?(code)
         valid   = false
-        message = 'Su código de verificación ya ha sido tomado.'
+        message = 'Código erróneo.'
 
-      elsif !verification&.sended_code && verification&.code&.eql?(code)
+      elsif verification&.sended_code && verification&.code&.eql?(code)
         verification.update(sended_code: true)
         valid   = true
-        message = 'Código enviado y token tomado.'
+        message = 'Código válido.'
+
+      elsif verification && verification&.sended_code
+        valid   = false
+        message = 'Su código de verificación ya ha sido tomado.'
 
       else
         valid   = false
