@@ -11,7 +11,7 @@ module Api::V1::Twilio
       verification = VerificationCode.build_verification_code(to, token_fcm)
 
       if verification.nil?
-        render json: { valid: false, message: 'Your verification code has already been taken.'}
+        render json: { valid: false, message: 'Su código de verificación ya ha sido tomado.'}
       else
         send_message(token_fcm, verification.code)
       end
@@ -25,20 +25,20 @@ module Api::V1::Twilio
 
       if verification.nil?
         valid   = false
-        message = 'Your verification code has already been taken.'
+        message = 'Su código de verificación ya ha sido tomado.'
 
       elsif verification&.sended_code
         valid   = false
-        message = 'Your verification code has already been taken.'
+        message = 'Su código de verificación ya ha sido tomado.'
 
       elsif !verification&.sended_code && verification&.code&.eql?(code)
         verification.update(sended_code: true)
         valid   = true
-        message = 'Code sent and token taken.'
+        message = 'Código enviado y token tomado.'
 
       else
         valid   = false
-        message = 'Error in a transaction.'
+        message = 'Error en una transaccion.'
 
       end
 
@@ -54,7 +54,7 @@ module Api::V1::Twilio
 
       response = Fcm.send_message([token_fcm], Fcm.data_payload(message, '', {}))
 
-      render json: { send: true }
+      render json: { send: true, message: message, valid: true }
     end
 
   end
